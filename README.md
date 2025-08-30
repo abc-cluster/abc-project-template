@@ -10,11 +10,11 @@
 
 This is a comprehensive template built with [Copier](https://github.com/copier-org/copier) for creating professional data science projects that scale from exploration to publication. It provides a complete workflow covering data analysis, machine learning, academic writing, and deployment.
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Beginner-Friendly)
 
 ```shell
-# Create a new project
-copier copy gh:abhi18av/template-analysis-and-writeup my-analysis-project
+# Create a minimal, beginner-friendly project (accepts all defaults)
+copier copy --trust gh:abhi18av/template-analysis-and-writeup my-analysis-project
 cd my-analysis-project
 
 # Set up the development environment
@@ -22,7 +22,16 @@ just setup
 
 # Start your first analysis
 just notebooks new-eda "initial-exploration"
+
+# See what you can add as you grow
+just show-available
 ```
+
+> 🌱 **New to data science?** You'll start with a simple project containing just notebooks and basic documentation. Add more features when you're ready!
+>
+> 💾 **Git ready**: A git repository is automatically initialized with your first commit, so you can start version control immediately!
+>
+> 🎓 **Experienced user?** Choose "Full Academic Project" during setup or run `just upgrade-to-full` later.
 
 ## ✨ Key Features
 

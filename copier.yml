@@ -1,5 +1,22 @@
 _subdirectory: template
 
+# Post-generation tasks
+_tasks:
+  - command: git init
+    description: "🔧 Initialize Git repository"
+  - command: |
+      if [ "{{ author_name }}" != "Your Name" ]; then
+        git config user.name "{{ author_name }}"
+      fi
+      if [ "{{ author_email }}" != "your.email@example.com" ]; then
+        git config user.email "{{ author_email }}"
+      fi
+    description: "👤 Configure Git user information"
+  - command: git add .
+    description: "📦 Stage all files for initial commit"
+  - command: git commit -m "🎉 Initial commit from template-analysis-and-writeup\n\nProject: {{ project_name }}\nType: {{ project_type }}\nLanguage: {{ programming_language }}\nGenerated with: https://github.com/abhi18av/template-analysis-and-writeup"
+    description: "✅ Create initial commit with project metadata"
+
 # Basic Project Information
 project_name:
   type: str
@@ -40,12 +57,13 @@ project_type:
   type: str
   help: What type of project are you creating?
   choices:
+    - Minimal Starter (notebooks + basic writeup)
     - Full Academic Project (analysis + writeup)
     - Analysis Only (data science pipeline)
     - Manuscript Only (writing and publications)
     - Package Development (software/library)
     - Custom (choose components manually)
-  default: Full Academic Project (analysis + writeup)
+  default: Minimal Starter (notebooks + basic writeup)
 
 # === PRINCIPAL FOLDER SELECTION ===
 # These will be auto-calculated based on project_type
@@ -81,7 +99,7 @@ programming_language:
     - Python
     - R
     - Both
-  default: Both
+  default: Python
 
 python_version:
   type: str
@@ -109,12 +127,12 @@ include_ml_components:
 data_versioning:
   type: bool
   help: Include DVC setup for data versioning
-  default: true
+  default: false
 
 data_validation:
   type: bool
   help: Include data validation frameworks (Great Expectations, Pandera)
-  default: true
+  default: false
 
 # Documentation and Reporting
 documentation_format:
@@ -125,12 +143,12 @@ documentation_format:
     - Jupyter Notebooks
     - Quarto
     - RMarkdown
-  default: Quarto
+  default: Jupyter Notebooks
 
 include_publication_templates:
   type: bool
   help: Include academic publication templates
-  default: true
+  default: false
 
 # Experiment Tracking
 experiment_tracking:
@@ -141,24 +159,24 @@ experiment_tracking:
     - MLflow
     - Weights & Biases
     - Neptune
-  default: MLflow
+  default: None
 
 # CI/CD and Automation
 github_actions:
   type: bool
   help: Add GitHub Actions workflows
-  default: true
+  default: false
 
 pre_commit_hooks:
   type: bool
   help: Configure pre-commit hooks for code quality
-  default: true
+  default: false
 
 # Deployment Options
 include_deployment_templates:
   type: bool
   help: Include deployment templates (Docker, FastAPI, etc.)
-  default: true
+  default: false
 
 module_name:
   type: str
@@ -275,17 +293,77 @@ include_automation:
 include_jujutsu:
   type: bool
   help: Include Jujutsu (jj) version control with Git backend for enhanced academic workflows
-  default: true
-
+  default: false
 
 include_fossil:
   type: bool
   help: Include Fossil SCM for self-contained archives and manuscript versioning
-  default: true
-
+  default: false
 
 use_hybrid_vcs:
   type: bool
   help: Use hybrid version control (Jujutsu + Fossil) for comprehensive research management
-  default: true
+  default: false
   when: "{{ include_jujutsu and include_fossil }}"
+
+# === AUTO-CONFIGURATION BASED ON PROJECT TYPE ===
+# These variables auto-configure components based on the selected project_type
+
+_computed_include_analysis:
+  type: bool
+  default: >
+    {%- if project_type in ['Minimal Starter (notebooks + basic writeup)', 'Full Academic Project (analysis + writeup)', 'Analysis Only (data science pipeline)', 'Package Development (software/library)'] -%}
+    true
+    {%- elif project_type == 'Manuscript Only (writing and publications)' -%}
+    false
+    {%- else -%}
+    {{ include_analysis }}
+    {%- endif -%}
+  when: false
+
+_computed_include_writeup:
+  type: bool
+  default: >
+    {%- if project_type in ['Minimal Starter (notebooks + basic writeup)', 'Full Academic Project (analysis + writeup)', 'Manuscript Only (writing and publications)'] -%}
+    true
+    {%- elif project_type in ['Analysis Only (data science pipeline)', 'Package Development (software/library)'] -%}
+    false
+    {%- else -%}
+    {{ include_writeup }}
+    {%- endif -%}
+  when: false
+
+_computed_include_infrastructure:
+  type: bool
+  default: >
+    {%- if project_type == 'Full Academic Project (analysis + writeup)' -%}
+    true
+    {%- elif project_type in ['Minimal Starter (notebooks + basic writeup)', 'Analysis Only (data science pipeline)', 'Manuscript Only (writing and publications)', 'Package Development (software/library)'] -%}
+    false
+    {%- else -%}
+    {{ include_infrastructure }}
+    {%- endif -%}
+  when: false
+
+# === MINIMAL CONFIGURATION OVERRIDES ===
+# For Minimal Starter, override complex features to be simpler
+
+_minimal_notebooks_only:
+  type: bool
+  default: >
+    {%- if project_type == 'Minimal Starter (notebooks + basic writeup)' -%}
+    true
+    {%- else -%}
+    false
+    {%- endif -%}
+  when: false
+
+_minimal_writeup_only:
+  type: bool
+  default: >
+    {%- if project_type == 'Minimal Starter (notebooks + basic writeup)' -%}
+    true
+    {%- else -%}
+    false
+    {%- endif -%}
+  when: false
