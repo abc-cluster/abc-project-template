@@ -146,7 +146,27 @@ include_ml_components = true
 documentation_format = "Quarto"
 include_publication_templates = true
 
-# Test 8: Quick Manuscript Project
+# Test 8: Minimal Starter Project (Beginner-Friendly)
+[output."minimal-starter"]
+[output."minimal-starter".answers]
+project_name = "My First Analysis"
+short_name = "first-analysis"
+description = "A beginner-friendly data science project"
+author_name = "New User"
+author_email = "newuser@example.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+include_publication_templates = false
+include_jujutsu = false
+include_fossil = false
+
+# Test 9: Quick Manuscript Project
 [output."quick-manuscript"]
 [output."quick-manuscript".answers]
 project_name = "Conference Paper"

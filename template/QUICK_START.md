@@ -1,27 +1,42 @@
 # 🚀 Quick Start Guide
 
-## First-Time Setup (5 minutes)
+## Beginner-Friendly Setup (5 minutes)
 
-### 1. Initialize Your Project
+### 1. Initialize Your Minimal Project
 ```bash
-# Generate project from template
-copier copy gh:abhi18av/template-analysis-and-writeup my-analysis-project
+# Generate a minimal project from template (accepts all defaults)
+copier copy --trust gh:abhi18av/template-analysis-and-writeup my-analysis-project
 cd my-analysis-project
 
 # Setup development environment
 just setup
 ```
 
+✨ **What you get**: 
+- A simple project with notebooks and basic writeup capabilities
+- Automatic git repository initialization with first commit
+- Ready-to-use development environment
+- Perfect for beginners!
+
 ### 2. Start Your First Analysis
 ```bash
 # Create your first EDA notebook
 just notebooks new-eda "exploratory-analysis"
 
-# Start with data extraction
-just notebooks new-experiment "data-extraction" "01-data/011_data_extraction"
-
-# Launch Jupyter environment
+# Launch Jupyter environment  
 just notebooks jupyter
+```
+
+### 3. Expand When You're Ready
+```bash
+# See what you can add to your project
+just show-available
+
+# Interactive wizard to add components
+just wizard
+
+# Get personalized recommendations
+just recommend
 ```
 
 ### 3. Common Workflows
