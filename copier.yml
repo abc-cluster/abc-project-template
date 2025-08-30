@@ -14,13 +14,7 @@ _tasks:
     description: "👤 Configure Git user information"
   - command: git add .
     description: "📦 Stage all files for initial commit"
-  - command: |
-      git commit -m "🎉 Initial commit from template-analysis-and-writeup
-      
-      Project: {{ project_name }}
-      Type: {{ project_type }}
-      Language: {{ programming_language }}
-      Generated with: https://github.com/abhi18av/template-analysis-and-writeup"
+  - command: git commit -m "🎉 Initial commit from template-analysis-and-writeup"
     description: "✅ Create initial commit with project metadata"
 
 # Basic Project Information
