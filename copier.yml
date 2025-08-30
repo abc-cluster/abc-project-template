@@ -3,7 +3,7 @@ _subdirectory: template
 # Post-generation tasks
 _tasks:
   - command: git init
-    description: "🔧 Initialize Git repository"
+    description: "Initialize Git repository"
   - command: |
       if [ "{{ author_name }}" != "Your Name" ]; then
         git config user.name "{{ author_name }}"
@@ -11,11 +11,11 @@ _tasks:
       if [ "{{ author_email }}" != "your.email@example.com" ]; then
         git config user.email "{{ author_email }}"
       fi
-    description: "👤 Configure Git user information"
+    description: "Configure Git user information"
   - command: git add .
-    description: "📦 Stage all files for initial commit"
-  - command: git commit -m "🎉 Initial commit from template-analysis-and-writeup"
-    description: "✅ Create initial commit with project metadata"
+    description: "Stage all files for initial commit"
+  - command: git commit -m "Initial commit from template-analysis-and-writeup"
+    description: "Create initial commit with project metadata"
 
 # Basic Project Information
 project_name:
@@ -213,7 +213,6 @@ include_packages:
   type: bool
   help: Include local package development structure
   default: true
-
   when: "{{ include_analysis }}"
 
 # === SUBCOMPONENT SELECTION FOR WRITEUP ===
@@ -233,14 +232,12 @@ include_grants:
   type: bool
   help: Include grant application management
   default: true
-
   when: "{{ include_writeup }}"
 
 include_abstracts:
   type: bool
   help: Include abstract submission management
   default: true
-
   when: "{{ include_writeup }}"
 
 include_posters:
@@ -259,7 +256,6 @@ include_blog:
   type: bool
   help: Include blog post templates for informal writing
   default: true
-
   when: "{{ include_writeup }}"
 
 # === INFRASTRUCTURE SUBCOMPONENTS ===
@@ -273,14 +269,12 @@ include_cloud_deployment:
   type: bool
   help: Include cloud deployment templates (AWS, GCP, Azure)
   default: true
-
   when: "{{ include_infrastructure }}"
 
 include_virtualization:
   type: bool
   help: Include VM and container orchestration
   default: true
-
   when: "{{ include_infrastructure }}"
 
 include_automation:
