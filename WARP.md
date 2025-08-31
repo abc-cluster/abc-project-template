@@ -162,12 +162,28 @@ uv run pre-commit run --all-files  # Code quality checks
 
 ## Template Development Guidelines
 
+### Template Testing with copier-template-tester
+
+```bash
+# Run all test scenarios
+ctt run
+
+# Using the convenience script
+./ctt-test-template.sh
+
+# Test specific configurations from ctt.toml
+ctt run --config=full-academic
+ctt run --config=minimal-starter
+ctt run --config=maximum-everything
+```
+
 ### Adding New Features
 
 1. **Template Variables**: Add to `copier.yml` with proper validation and conditional logic
 2. **File Templates**: Use Jinja2 templating in `.jinja` files
 3. **Just Recipes**: Add automation commands to appropriate `.just` files
-4. **Testing**: Add test cases to `ctt.toml` for new features
+4. **Testing**: Add comprehensive test cases to `ctt.toml` for new features
+5. **Documentation**: Update template documentation in generated README.md.jinja
 
 ### Template File Organization
 
@@ -175,31 +191,70 @@ uv run pre-commit run --all-files  # Code quality checks
 - **Conditional Directories**: Use `{% if condition %}` for optional components
 - **Shared Templates**: Common templates in `template/` with Jinja2 variables
 - **Module Organization**: Separate Just files for different functional areas
+- **Template Structure**: `template/` contains all template files, `_subdirectory: template` in copier.yml
 
 ### Key Template Variables
 
 Important variables from `copier.yml`:
-- `project_type`: Determines overall project structure
+- `project_type`: Determines overall project structure (Minimal Starter, Full Academic Project, etc.)
 - `include_analysis`/`include_writeup`/`include_infrastructure`: Main component toggles
 - `programming_language`: Python/R/Both language selection
 - `experiment_tracking`: MLflow/Weights & Biases/Neptune integration
-- `specialized_domain`: Domain-specific templates and tools
+- `documentation_format`: Jupyter Notebooks/Quarto/RMarkdown/Markdown
+- `data_versioning`/`data_validation`: Data pipeline components
+- `github_actions`/`pre_commit_hooks`: CI/CD configuration
 
 ### Multi-Language Support Architecture
 
 The template handles multiple programming languages through:
-- **Conditional Dependencies**: Language-specific packages in `pixi.toml`
+- **Conditional Dependencies**: Language-specific packages in pyproject.toml.jinja
 - **Environment Management**: UV for Python, renv for R, separate environments
 - **Notebook Templates**: Language-specific Quarto templates
-- **Script Organization**: Separate directories for each language
+- **Script Organization**: Separate directories for each language in analysis/scripts/
+- **Testing Frameworks**: pytest for Python, testthat for R
 
 ## Testing Strategy
 
 ### Template Testing
-The repository uses `copier-template-tester` with configurations in `ctt.toml`:
-- Multiple test scenarios (full-academic, analysis-only, manuscript-only, etc.)
-- Specialized domain testing (bioinformatics, time series, geospatial)
-- Custom configuration testing (minimal and maximal setups)
+The repository uses `copier-template-tester` with comprehensive configurations in `ctt.toml`:
+
+#### Core Test Scenarios
+- **full-academic**: Complete academic project with analysis + writeup + infrastructure
+- **analysis-only**: Data science pipeline focused project
+- **manuscript-only**: Academic writing focused project
+- **package-dev**: Software/library development project
+- **minimal-starter**: Beginner-friendly minimal setup
+
+#### Progressive Enhancement Tests
+- **progressive-minimal-tracking**: Minimal project + experiment tracking
+- **progressive-minimal-writeup**: Minimal project + writing tools
+- **progressive-full-upgrade**: Complete feature upgrade scenario
+
+#### Language and Documentation Tests
+- **docs-markdown**: Markdown documentation format
+- **docs-rmarkdown**: R-focused with RMarkdown
+- **package-dev-r**: R package development
+- **package-dev-multilang**: Multi-language package
+
+#### Infrastructure and CI/CD Tests
+- **infra-docker-only**: Docker containerization only
+- **infra-cloud**: Cloud deployment focused
+- **infra-virtualization**: VM-based development
+- **ci-gha-only**: GitHub Actions only
+- **ci-precommit-only**: Pre-commit hooks only
+
+#### Experiment Tracking Variants
+- **tracking-wandb**: Weights & Biases with Python
+- **tracking-neptune-r**: Neptune with R
+
+#### Edge Cases and Stress Tests
+- **absolutely-minimal**: Bare minimum configuration
+- **maximum-everything**: All features enabled (stress test)
+
+#### Version Control Tests
+- **vcs-jujutsu**: Jujutsu version control
+- **vcs-fossil**: Fossil version control
+- **vcs-hybrid**: Both Jujutsu and Fossil
 
 ### Generated Project Testing
 Generated projects include testing infrastructure:
@@ -240,5 +295,38 @@ Generated projects include testing infrastructure:
 - **Quarto**: Primary documentation format with multi-output rendering
 - **Academic Citations**: BibTeX integration with cross-referencing
 - **API Documentation**: Sphinx for Python, roxygen2 for R packages
+
+## Quality Assurance and Contributing
+
+### Code Quality Tools
+The template and generated projects enforce quality through:
+- **pre-commit hooks**: Configured in `.pre-commit-config.yaml`
+  - `trailing-whitespace`, `end-of-file-fixer`, `check-yaml`
+  - `typos` for spell checking
+  - `markdownlint-cli2` for markdown formatting
+  - `bibtex-tidy` for bibliography formatting
+- **UV**: Fast Python package management with lock files
+- **nbwipers**: Clean notebook commits without outputs
+
+### Template Development Workflow
+1. **Local Testing**: Use `copier copy . test-project` for manual testing
+2. **Comprehensive Testing**: Run `ctt run` for all test scenarios
+3. **Quality Checks**: Run `pre-commit run --all-files` before commits
+4. **Documentation**: Update README.md, WARP.md, and CONTRIBUTING.md as needed
+5. **Feature Testing**: Add new test scenarios to `ctt.toml` for new features
+
+### Contributing Guidelines
+Key points from CONTRIBUTING.md:
+- **Conventional Commits**: Use `feat`, `fix`, `docs`, `test`, etc.
+- **Branch Naming**: `feature/`, `fix/`, `docs/`, `refactor/` prefixes
+- **Testing Requirements**: All changes must pass template generation and project setup
+- **Documentation**: Update relevant documentation for new features
+- **Review Process**: Automated checks + maintainer review within 1-2 weeks
+
+### Development Prerequisites
+- Python 3.11+
+- Copier, Just, Git
+- pre-commit for quality checks
+- pytest for testing
 
 This template repository enables creating sophisticated research projects with professional-grade automation, multi-language support, and comprehensive academic writing workflows.
