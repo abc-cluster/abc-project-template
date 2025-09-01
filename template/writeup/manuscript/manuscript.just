@@ -2,7 +2,11 @@
 default:
     @just --list
 
+
 # Manuscript Management Tasks
+
+bibliography-tidy: # Cleanup bibliography
+    bibtex-tidy --curly --numeric --tab --align=13 --blank-lines --sort=key --duplicates=key,doi --merge=combine --no-escape --sort-fields --remove-empty-fields
 
 # === Setup and Initialization ===
 manuscript-init: # Initialize manuscript structure
@@ -14,6 +18,19 @@ manuscript-init: # Initialize manuscript structure
 # === Rendering and Preview ===
 manuscript-render format="apaquarto-docx" version="draft": # Render manuscript
     quarto render src/index.qmd --to {{format}} --output-dir _output/{{format}}/{{version}}
+
+
+manuscript-render-docx version="final": # Render manuscript DOCX and PDF
+    quarto render src/index.qmd --to apaquarto-docx --output-dir _output/{{version}} && \
+    cp src/index.qmd _output/{{version}}/src/ && \
+    cp src/references.bib _output/{{version}}/src/
+
+
+manuscript-render-typst version="final": # Render manuscript DOCX and PDF
+    quarto render src/index.qmd --to apaquarto-typst --output-dir _output/{{version}} && \
+    mv src/index.typ _output/{{version}}/src/ && \
+    cp src/index.qmd _output/{{version}}/src/ && \
+    cp src/references.bib _output/{{version}}/src/
 
 manuscript-preview: # Preview with live reload
     quarto preview src/index.qmd --to apaquarto-html
@@ -38,21 +55,21 @@ manuscript-convert-svg-to-png folder: # Convert all SVG files to PNG in specifie
         echo "❌ Error: Folder '{{folder}}' does not exist"
         exit 1
     fi
-    
+
     if ! command -v inkscape >/dev/null 2>&1; then
         echo "❌ Error: Inkscape not found. Please install inkscape first."
         echo "   macOS: brew install --cask inkscape"
         echo "   Linux: sudo apt-get install inkscape"
         exit 1
     fi
-    
+
     cd "{{folder}}"
     svg_count=$(ls *.svg 2>/dev/null | wc -l)
     if [ "$svg_count" -eq 0 ]; then
         echo "⚠️  No SVG files found in {{folder}}"
         exit 0
     fi
-    
+
     echo "🔄 Converting $svg_count SVG files to PNG in {{folder}}..."
     for file in *.svg; do
         if [ -f "$file" ]; then
@@ -74,21 +91,21 @@ manuscript-convert-png-to-jpg folder: # Convert all PNG files to JPG in specifie
         echo "❌ Error: Folder '{{folder}}' does not exist"
         exit 1
     fi
-    
+
     if ! command -v convert >/dev/null 2>&1; then
         echo "❌ Error: ImageMagick 'convert' command not found. Please install ImageMagick first."
         echo "   macOS: brew install imagemagick"
         echo "   Linux: sudo apt-get install imagemagick"
         exit 1
     fi
-    
+
     cd "{{folder}}"
     png_count=$(ls *.png 2>/dev/null | wc -l)
     if [ "$png_count" -eq 0 ]; then
         echo "⚠️  No PNG files found in {{folder}}"
         exit 0
     fi
-    
+
     echo "🔄 Converting $png_count PNG files to JPG in {{folder}}..."
     for file in *.png; do
         if [ -f "$file" ]; then
