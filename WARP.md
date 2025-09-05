@@ -4,11 +4,13 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-This is a Copier template repository for creating comprehensive data science and academic research projects. It generates project structures that include analysis pipelines, academic writing workflows, and infrastructure management. The template supports multi-language development (Python, R, Julia, Clojure) and provides automation through Just task runner.
+This is a **Copier template repository** for creating comprehensive data science and academic research projects. It generates project structures that include analysis pipelines, academic writing workflows, and infrastructure management. The template supports multi-language development (Python, R, Julia, Clojure) and provides automation through Just task runner.
 
 **🌱 Beginner-Friendly Design**: The template now defaults to a "Minimal Starter" configuration that creates simple, approachable projects. Users can progressively add more components as they become comfortable, preventing overwhelming beginners with complex setups.
 
 **💾 Automatic Git Initialization**: Every generated project automatically initializes a git repository with an initial commit containing project metadata, so users can start version control immediately.
+
+**⚡ Progressive Enhancement**: The template includes a sophisticated expansion system that allows users to start minimal and add components incrementally through `just expand` commands.
 
 ## Development Commands
 
@@ -100,14 +102,21 @@ just git-setup               # Pre-commit hooks and nbwipers
 
 ### Analysis Workflow
 ```bash
-# Create notebooks
+# Create notebooks with enhanced automation
 just notebooks new-eda "dataset-analysis"
-just notebooks new-model "random-forest" --stage="05-models"
+just notebooks new-model "random-forest" --stage="05-models" --model_type="advanced"
 
 # Run analysis
 just notebooks run "path/to/notebook.qmd"
 just notebooks run-stage "02-exploration"
+just notebooks eda           # Run all EDA notebooks
 just analysis pipeline       # Run DVC pipeline
+
+# Notebook management
+just notebooks list           # List all notebooks
+just notebooks list-recent    # Recent notebooks (last 7 days)
+just notebooks search "query" # Search notebook content
+just notebooks clean-stage "05-models" # Clean notebook outputs
 ```
 
 ### Academic Writing
@@ -164,8 +173,10 @@ uv run pre-commit run --all-files  # Code quality checks
 
 ### Template Testing with copier-template-tester
 
+The repository uses `copier-template-tester` (ctt) for comprehensive template validation with **37 different test scenarios** in `ctt.toml`.
+
 ```bash
-# Run all test scenarios
+# Run all test scenarios (37 configurations)
 ctt run
 
 # Using the convenience script
@@ -175,6 +186,9 @@ ctt run
 ctt run --config=full-academic
 ctt run --config=minimal-starter
 ctt run --config=maximum-everything
+
+# Debug mode for troubleshooting
+ctt run --config=minimal-starter --debug
 ```
 
 ### Adding New Features
@@ -192,6 +206,8 @@ ctt run --config=maximum-everything
 - **Shared Templates**: Common templates in `template/` with Jinja2 variables
 - **Module Organization**: Separate Just files for different functional areas
 - **Template Structure**: `template/` contains all template files, `_subdirectory: template` in copier.yml
+- **Jinja2 Templating**: All `.jinja` files use Jinja2 syntax for dynamic content generation
+- **Conditional File Names**: Files use `{% if condition %}filename{% endif %}` for conditional inclusion
 
 ### Key Template Variables
 
