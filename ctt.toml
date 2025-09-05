@@ -768,3 +768,327 @@ pre_commit_hooks = true
 include_jujutsu = true
 include_fossil = true
 use_hybrid_vcs = true
+
+# ====== MIGRATION TASK TESTING SCENARIOS ======
+# These scenarios test automatic cleanup during copier update
+# They simulate projects that start with features enabled, then disable them
+
+# === FOLDER REMOVAL TESTS ===
+
+# Test 38: Migration - Remove Analysis Folder
+[output."migration-remove-analysis"]
+[output."migration-remove-analysis".answers]
+project_name = "Remove Analysis Test"
+short_name = "rm-analysis"
+description = "Test removing analysis folder during update"
+author_name = "Migration Tester"
+author_email = "migrate@test.com"
+project_type = "Manuscript Only (writing and publications)"
+programming_language = "R"
+documentation_format = "Quarto"
+include_publication_templates = true
+# This should trigger removal of analysis/ folder since project_type excludes it
+
+# Test 39: Migration - Remove Writeup Folder  
+[output."migration-remove-writeup"]
+[output."migration-remove-writeup".answers]
+project_name = "Remove Writeup Test"
+short_name = "rm-writeup"
+description = "Test removing writeup folder during update"
+author_name = "Migration Tester"
+author_email = "migrate@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "MLflow"
+data_versioning = true
+# This should trigger removal of writeup/ folder since project_type excludes it
+
+# Test 40: Migration - Remove Infrastructure Folder
+[output."migration-remove-infrastructure"]
+[output."migration-remove-infrastructure".answers]
+project_name = "Remove Infrastructure Test"
+short_name = "rm-infra"
+description = "Test removing infrastructure folder during update"
+author_name = "Migration Tester"
+author_email = "migrate@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+# This should trigger removal of infrastructure/ folder for minimal starter
+
+# Test 41: Migration - Custom Folder Removal
+[output."migration-custom-folders"]
+[output."migration-custom-folders".answers]
+project_name = "Custom Folder Removal Test"
+short_name = "custom-rm"
+description = "Test removing specific folders in custom configuration"
+author_name = "Custom Tester"
+author_email = "custom@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = false
+include_writeup = true
+include_infrastructure = false
+include_misc = false
+include_manuscript = true
+include_presentations = false
+include_grants = false
+include_abstracts = false
+include_posters = false
+include_reports = false
+include_blog = false
+programming_language = "Python"
+documentation_format = "Quarto"
+# Should remove analysis/, infrastructure/, misc/, and most writeup subdirectories
+
+# === TOOL-SPECIFIC CLEANUP TESTS ===
+
+# Test 42: Migration - Remove Docker Files
+[output."migration-remove-docker"]
+[output."migration-remove-docker".answers]
+project_name = "Remove Docker Test"
+short_name = "rm-docker"
+description = "Test removing Docker files during update"
+author_name = "Docker Tester"
+author_email = "docker@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+# Docker should be removed since infrastructure is not included in Analysis Only
+
+# Test 43: Migration - Remove DVC Files
+[output."migration-remove-dvc"]
+[output."migration-remove-dvc".answers]
+project_name = "Remove DVC Test"
+short_name = "rm-dvc"
+description = "Test removing DVC files when data versioning disabled"
+author_name = "DVC Tester"
+author_email = "dvc@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "MLflow"
+data_versioning = false
+data_validation = false
+# DVC files should be removed since data_versioning is false
+
+# Test 44: Migration - Remove CI/CD Files
+[output."migration-remove-cicd"]
+[output."migration-remove-cicd".answers]
+project_name = "Remove CI/CD Test"
+short_name = "rm-cicd"
+description = "Test removing CI/CD files during update"
+author_name = "CI/CD Tester"
+author_email = "cicd@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+github_actions = false
+pre_commit_hooks = false
+# Should remove .github/workflows and .pre-commit-config.yaml
+
+# Test 45: Migration - Remove Experiment Tracking
+[output."migration-remove-tracking"]
+[output."migration-remove-tracking".answers]
+project_name = "Remove Tracking Test"
+short_name = "rm-tracking"
+description = "Test removing experiment tracking files"
+author_name = "Tracking Tester"
+author_email = "tracking@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+# Should remove MLflow, W&B, Neptune config files
+
+# === LANGUAGE-SPECIFIC CLEANUP TESTS ===
+
+# Test 46: Migration - Python Only (Remove R)
+[output."migration-python-only"]
+[output."migration-python-only".answers]
+project_name = "Python Only Test"
+short_name = "python-only"
+description = "Test removing R files when switching to Python-only"
+author_name = "Python Tester"
+author_email = "python@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "MLflow"
+data_versioning = true
+# Should remove R-specific files: renv.lock, DESCRIPTION, .Rprofile, *.Rproj
+
+# Test 47: Migration - R Only (Remove Python)
+[output."migration-r-only"]
+[output."migration-r-only".answers]
+project_name = "R Only Test"
+short_name = "r-only"
+description = "Test removing Python files when switching to R-only"
+author_name = "R Tester"
+author_email = "r@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "R"
+documentation_format = "RMarkdown"
+experiment_tracking = "None"
+data_versioning = false
+# Should remove Python-specific files: requirements.txt, uv.lock, .python-version
+
+# === VERSION CONTROL CLEANUP TESTS ===
+
+# Test 48: Migration - Remove VCS Files
+[output."migration-remove-vcs"]
+[output."migration-remove-vcs".answers]
+project_name = "Remove VCS Test"
+short_name = "rm-vcs"
+description = "Test removing alternative VCS files"
+author_name = "VCS Tester"
+author_email = "vcs@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+include_jujutsu = false
+include_fossil = false
+# Should remove .jjconfig.toml, _FOSSIL_, .fslckout
+
+# === SUBCOMPONENT CLEANUP TESTS ===
+
+# Test 49: Migration - Analysis Subcomponent Cleanup
+[output."migration-analysis-subcomponents"]
+[output."migration-analysis-subcomponents".answers]
+project_name = "Analysis Subcomponent Test"
+short_name = "analysis-sub"
+description = "Test removing specific analysis subcomponents"
+author_name = "Analysis Tester"
+author_email = "analysis@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = false
+include_misc = false
+# Enable only some analysis components
+include_notebooks = true
+include_scripts = false
+include_data_pipeline = false
+include_testing = false
+include_packages = false
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+# Should remove analysis/scripts/, analysis/data/, analysis/tests/, analysis/packages/
+
+# Test 50: Migration - Writeup Subcomponent Cleanup
+[output."migration-writeup-subcomponents"]
+[output."migration-writeup-subcomponents".answers]
+project_name = "Writeup Subcomponent Test"
+short_name = "writeup-sub"
+description = "Test removing specific writeup subcomponents"
+author_name = "Writeup Tester"
+author_email = "writeup@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = false
+include_writeup = true
+include_infrastructure = false
+include_misc = false
+# Enable only manuscript and reports
+include_manuscript = true
+include_presentations = false
+include_grants = false
+include_abstracts = false
+include_posters = false
+include_reports = true
+include_blog = false
+programming_language = "Python"
+documentation_format = "Quarto"
+# Should remove most writeup subdirectories except manuscript/ and reports/
+
+# Test 51: Migration - Infrastructure Subcomponent Cleanup
+[output."migration-infrastructure-subcomponents"]
+[output."migration-infrastructure-subcomponents".answers]
+project_name = "Infrastructure Subcomponent Test"
+short_name = "infra-sub"
+description = "Test removing specific infrastructure subcomponents"
+author_name = "Infrastructure Tester"
+author_email = "infra@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = true
+include_misc = false
+# Enable only Docker
+include_docker = true
+include_cloud_deployment = false
+include_virtualization = false
+include_automation = false
+programming_language = "Python"
+experiment_tracking = "None"
+# Should remove infrastructure/cloud/, infrastructure/virtualization/, infrastructure/automation/
+
+# === PROGRESSIVE DOWNGRADE TESTS ===
+
+# Test 52: Migration - Downgrade from Full to Minimal
+[output."migration-full-to-minimal"]
+[output."migration-full-to-minimal".answers]
+project_name = "Full to Minimal Test"
+short_name = "full-to-min"
+description = "Test downgrading from full academic to minimal starter"
+author_name = "Downgrade Tester"
+author_email = "downgrade@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+include_publication_templates = false
+include_jujutsu = false
+include_fossil = false
+# Should remove infrastructure/, most tools, and complex features
+
+# Test 53: Migration - Analysis to Manuscript Only
+[output."migration-analysis-to-manuscript"]
+[output."migration-analysis-to-manuscript".answers]
+project_name = "Analysis to Manuscript Test"
+short_name = "analysis-to-ms"
+description = "Test switching from analysis-only to manuscript-only"
+author_name = "Switch Tester"
+author_email = "switch@test.com"
+project_type = "Manuscript Only (writing and publications)"
+programming_language = "R"
+documentation_format = "Quarto"
+include_publication_templates = true
+experiment_tracking = "None"
+data_versioning = false
+# Should remove analysis/ folder and add writeup/ components
+
+# === COMPREHENSIVE CLEANUP TESTS ===
+
+# Test 54: Migration - Comprehensive Cleanup Test
+[output."migration-comprehensive-cleanup"]
+[output."migration-comprehensive-cleanup".answers]
+project_name = "Comprehensive Cleanup Test"
+short_name = "comprehensive-cleanup"
+description = "Test comprehensive cleanup from maximum to minimal configuration"
+author_name = "Cleanup Tester"
+author_email = "cleanup@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = false
+include_misc = false
+include_notebooks = true
+include_scripts = false
+include_data_pipeline = false
+include_testing = false
+include_packages = false
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+include_deployment_templates = false
+include_jujutsu = false
+include_fossil = false
+# Should remove: writeup/, infrastructure/, misc/, most analysis subdirs, all tool configs
