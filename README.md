@@ -10,6 +10,13 @@
 
 This is a comprehensive template built with [Copier](https://github.com/copier-org/copier) for creating professional data science projects that scale from exploration to publication. It provides a complete workflow covering data analysis, machine learning, academic writing, and deployment.
 
+
+## DEV TIME USAGE 
+
+```
+copier copy template-analysis-and-writeup PHD-pub-trust-index --vcs-ref=HEAD --force
+```
+
 ## 🚀 Quick Start (Beginner-Friendly)
 
 ```shell

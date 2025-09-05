@@ -2,7 +2,11 @@
 default:
     @just --list
 
+
 # Manuscript Management Tasks
+
+bibliography-tidy: # Cleanup bibliography
+    bibtex-tidy --curly --numeric --tab --align=13 --blank-lines --sort=key --duplicates=key,doi --merge=combine --no-escape --sort-fields --remove-empty-fields
 
 # === Setup and Initialization ===
 manuscript-init: # Initialize manuscript structure
@@ -14,6 +18,19 @@ manuscript-init: # Initialize manuscript structure
 # === Rendering and Preview ===
 manuscript-render format="apaquarto-docx" version="draft": # Render manuscript
     quarto render src/index.qmd --to {{format}} --output-dir _output/{{format}}/{{version}}
+
+
+manuscript-render-docx version="final": # Render manuscript DOCX and PDF
+    quarto render src/index.qmd --to apaquarto-docx --output-dir _output/{{version}} && \
+    cp src/index.qmd _output/{{version}}/src/ && \
+    cp src/references.bib _output/{{version}}/src/
+
+
+manuscript-render-typst version="final": # Render manuscript DOCX and PDF
+    quarto render src/index.qmd --to apaquarto-typst --output-dir _output/{{version}} && \
+    mv src/index.typ _output/{{version}}/src/ && \
+    cp src/index.qmd _output/{{version}}/src/ && \
+    cp src/references.bib _output/{{version}}/src/
 
 manuscript-preview: # Preview with live reload
     quarto preview src/index.qmd --to apaquarto-html
@@ -30,6 +47,111 @@ manuscript-add-table name: # Add new table
 
 manuscript-add-supplementary name: # Add new supplementary material
     touch assets/supplementary/{{name}}.qmd
+
+# === Figure Format Conversion ===
+manuscript-convert-svg-to-png folder: # Convert all SVG files to PNG in specified folder
+    #!/usr/bin/env bash
+    if [ ! -d "{{folder}}" ]; then
+        echo "❌ Error: Folder '{{folder}}' does not exist"
+        exit 1
+    fi
+
+    if ! command -v inkscape >/dev/null 2>&1; then
+        echo "❌ Error: Inkscape not found. Please install inkscape first."
+        echo "   macOS: brew install --cask inkscape"
+        echo "   Linux: sudo apt-get install inkscape"
+        exit 1
+    fi
+
+    cd "{{folder}}"
+    svg_count=$(ls *.svg 2>/dev/null | wc -l)
+    if [ "$svg_count" -eq 0 ]; then
+        echo "⚠️  No SVG files found in {{folder}}"
+        exit 0
+    fi
+
+    echo "🔄 Converting $svg_count SVG files to PNG in {{folder}}..."
+    for file in *.svg; do
+        if [ -f "$file" ]; then
+            png_file="${file%.svg}.png"
+            echo "  Converting: $file → $png_file"
+            inkscape --export-type=png --export-dpi=300 "$file" -o "$png_file"
+            if [ $? -eq 0 ]; then
+                echo "  ✅ Success: $png_file"
+            else
+                echo "  ❌ Failed: $file"
+            fi
+        fi
+    done
+    echo "🎉 PNG conversion completed!"
+
+manuscript-convert-png-to-jpg folder: # Convert all PNG files to JPG in specified folder
+    #!/usr/bin/env bash
+    if [ ! -d "{{folder}}" ]; then
+        echo "❌ Error: Folder '{{folder}}' does not exist"
+        exit 1
+    fi
+
+    if ! command -v convert >/dev/null 2>&1; then
+        echo "❌ Error: ImageMagick 'convert' command not found. Please install ImageMagick first."
+        echo "   macOS: brew install imagemagick"
+        echo "   Linux: sudo apt-get install imagemagick"
+        exit 1
+    fi
+
+    cd "{{folder}}"
+    png_count=$(ls *.png 2>/dev/null | wc -l)
+    if [ "$png_count" -eq 0 ]; then
+        echo "⚠️  No PNG files found in {{folder}}"
+        exit 0
+    fi
+
+    echo "🔄 Converting $png_count PNG files to JPG in {{folder}}..."
+    for file in *.png; do
+        if [ -f "$file" ]; then
+            jpg_file="${file%.png}.jpg"
+            echo "  Converting: $file → $jpg_file"
+            convert "$file" "$jpg_file"
+            if [ $? -eq 0 ]; then
+                echo "  ✅ Success: $jpg_file"
+            else
+                echo "  ❌ Failed: $file"
+            fi
+        fi
+    done
+    echo "🎉 JPG conversion completed!"
+
+manuscript-convert-svg-to-jpg folder: # Convert all SVG files to JPG (via PNG) in specified folder
+    #!/usr/bin/env bash
+    echo "🔄 Converting SVG → PNG → JPG in {{folder}}..."
+    just manuscript-convert-svg-to-png "{{folder}}"
+    just manuscript-convert-png-to-jpg "{{folder}}"
+    echo "🎉 Complete SVG to JPG conversion finished!"
+
+manuscript-convert-figures-svg-to-png: # Convert all SVG figures to PNG
+    just manuscript-convert-svg-to-png "assets/figures"
+
+manuscript-convert-figures-svg-to-jpg: # Convert all SVG figures to JPG
+    just manuscript-convert-svg-to-jpg "assets/figures"
+
+manuscript-batch-convert-formats folder format: # Batch convert to specified format (png|jpg|both)
+    #!/usr/bin/env bash
+    case "{{format}}" in
+        "png")
+            just manuscript-convert-svg-to-png "{{folder}}"
+            ;;
+        "jpg")
+            just manuscript-convert-svg-to-jpg "{{folder}}"
+            ;;
+        "both")
+            just manuscript-convert-svg-to-png "{{folder}}"
+            just manuscript-convert-png-to-jpg "{{folder}}"
+            ;;
+        *)
+            echo "❌ Error: Invalid format '{{format}}'. Use: png, jpg, or both"
+            exit 1
+            ;;
+    esac
 
 # === Review Management ===
 manuscript-new-feedback: # Create new feedback directory
@@ -302,4 +424,28 @@ manuscript-docs:
     echo "7. Archive submission: just manuscript-archive-submission version_name=..."
     echo "8. Log version: just manuscript-log-version version=..."
     echo "9. Update changelog: just manuscript-changelog message=..."
-    echo "10. See this help: just manuscript-docs"
+    echo "10. Figure conversion: just manuscript-convert-svg-to-png folder=..."
+    echo "11. Figure conversion: just manuscript-convert-svg-to-jpg folder=..."
+    echo "12. Batch conversion: just manuscript-batch-convert-formats folder=... format=png|jpg|both"
+    echo "13. Convert figures: just manuscript-convert-figures-svg-to-png|jpg"
+    echo "14. See this help: just manuscript-docs"
+
+# === Figure Conversion Help ===
+# Print figure conversion documentation
+manuscript-convert-help:
+    echo "Figure Format Conversion Commands:\n"
+    echo "📋 Available Commands:"
+    echo "  • manuscript-convert-svg-to-png folder     - Convert SVG to PNG in specified folder"
+    echo "  • manuscript-convert-png-to-jpg folder     - Convert PNG to JPG in specified folder"
+    echo "  • manuscript-convert-svg-to-jpg folder     - Convert SVG to JPG (via PNG) in specified folder"
+    echo "  • manuscript-convert-figures-svg-to-png    - Convert all SVG figures to PNG"
+    echo "  • manuscript-convert-figures-svg-to-jpg    - Convert all SVG figures to JPG"
+    echo "  • manuscript-batch-convert-formats folder format - Batch convert (format: png|jpg|both)"
+    echo "\n🔧 Prerequisites:"
+    echo "  • Inkscape (for SVG → PNG): brew install --cask inkscape"
+    echo "  • ImageMagick (for PNG → JPG): brew install imagemagick"
+    echo "\n💡 Examples:"
+    echo "  just manuscript-convert-svg-to-png assets/figures"
+    echo "  just manuscript-convert-svg-to-jpg ./my-figures"
+    echo "  just manuscript-batch-convert-formats assets/figures both"
+    echo "  just manuscript-convert-figures-svg-to-png"

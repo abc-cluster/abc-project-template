@@ -63,11 +63,6 @@ numbered-lines: true
 # File with references
 bibliography: references.bib
 
-bibliographystyle: _extensions/apaquarto/apa.csl
-
-csl: _extensions/apaquarto/apa.csl
-
-citeproc: true
 
 # Suppress title page
 suppress-title-page: false
