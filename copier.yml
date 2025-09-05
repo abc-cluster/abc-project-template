@@ -388,3 +388,272 @@ _final_include_misc:
     true
     {%- endif -%}
   when: false
+
+# === MIGRATION TASKS FOR AUTOMATIC CLEANUP ===
+# These tasks run during copier update to remove files/folders based on conditions
+_tasks:
+  - |
+    # Remove analysis folder if not included
+    {% if not _final_include_analysis %}
+    if [ -d "analysis" ]; then
+      echo "🗑️  Removing analysis folder (not included in current configuration)..."
+      rm -rf analysis
+    fi
+    {% endif %}
+    
+    # Remove writeup folder if not included
+    {% if not _final_include_writeup %}
+    if [ -d "writeup" ]; then
+      echo "🗑️  Removing writeup folder (not included in current configuration)..."
+      rm -rf writeup
+    fi
+    {% endif %}
+    
+    # Remove infrastructure folder if not included
+    {% if not _final_include_infrastructure %}
+    if [ -d "infrastructure" ]; then
+      echo "🗑️  Removing infrastructure folder (not included in current configuration)..."
+      rm -rf infrastructure
+    fi
+    {% endif %}
+    
+    # Remove misc folder if not included
+    {% if not _final_include_misc %}
+    if [ -d "misc" ]; then
+      echo "🗑️  Removing misc folder (not included in current configuration)..."
+      rm -rf misc
+    fi
+    {% endif %}
+    
+    # Remove Docker files if Docker is not included
+    {% if not include_docker or not _final_include_infrastructure %}
+    if [ -f "Dockerfile" ]; then
+      echo "🗑️  Removing Docker files (Docker not enabled)..."
+      rm -f Dockerfile
+      rm -f docker-compose.yml
+      rm -f .dockerignore
+    fi
+    {% endif %}
+    
+    # Remove DVC files if data versioning is disabled
+    {% if not data_versioning %}
+    if [ -f ".dvc/config" ]; then
+      echo "🗑️  Removing DVC configuration (data versioning disabled)..."
+      rm -rf .dvc
+      rm -f dvc.yaml
+      rm -f dvc.lock
+      rm -f .dvcignore
+    fi
+    {% endif %}
+    
+    # Remove pre-commit config if disabled
+    {% if not pre_commit_hooks %}
+    if [ -f ".pre-commit-config.yaml" ]; then
+      echo "🗑️  Removing pre-commit configuration (pre-commit hooks disabled)..."
+      rm -f .pre-commit-config.yaml
+    fi
+    {% endif %}
+    
+    # Remove GitHub Actions if disabled
+    {% if not github_actions %}
+    if [ -d ".github/workflows" ]; then
+      echo "🗑️  Removing GitHub Actions workflows (GitHub Actions disabled)..."
+      rm -rf .github/workflows
+      # Remove .github directory if empty
+      [ -d ".github" ] && [ ! "$(ls -A .github)" ] && rmdir .github
+    fi
+    {% endif %}
+    
+    # Remove language-specific files based on programming language choice
+    {% if programming_language == 'Python' %}
+    # Remove R-specific files when Python-only
+    if [ -f "renv.lock" ] || [ -f "DESCRIPTION" ]; then
+      echo "🗑️  Removing R-specific files (Python-only project)..."
+      rm -f renv.lock
+      rm -f DESCRIPTION
+      rm -f .Rprofile
+      rm -rf renv/
+      rm -f *.Rproj
+    fi
+    {% elif programming_language == 'R' %}
+    # Remove Python-specific files when R-only
+    if [ -f "pyproject.toml" ] && ! grep -q "\[tool.poetry\]" pyproject.toml 2>/dev/null; then
+      echo "🗑️  Removing Python-specific files (R-only project)..."
+      rm -f requirements.txt
+      rm -f requirements-dev.txt
+      rm -f .python-version
+      rm -f uv.lock
+      # Keep pyproject.toml if it has other tool configurations
+      if [ -f "pyproject.toml" ]; then
+        if ! grep -q "\[tool\." pyproject.toml; then
+          rm -f pyproject.toml
+        fi
+      fi
+    fi
+    {% endif %}
+    
+    # Remove experiment tracking files if disabled
+    {% if experiment_tracking == 'None' %}
+    if [ -f "mlflow.yml" ] || [ -d "mlruns" ]; then
+      echo "🗑️  Removing experiment tracking files (experiment tracking disabled)..."
+      rm -f mlflow.yml
+      rm -rf mlruns/
+      rm -f wandb.yaml
+      rm -f neptune.yaml
+    fi
+    {% endif %}
+    
+    # Remove version control files based on selection
+    {% if not include_jujutsu %}
+    if [ -f ".jjconfig.toml" ]; then
+      echo "🗑️  Removing Jujutsu configuration (Jujutsu not enabled)..."
+      rm -f .jjconfig.toml
+    fi
+    {% endif %}
+    
+    {% if not include_fossil %}
+    if [ -f "_FOSSIL_" ]; then
+      echo "🗑️  Removing Fossil repository (Fossil not enabled)..."
+      rm -f _FOSSIL_
+      rm -f .fslckout
+    fi
+    {% endif %}
+    
+    # Remove deployment templates if not included
+    {% if not include_deployment_templates %}
+    if [ -d "deployment" ]; then
+      echo "🗑️  Removing deployment templates (deployment not enabled)..."
+      rm -rf deployment/
+    fi
+    {% endif %}
+    
+    # Clean up specific analysis subcomponents
+    {% if _final_include_analysis %}
+      # Remove notebooks if not included
+      {% if not include_notebooks %}
+      if [ -d "analysis/notebooks" ]; then
+        echo "🗑️  Removing notebooks directory (notebooks not enabled)..."
+        rm -rf analysis/notebooks/
+      fi
+      {% endif %}
+      
+      # Remove scripts if not included  
+      {% if not include_scripts %}
+      if [ -d "analysis/scripts" ]; then
+        echo "🗑️  Removing scripts directory (scripts not enabled)..."
+        rm -rf analysis/scripts/
+      fi
+      {% endif %}
+      
+      # Remove data pipeline if not included
+      {% if not include_data_pipeline %}
+      if [ -d "analysis/data" ]; then
+        echo "🗑️  Removing data pipeline directory (data pipeline not enabled)..."
+        rm -rf analysis/data/
+      fi
+      {% endif %}
+      
+      # Remove packages if not included
+      {% if not include_packages %}
+      if [ -d "analysis/packages" ]; then
+        echo "🗑️  Removing packages directory (local packages not enabled)..."
+        rm -rf analysis/packages/
+      fi
+      {% endif %}
+      
+      # Remove testing if not included
+      {% if not include_testing %}
+      if [ -d "analysis/tests" ]; then
+        echo "🗑️  Removing tests directory (testing not enabled)..."
+        rm -rf analysis/tests/
+      fi
+      {% endif %}
+    {% endif %}
+    
+    # Clean up specific writeup subcomponents
+    {% if _final_include_writeup %}
+      # Remove manuscript if not included
+      {% if not include_manuscript %}
+      if [ -d "writeup/manuscript" ]; then
+        echo "🗑️  Removing manuscript directory (manuscript not enabled)..."
+        rm -rf writeup/manuscript/
+      fi
+      {% endif %}
+      
+      # Remove presentations if not included
+      {% if not include_presentations %}
+      if [ -d "writeup/presentation" ]; then
+        echo "🗑️  Removing presentation directory (presentations not enabled)..."
+        rm -rf writeup/presentation/
+      fi
+      {% endif %}
+      
+      # Remove grants if not included
+      {% if not include_grants %}
+      if [ -d "writeup/grants" ]; then
+        echo "🗑️  Removing grants directory (grants not enabled)..."
+        rm -rf writeup/grants/
+      fi
+      {% endif %}
+      
+      # Remove abstracts if not included
+      {% if not include_abstracts %}
+      if [ -d "writeup/abstracts" ]; then
+        echo "🗑️  Removing abstracts directory (abstracts not enabled)..."
+        rm -rf writeup/abstracts/
+      fi
+      {% endif %}
+      
+      # Remove posters if not included
+      {% if not include_posters %}
+      if [ -d "writeup/posters" ]; then
+        echo "🗑️  Removing posters directory (posters not enabled)..."
+        rm -rf writeup/posters/
+      fi
+      {% endif %}
+      
+      # Remove reports if not included
+      {% if not include_reports %}
+      if [ -d "writeup/reports" ]; then
+        echo "🗑️  Removing reports directory (reports not enabled)..."
+        rm -rf writeup/reports/
+      fi
+      {% endif %}
+      
+      # Remove blog if not included
+      {% if not include_blog %}
+      if [ -d "writeup/blog" ]; then
+        echo "🗑️  Removing blog directory (blog not enabled)..."
+        rm -rf writeup/blog/
+      fi
+      {% endif %}
+    {% endif %}
+    
+    # Clean up infrastructure subcomponents
+    {% if _final_include_infrastructure %}
+      # Remove cloud deployment if not included
+      {% if not include_cloud_deployment %}
+      if [ -d "infrastructure/cloud" ]; then
+        echo "🗑️  Removing cloud deployment directory (cloud deployment not enabled)..."
+        rm -rf infrastructure/cloud/
+      fi
+      {% endif %}
+      
+      # Remove virtualization if not included
+      {% if not include_virtualization %}
+      if [ -d "infrastructure/virtualization" ]; then
+        echo "🗑️  Removing virtualization directory (virtualization not enabled)..."
+        rm -rf infrastructure/virtualization/
+      fi
+      {% endif %}
+      
+      # Remove automation if not included
+      {% if not include_automation %}
+      if [ -d "infrastructure/automation" ]; then
+        echo "🗑️  Removing automation directory (automation not enabled)..."
+        rm -rf infrastructure/automation/
+      fi
+      {% endif %}
+    {% endif %}
+    
+    echo "✅ Cleanup completed based on current configuration"
