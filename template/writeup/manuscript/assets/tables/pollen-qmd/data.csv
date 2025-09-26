@@ -1,0 +1,22 @@
+theme,feature
+User-friendliness,Ease of download
+User-friendliness,Explicit samplesheet
+User-friendliness,Graphical user interface
+User-friendliness,MultiQC Summary report
+User-friendliness,CSV and TSV format cleanup
+User-friendliness,Remote monitoring
+User-friendliness,Manual steps
+User-friendliness,Flexible output location
+Maintainability,Extensibility
+Maintainability,Module testing
+Maintainability,Test dataset
+Scalability,Parallel execution
+Scalability,HPC compatibility
+Scalability,Resource allocation
+Scalability,Dynamic retries
+Scalability,Execution cache
+Scalability,Reduced data footprint
+Scalability,Reduced cloud computing costs
+Reproducibility,Declarative parameters file
+Reproducibility,Portability
+Reproducibility,Save intermediate files

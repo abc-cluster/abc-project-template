@@ -1,0 +1,1 @@
+### Table 1. Summary of key enhancements in MTBseq-nf, Nextflow wrapper for the original MTBseq pipeline.

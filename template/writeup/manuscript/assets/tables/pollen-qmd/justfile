@@ -1,0 +1,432 @@
+# Pollen-QMD Justfile
+# Enhanced table generation system using Racket/Pollen → Quarto → DOCX/PDF pipeline
+#
+# Usage examples:
+#   just help          - Show this help
+#   just quick-start   - Run complete system test
+#   just generate      - Generate table using interactive prompts
+#   just table-1       - Generate all table-1 variations
+#   just render        - Render all QMD files
+#   just clean         - Clean up generated files
+
+# Set shell to bash for compatibility
+set shell := ["bash", "-c"]
+
+# Default recipe (shows help)
+default:
+    @just --list
+
+# Show detailed help and usage examples
+help:
+    @echo "🌟 Pollen-QMD Table Generation System"
+    @echo ""
+    @echo "This system generates publication-ready tables using:"
+    @echo "  Racket/Pollen → Quarto → DOCX/PDF"
+    @echo ""
+    @echo "📚 Available commands:"
+    @echo ""
+    @echo "🚀 Quick Start & Testing:"
+    @echo "  just quick-start               - Complete system test"
+    @echo "  just check-deps               - Check dependencies"
+    @echo "  just examples                 - Generate all examples"
+    @echo ""
+    @echo "📊 Table Generation:"
+    @echo "  just generate FORMAT STYLE [OUTPUT]  - Generate specific table"
+    @echo "  just table-1                          - Generate all table-1 variations"
+    @echo "  just docx [OUTPUT]                    - Generate DOCX format"
+    @echo "  just typst-three-line [OUTPUT]        - Generate Typst three-line"
+    @echo "  just typst-bordered [OUTPUT]          - Generate Typst bordered"
+    @echo ""
+    @echo "📄 Rendering:"
+    @echo "  just render [PATTERN]         - Render QMD files to final outputs"
+    @echo "  just render-docx [PATTERN]    - Render to DOCX only"
+    @echo "  just render-pdf [PATTERN]     - Render to PDF only"
+    @echo ""
+    @echo "🗂️  Multi-Table Operations:"
+    @echo "  just tables-list              - List available tables"
+    @echo "  just tables-generate TABLE    - Generate specific table by ID"
+    @echo "  just tables-batch             - Generate all tables"
+    @echo "  just tables-create TABLE      - Create new table template"
+    @echo ""
+    @echo "🧹 Maintenance:"
+    @echo "  just clean [PATTERN]          - Clean generated files"
+    @echo "  just clean-all                - Clean everything"
+    @echo "  just info                     - Show system information"
+    @echo ""
+    @echo "📝 Format options: typst, docx"
+    @echo "🎨 Style options:  three-line, bordered (typst only)"
+
+# Check system dependencies
+check-deps:
+    @echo "🔧 Checking system dependencies..."
+    @echo ""
+    @if command -v racket >/dev/null 2>&1; then \
+        echo "✅ Racket found: $(racket --version)"; \
+    else \
+        echo "❌ Racket is not installed. Visit: https://racket-lang.org/"; \
+        exit 1; \
+    fi
+    @if command -v quarto >/dev/null 2>&1; then \
+        echo "✅ Quarto found: $(quarto --version | head -n 1)"; \
+    else \
+        echo "❌ Quarto is not installed. Visit: https://quarto.org/"; \
+        exit 1; \
+    fi
+    @if command -v typst >/dev/null 2>&1; then \
+        echo "✅ Typst found: $(typst --version)"; \
+    else \
+        echo "⚠️  Typst not found - PDF generation may not work"; \
+    fi
+    @echo ""
+    @echo "🚀 All core dependencies satisfied!"
+
+# Complete quick start test
+quick-start: check-deps
+    @echo "🌟 Welcome to Pollen-QMD Quick Start!"
+    @echo ""
+    @echo "This will test the complete pipeline and generate sample tables."
+    @echo ""
+    @chmod +x generate-enhanced.sh
+    @chmod +x examples/generate-all-examples.sh 2>/dev/null || true
+    @echo "📊 Testing basic table generation..."
+    @echo "  → Generating a simple Typst table..."
+    @just generate typst three-line quick-test.qmd
+    @echo "  → Testing Quarto rendering..."
+    @if quarto render quick-test.qmd --to typst --quiet 2>/dev/null; then \
+        echo "    ✅ Successfully rendered to PDF!"; \
+        if [ -f "quick-test.pdf" ]; then \
+            echo "    📄 Created: quick-test.pdf"; \
+        fi; \
+    else \
+        echo "    ⚠️  Rendering had issues, but QMD generation worked"; \
+    fi
+    @echo ""
+    @echo "📚 Generating all example variations..."
+    @just examples
+    @echo ""
+    @echo "🎉 Quick start completed successfully!"
+    @just _quick-start-help
+    @echo ""
+    @echo "🧹 Cleaning up test files..."
+    @rm -f quick-test.qmd quick-test.pdf quick-test.typ 2>/dev/null || true
+    @echo "   ✅ Test files removed"
+
+# Internal helper for quick-start help text
+_quick-start-help:
+    @echo "🎯 What to do next:"
+    @echo ""
+    @echo "1. 📖 Read the README.md for detailed documentation"
+    @echo "2. 🔧 Edit data.csv with your own table data"
+    @echo "3. ✏️  Modify content-templates/table-1-heading.md for your table title"
+    @echo "4. 🚀 Generate your tables with:"
+    @echo "     just generate typst three-line my-table.qmd"
+    @echo "     just generate docx three-line my-table-docx.qmd"
+    @echo "5. 📄 Render with:"
+    @echo "     just render my-table*.qmd"
+    @echo ""
+    @echo "💡 For help: just help"
+    @echo ""
+    @echo "Happy table generating! 📊✨"
+
+# Generate a table with specified format and style
+generate FORMAT STYLE OUTPUT="":
+    @if [ "{{OUTPUT}}" = "" ]; then \
+        OUTPUT="table-{{FORMAT}}-{{STYLE}}.qmd"; \
+    else \
+        OUTPUT="{{OUTPUT}}"; \
+    fi; \
+    echo "Generating QMD file: $OUTPUT"; \
+    echo "Format: {{FORMAT}}"; \
+    echo "Style: {{STYLE}}"; \
+    echo ""; \
+    racket generate-enhanced.rkt --format "{{FORMAT}}" --style "{{STYLE}}" --output "$OUTPUT"; \
+    if [ $? -eq 0 ]; then \
+        echo ""; \
+        echo "✅ Successfully generated $OUTPUT"; \
+        echo ""; \
+        echo "To render:"; \
+        if [ "{{FORMAT}}" = "typst" ]; then \
+            echo "  quarto render $OUTPUT --to typst"; \
+        else \
+            echo "  quarto render $OUTPUT --to docx"; \
+        fi; \
+        echo "  or: just render $OUTPUT"; \
+    else \
+        echo "❌ Generation failed"; \
+        exit 1; \
+    fi
+
+# Generate DOCX format table
+docx OUTPUT="table-docx.qmd":
+    @just generate docx three-line {{OUTPUT}}
+
+# Generate Typst three-line table
+typst-three-line OUTPUT="table-typst-three-line.qmd":
+    @just generate typst three-line {{OUTPUT}}
+
+# Generate Typst bordered table
+typst-bordered OUTPUT="table-typst-bordered.qmd":
+    @just generate typst bordered {{OUTPUT}}
+
+# Generate all table-1 variations
+table-1:
+    @echo "📊 Generating all table-1 variations..."
+    @echo ""
+    @echo "  → DOCX format..."
+    @just generate docx three-line table-1-docx.qmd
+    @echo ""
+    @echo "  → Typst three-line format..."
+    @just generate typst three-line table-1-typst-three-line.qmd
+    @echo ""
+    @echo "  → Typst bordered format..."
+    @just generate typst bordered table-1-typst-bordered.qmd
+    @echo ""
+    @echo "✅ All table-1 variations generated!"
+    @echo ""
+    @echo "📄 To render all: just render table-1-*"
+
+# Generate all example variations
+examples:
+    @echo "🚀 Pollen-QMD Demo: Generating all table examples..."
+    @echo ""
+    @mkdir -p examples
+    @echo "📊 Generating Typst tables with different styles..."
+    @echo "  → Three-line style (academic)"
+    @just generate typst three-line examples/table-typst-three-line.qmd
+    @echo "  → Bordered style (enhanced readability)"
+    @just generate typst bordered examples/table-typst-bordered.qmd
+    @echo ""
+    @echo "📝 Generating DOCX table..."
+    @echo "  → DOCX format (Word compatible)"
+    @just generate docx three-line examples/table-docx.qmd
+    @just _analyze-examples
+    @echo "✨ Demo completed! All examples generated successfully."
+
+# Internal helper to analyze generated examples
+_analyze-examples:
+    @echo ""
+    @echo "🔍 Analyzing generated files..."
+    @typst_files=$$(ls examples/table-typst-*.qmd 2>/dev/null | wc -l); \
+    docx_files=$$(ls examples/table-docx*.qmd 2>/dev/null | wc -l); \
+    total_files=$$((typst_files + docx_files)); \
+    echo "  📈 Generated $$total_files QMD files:"; \
+    echo "    - $$typst_files Typst files (PDF-ready)"; \
+    echo "    - $$docx_files DOCX files (Word-ready)"
+    @echo ""
+    @echo "📋 File sizes and content preview:"
+    @for file in examples/table-*.qmd; do \
+        if [ -f "$$file" ]; then \
+            size=$$(wc -l < "$$file"); \
+            echo "  📄 $$(basename "$$file"): $$size lines"; \
+            echo "     Preview:"; \
+            head -n 5 "$$file" | sed 's/^/       │ /'; \
+            echo "       │ ..."; \
+            echo ""; \
+        fi; \
+    done
+    @just _show-data-info
+    @just _show-next-steps
+
+# Internal helper to show data source information
+_show-data-info:
+    @echo "🎯 Data source information:"
+    @echo "  📊 Using data from:"
+    @if [ -f "data.csv" ]; then \
+        rows=$$(tail -n +2 data.csv | wc -l); \
+        echo "    - data.csv ($$rows data rows)"; \
+    fi
+    @if [ -f "data.json" ]; then echo "    - data.json (available)"; fi
+    @if [ -f "data.yaml" ]; then echo "    - data.yaml (available)"; fi
+    @echo ""
+    @echo "🎨 Template information:"
+    @echo "  🎭 Available Typst styles:"
+    @for file in typst-templates/table-imports*.typ; do \
+        if [ -f "$$file" ]; then \
+            style=$$(basename "$$file" | sed 's/table-imports-//; s/table-imports//; s/\.typ//; s/^-//'); \
+            if [ -z "$$style" ]; then style="three-line"; fi; \
+            echo "    - $$style ($$(basename "$$file"))"; \
+        fi; \
+    done
+    @echo ""
+    @echo "📖 Content templates:"
+    @for file in content-templates/*.md; do \
+        if [ -f "$$file" ]; then \
+            echo "    - $$(basename "$$file")"; \
+        fi; \
+    done
+
+# Internal helper to show next steps
+_show-next-steps:
+    @echo ""
+    @echo "🚦 Next steps:"
+    @echo ""
+    @echo "  To render the generated tables:"
+    @echo "    just render examples/table-*"
+    @echo "    # or individually:"
+    @echo "    quarto render examples/table-typst-three-line.qmd --to typst    # → PDF"
+    @echo "    quarto render examples/table-typst-bordered.qmd --to typst      # → PDF"
+    @echo "    quarto render examples/table-docx.qmd --to docx                 # → DOCX"
+    @echo ""
+    @echo "  To customize:"
+    @echo "    1. Edit data.csv (or data.json/data.yaml) with your content"
+    @echo "    2. Modify content-templates/table-1-heading.md for your title"
+    @echo "    3. Run 'just examples' again to regenerate all examples"
+
+# Render QMD files to their final outputs
+render PATTERN="*.qmd":
+    @echo "📄 Rendering QMD files: {{PATTERN}}"
+    @echo ""
+    @for file in {{PATTERN}}; do \
+        if [ -f "$$file" ]; then \
+            echo "  → Rendering $$file..."; \
+            if echo "$$file" | grep -q "docx"; then \
+                quarto render "$$file" --to docx; \
+            else \
+                quarto render "$$file" --to typst; \
+            fi; \
+            if [ $$? -eq 0 ]; then \
+                echo "    ✅ Successfully rendered $$file"; \
+            else \
+                echo "    ❌ Failed to render $$file"; \
+            fi; \
+            echo ""; \
+        fi; \
+    done
+
+# Render only to DOCX
+render-docx PATTERN="*docx*.qmd":
+    @echo "📄 Rendering DOCX files: {{PATTERN}}"
+    @echo ""
+    @for file in {{PATTERN}}; do \
+        if [ -f "$$file" ]; then \
+            echo "  → Rendering $$file to DOCX..."; \
+            quarto render "$$file" --to docx; \
+            if [ $$? -eq 0 ]; then \
+                echo "    ✅ Successfully rendered $$file"; \
+            else \
+                echo "    ❌ Failed to render $$file"; \
+            fi; \
+            echo ""; \
+        fi; \
+    done
+
+# Render only to PDF (via Typst)
+render-pdf PATTERN="*typst*.qmd":
+    @echo "📄 Rendering PDF files: {{PATTERN}}"
+    @echo ""
+    @for file in {{PATTERN}}; do \
+        if [ -f "$$file" ]; then \
+            echo "  → Rendering $$file to PDF..."; \
+            quarto render "$$file" --to typst; \
+            if [ $$? -eq 0 ]; then \
+                echo "    ✅ Successfully rendered $$file"; \
+            else \
+                echo "    ❌ Failed to render $$file"; \
+            fi; \
+            echo ""; \
+        fi; \
+    done
+
+# Multi-table operations: List available tables
+tables-list:
+    @echo "🗂️  Listing available tables..."
+    @racket generate-multi-table.rkt --list 2>/dev/null || echo "Multi-table generator not available"
+
+# Multi-table operations: Generate specific table
+tables-generate TABLE *ARGS:
+    @echo "🗂️  Generating table: {{TABLE}}"
+    @racket generate-multi-table.rkt --table "{{TABLE}}" {{ARGS}}
+
+# Multi-table operations: Generate all tables
+tables-batch:
+    @echo "🗂️  Batch generating all tables..."
+    @racket generate-multi-table.rkt --batch
+
+# Multi-table operations: Create new table template
+tables-create TABLE:
+    @echo "🗂️  Creating new table: {{TABLE}}"
+    @table_dir="tables/{{TABLE}}"; \
+    if [ -d "$$table_dir" ]; then \
+        echo "❌ Error: Table {{TABLE}} already exists"; \
+        exit 1; \
+    fi; \
+    echo "Creating directory structure..."; \
+    mkdir -p "$$table_dir"/{data,templates/{typst,content},metadata}; \
+    just _create-table-config {{TABLE}}; \
+    just _create-table-data {{TABLE}}; \
+    just _create-table-heading {{TABLE}}; \
+    echo "✅ Created table structure for {{TABLE}}"; \
+    echo "  Directory: $$table_dir"; \
+    echo "  Config:    $$table_dir/metadata/config.yaml"; \
+    echo "  Data:      $$table_dir/data/data.json"; \
+    echo "  Template:  $$table_dir/templates/content/heading.md"; \
+    echo ""; \
+    echo "🎯 Next steps:"; \
+    echo "  1. Edit the config file to match your requirements"; \
+    echo "  2. Update the data file with your actual data"; \
+    echo "  3. Customize the heading template"; \
+    echo "  4. Generate the table: just tables-generate {{TABLE}}"
+
+# Internal helper to create table config
+_create-table-config TABLE:
+    @echo "Creating config file for {{TABLE}}..."
+    @mkdir -p "tables/{{TABLE}}/metadata"
+    @echo "table_id: {{TABLE}}" > "tables/{{TABLE}}/metadata/config.yaml"
+    @echo "title: 'New Table Title'" >> "tables/{{TABLE}}/metadata/config.yaml"
+    @echo "description: 'Description for {{TABLE}}'" >> "tables/{{TABLE}}/metadata/config.yaml"
+
+# Internal helper to create table data
+_create-table-data TABLE:
+    @echo "Creating data file for {{TABLE}}..."
+    @mkdir -p "tables/{{TABLE}}/data"
+    @echo '[{"column1": "Sample 1", "column2": "Sample 2"}]' > "tables/{{TABLE}}/data/data.json"
+
+# Internal helper to create table heading
+_create-table-heading TABLE:
+    @echo "Creating heading template for {{TABLE}}..."
+    @mkdir -p "tables/{{TABLE}}/templates/content"
+    @echo "# {{TABLE}} Title" > "tables/{{TABLE}}/templates/content/heading.md"
+    @echo "" >> "tables/{{TABLE}}/templates/content/heading.md"
+    @echo "Description for {{TABLE}} goes here." >> "tables/{{TABLE}}/templates/content/heading.md"
+
+# Clean generated files
+clean PATTERN="table-*":
+    @echo "🧹 Cleaning generated files: {{PATTERN}}"
+    @rm -f {{PATTERN}}.qmd {{PATTERN}}.docx {{PATTERN}}.pdf {{PATTERN}}.typ 2>/dev/null || true
+    @echo "✅ Cleaned {{PATTERN}} files"
+
+# Clean all generated files
+clean-all:
+    @echo "🧹 Cleaning all generated files..."
+    @rm -f table-*.qmd table-*.docx table-*.pdf table-*.typ 2>/dev/null || true
+    @rm -f examples/table-*.qmd examples/table-*.docx examples/table-*.pdf examples/table-*.typ 2>/dev/null || true
+    @rm -f quick-test.* 2>/dev/null || true
+    @echo "✅ All generated files cleaned"
+
+# Show system information
+info:
+    @echo "📋 Pollen-QMD System Information"
+    @echo ""
+    @echo "🗂️  Directory: $(pwd)"
+    @echo "🐚 Shell: $(echo $SHELL)"
+    @echo ""
+    @just check-deps
+    @echo ""
+    @echo "📊 Available data files:"
+    @ls -la data.* 2>/dev/null || echo "  No data files found"
+    @echo ""
+    @echo "📝 Template files:"
+    @echo "  Content templates:"
+    @ls -la content-templates/ 2>/dev/null || echo "    No content templates found"
+    @echo "  Typst templates:"
+    @ls -la typst-templates/ 2>/dev/null || echo "    No typst templates found"
+    @echo ""
+    @echo "📄 Generated QMD files:"
+    @ls -la *.qmd 2>/dev/null || echo "  No QMD files found"
+    @echo ""
+    @echo "📑 Final output files:"
+    @ls -la *.pdf *.docx 2>/dev/null || echo "  No output files found"
+
+# List all available recipes
+list:
+    @just --list
