@@ -1,0 +1,86 @@
+[
+  {
+    "theme": "User-friendliness",
+    "feature": "Ease of download"
+  },
+  {
+    "theme": "User-friendliness",
+    "feature": "Explicit samplesheet"
+  },
+  {
+    "theme": "User-friendliness",
+    "feature": "Graphical user interface"
+  },
+  {
+    "theme": "User-friendliness",
+    "feature": "MultiQC Summary report"
+  },
+  {
+    "theme": "User-friendliness",
+    "feature": "CSV and TSV format cleanup"
+  },
+  {
+    "theme": "User-friendliness",
+    "feature": "Remote monitoring"
+  },
+  {
+    "theme": "User-friendliness",
+    "feature": "Manual steps"
+  },
+  {
+    "theme": "User-friendliness",
+    "feature": "Flexible output location"
+  },
+  {
+    "theme": "Maintainability",
+    "feature": "Extensibility"
+  },
+  {
+    "theme": "Maintainability",
+    "feature": "Module testing"
+  },
+  {
+    "theme": "Maintainability",
+    "feature": "Test dataset"
+  },
+  {
+    "theme": "Scalability",
+    "feature": "Parallel execution"
+  },
+  {
+    "theme": "Scalability",
+    "feature": "HPC compatibility"
+  },
+  {
+    "theme": "Scalability",
+    "feature": "Resource allocation"
+  },
+  {
+    "theme": "Scalability",
+    "feature": "Dynamic retries"
+  },
+  {
+    "theme": "Scalability",
+    "feature": "Execution cache"
+  },
+  {
+    "theme": "Scalability",
+    "feature": "Reduced data footprint"
+  },
+  {
+    "theme": "Scalability",
+    "feature": "Reduced cloud computing costs"
+  },
+  {
+    "theme": "Reproducibility",
+    "feature": "Declarative parameters file"
+  },
+  {
+    "theme": "Reproducibility",
+    "feature": "Portability"
+  },
+  {
+    "theme": "Reproducibility",
+    "feature": "Save intermediate files"
+  }
+]

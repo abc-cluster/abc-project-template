@@ -1,0 +1,76 @@
+---
+# Table Configuration Metadata
+table_id: table-2
+title: "Performance Metrics Comparison"
+description: "Benchmark results comparing different analysis approaches"
+version: "1.0"
+author: "Abhi"
+created: "2025-01-26"
+updated: "2025-01-26"
+
+# Data Configuration
+data:
+  source_file: "performance.csv"
+  format: "csv"
+  
+  columns:
+    - name: "method"
+      display_name: "Method"
+      type: "string"
+      description: "Analysis method name"
+    - name: "runtime"
+      display_name: "Runtime (min)"
+      type: "numeric"
+      description: "Execution time in minutes"
+    - name: "memory"
+      display_name: "Memory (GB)"
+      type: "numeric"
+      description: "Peak memory usage in GB"
+    - name: "accuracy"
+      display_name: "Accuracy (%)"
+      type: "numeric"
+      description: "Analysis accuracy percentage"
+
+# Template Configuration
+templates:
+  typst:
+    custom_imports: "performance-imports.typ"  # Custom template for performance data
+    custom_functions: null
+  content:
+    heading: "performance-heading.md"
+    
+# Style Configuration  
+styles:
+  default: "bordered"  # Performance tables look better with borders
+  available: ["three-line", "bordered"]
+  
+# Output Configuration
+output:
+  filename_prefix: "performance-comparison"
+  formats:
+    typst:
+      enabled: true
+      styles: ["bordered", "three-line"]
+    docx: 
+      enabled: true
+      
+# Custom Settings
+settings:
+  typst:
+    font_size: "9pt"  # Smaller font for numeric data
+    column_widths: ["25%", "25%", "25%", "25%"]  # Equal columns
+    alternating_rows: true
+    number_format: "decimal"
+  docx:
+    table_style: "medium_grid"
+    
+# Academic metadata
+academic:
+  label: "tbl-performance"
+  caption: "Performance comparison of different MTB-seq analysis methods"
+  short_caption: "Performance comparison"
+  placement: "here"
+  
+dependencies:
+  shared_templates: true
+  external_data: false

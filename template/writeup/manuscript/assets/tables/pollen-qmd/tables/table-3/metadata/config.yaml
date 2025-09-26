@@ -1,0 +1,75 @@
+---
+# Table Configuration Metadata
+table_id: table-3
+title: "Dataset Summary Statistics"
+description: "Overview of datasets used in the analysis"
+version: "1.0"
+author: "Abhi"
+created: "2025-01-26"
+updated: "2025-01-26"
+
+# Data Configuration
+data:
+  source_file: "datasets.yaml"
+  format: "yaml"
+  
+  columns:
+    - name: "dataset"
+      display_name: "Dataset"
+      type: "string"
+      description: "Dataset identifier"
+    - name: "samples"
+      display_name: "Samples"
+      type: "integer"
+      description: "Number of samples"
+    - name: "coverage"
+      display_name: "Coverage"
+      type: "string"
+      description: "Average coverage depth"
+    - name: "source"
+      display_name: "Source"
+      type: "string"
+      description: "Data source/study"
+
+# Template Configuration
+templates:
+  typst:
+    custom_imports: null
+    custom_functions: null
+  content:
+    heading: "datasets-heading.md"
+    
+# Style Configuration  
+styles:
+  default: "three-line"  # Clean academic style
+  available: ["three-line", "bordered"]
+  
+# Output Configuration
+output:
+  filename_prefix: "dataset-summary"
+  formats:
+    typst:
+      enabled: true
+      styles: ["three-line"]
+    docx: 
+      enabled: true
+      
+# Custom Settings
+settings:
+  typst:
+    font_size: "10pt"
+    column_widths: ["20%", "15%", "20%", "45%"]  # Adjusted for content
+    alternating_rows: false  # Clean look
+  docx:
+    table_style: "plain"
+    
+# Academic metadata
+academic:
+  label: "tbl-datasets"
+  caption: "Summary of genomic datasets analyzed in this study"
+  short_caption: "Dataset summary"
+  placement: "here"
+  
+dependencies:
+  shared_templates: true
+  external_data: false
