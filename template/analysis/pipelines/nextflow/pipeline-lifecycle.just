@@ -5,7 +5,7 @@
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
 # Global variables
-NF_FILE := "data-pipeline.nf"
+NF_FILE := "hello-pipeline.nf"
 BASE_DIR := justfile_directory()
 EXPTS_DIR := BASE_DIR + "/experiments"
 SCRIPTS_DIR := BASE_DIR + "/scripts"
