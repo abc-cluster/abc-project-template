@@ -1,0 +1,68 @@
+# Results Manifest
+# Tracks locations of all result files across local and remote storage
+
+experiment_id: "20251017_1145_deve-test-pipeline"
+execution_id: "exec-20251017_1145-001"
+
+# Primary Storage Locations
+storage:
+  primary_location: ""
+  local_copy: "/Users/abhi/projects/template-analysis-and-writeup/template/analysis/pipelines/nextflow/experiments/development/runs/20251017_1145_deve-test-pipeline/results"
+  backup_locations: []
+
+# Result Categories
+results:
+  qc_reports:
+    multiqc:
+      remote: ""
+      local: "results/20251017_1145_deve-test-pipeline/qc/multiqc_report.html"
+      synced: false
+      size_mb: 0
+    
+  summary_stats:
+    metrics:
+      remote: ""
+      local: "results/20251017_1145_deve-test-pipeline/summary/metrics.csv"
+      synced: false
+      size_kb: 0
+    
+  figures:
+    plots:
+      remote: ""
+      local: "results/20251017_1145_deve-test-pipeline/figures/"
+      synced: false
+      size_mb: 0
+
+# Nextflow Reports
+nextflow_reports:
+  timeline:
+    remote: ""
+    local: "reports/timeline.html"
+    synced: false
+  trace:
+    remote: ""
+    local: "reports/trace.txt"
+    synced: false
+  report:
+    remote: ""
+    local: "reports/report.html"
+    synced: false
+
+# Key Outputs for Comparison
+key_outputs:
+  - name: "metric_1"
+    value: null
+    unit: ""
+    file: ""
+  - name: "metric_2"
+    value: null
+    unit: ""
+    file: ""
+
+# Sync History
+sync_history: []
+# Example:
+# - timestamp: "2025-10-17T08:30:00Z"
+#   direction: "pull"
+#   category: "qc"
+#   status: "success"

@@ -1,0 +1,28 @@
+# Nextflow Pipeline Lifecycle Management
+# Main justfile - imports pipeline-lifecycle recipes
+
+# Import the main pipeline lifecycle commands
+import 'pipeline-lifecycle.just'
+
+# Additional custom recipes can be added below
+
+# Quick aliases for common operations
+alias n := dev-new
+alias r := run-local
+alias l := list-all
+alias s := stats
+alias v := view
+
+# Show quick help with aliases
+help:
+    @echo "🧬 Nextflow Pipeline Lifecycle Management"
+    @echo "=========================================="
+    @echo ""
+    @echo "Quick Aliases:"
+    @echo "  just n <name> <purpose>  - Create new dev experiment"
+    @echo "  just r <exp_id>          - Run experiment locally"
+    @echo "  just l                   - List all experiments"
+    @echo "  just s                   - Show statistics"
+    @echo "  just v <exp_id>          - View experiment details"
+    @echo ""
+    @echo "Run 'just --list' to see all available commands"
