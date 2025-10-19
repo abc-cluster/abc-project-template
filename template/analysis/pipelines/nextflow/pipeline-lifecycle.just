@@ -1,8 +1,12 @@
 # Nextflow Pipeline Lifecycle Management
 # Comprehensive experiment tracking across development and production
+# Cross-platform support: Bash (Linux/macOS) and PowerShell (Windows)
 
-# Use bash for all commands (fish-compatible via Just)
+# Use bash for all commands by default (fish-compatible via Just)
 set shell := ["bash", "-euo", "pipefail", "-c"]
+
+# Shell type preference - can be overridden with: just SHELL_TYPE=pwsh <command>
+SHELL_TYPE := env_var_or_default("SHELL_TYPE", "bash")
 
 # Global variables
 NF_FILE := "hello-pipeline.nf"
@@ -12,13 +16,25 @@ SCRIPTS_DIR := BASE_DIR + "/scripts"
 CONFIGS_DIR := BASE_DIR + "/experiments/configs"
 REGISTRY_DB := BASE_DIR + "/.registry/experiments.db"
 DEFAULT_WORKSPACE := env_var_or_default("TOWER_WORKSPACE", "default")
+PLATFORM := os()
+
+# Script extensions based on shell type
+SCRIPT_EXT := if SHELL_TYPE == "pwsh" { ".ps1" } else { ".sh" }
 
 # Default recipe - show available commands
 default:
     @echo "🧬 Nextflow Pipeline Lifecycle Management"
     @echo "=========================================="
+    @echo "Platform: {{PLATFORM}} | Shell: {{SHELL_TYPE}}"
     @echo ""
     @just --list
+
+# Show shell information
+show-shell:
+    @echo "Current shell: {{SHELL_TYPE}}"
+    @echo "Platform: {{PLATFORM}}"
+    @echo "To use PowerShell: export SHELL_TYPE=pwsh  (or \$env:SHELL_TYPE=\"pwsh\" in PS)"
+    @echo "To use Bash (default): export SHELL_TYPE=bash"
 
 # ═══════════════════════════════════════════════════════════
 # SETUP & INITIALIZATION
@@ -57,7 +73,7 @@ clean-work days="30":
 
 # Create new development experiment
 dev-new name purpose="" params="default-params":
-    @bash "{{SCRIPTS_DIR}}/init-experiment.sh" \
+    @bash "{{SCRIPTS_DIR}}/init-experiment{{SCRIPT_EXT}}" \
         --type development \
         --name "{{name}}" \
         --purpose "{{purpose}}" \
