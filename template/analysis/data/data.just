@@ -1,3 +1,7 @@
+# Shell Platform Selection
+SHELL_TYPE := env_var_or_default('SHELL_TYPE', if os() == "windows" { "powershell" } else { "bash" })
+SCRIPT_EXT := if SHELL_TYPE == "powershell" { "ps1" } else { "sh" }
+SHELL_CMD := if SHELL_TYPE == "powershell" { "pwsh" } else { "bash" }
 #!/usr/bin/env just --justfile
 # Data Management Automation System
 # Enhanced data pipeline with validation, quality checks, and academic research features

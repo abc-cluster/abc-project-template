@@ -1,3 +1,7 @@
+# Shell Platform Selection
+SHELL_TYPE := env_var_or_default('SHELL_TYPE', if os() == "windows" { "powershell" } else { "bash" })
+SCRIPT_EXT := if SHELL_TYPE == "powershell" { "ps1" } else { "sh" }
+SHELL_CMD := if SHELL_TYPE == "powershell" { "pwsh" } else { "bash" }
 # Snakemake Experiments Management with Resume Support
 # Enhanced experiment tracking for failed and resumed Snakemake pipeline runs
 

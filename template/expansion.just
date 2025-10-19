@@ -1,6 +1,11 @@
 # Template Expansion Utilities
 # Progressive enhancement commands for beginners
 
+# Shell Platform Selection
+SHELL_TYPE := env_var_or_default('SHELL_TYPE', if os() == "windows" { "powershell" } else { "bash" })
+SCRIPT_EXT := if SHELL_TYPE == "powershell" { "ps1" } else { "sh" }
+SHELL_CMD := if SHELL_TYPE == "powershell" { "pwsh" } else { "bash" }
+
 # Variables
 copier_answers_file := ".copier-answers.yml"
 template_source := "gh:abhi18av/template-analysis-and-writeup"
@@ -9,6 +14,17 @@ template_source := "gh:abhi18av/template-analysis-and-writeup"
 default:
     @echo "🚀 Template Expansion Commands:"
     @just --list
+
+# Show current shell configuration
+show-shell:
+    @echo "🐚 Shell Configuration:"
+    @echo "  Shell Type: {{SHELL_TYPE}}"
+    @echo "  Script Extension: .{{SCRIPT_EXT}}"
+    @echo "  Shell Command: {{SHELL_CMD}}"
+    @echo ""
+    @echo "💡 To change shell:"
+    @echo "  export SHELL_TYPE=bash    # Use Bash (default on Unix)"
+    @echo "  export SHELL_TYPE=powershell    # Use PowerShell"
 
 # === PROJECT EXPANSION ===
 
