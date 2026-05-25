@@ -1,0 +1,26 @@
+id: "lang:r"
+description: "R language support — renv, package dev, tidyverse + bioinformatics tasks"
+version: "0.1.0"
+files:
+  - src/R/analysis.R
+  - tasks/r-dev.just
+adds_imports:
+  - tasks/r-dev.just
+post_grow_hint: |
+  Created src/R/ and tasks/r-dev.just.
+
+  Activate the R environment:
+    pixi install -e r-analysis
+    pixi run -e r-analysis R
+
+  Initialize renv (locks package versions for reproducibility):
+    just r-init
+
+  Create a new R package in packages/:
+    just r-create-package <name>
+
+  Run R tests:
+    just r-test
+
+  Note: renv.lock is already in the project root. Run `just r-init` if
+  renv is not yet active, or `just r-restore` to install from lockfile.
