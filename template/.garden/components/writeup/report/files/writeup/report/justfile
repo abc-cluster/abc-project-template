@@ -1,0 +1,130 @@
+# Shell Platform Selection
+SHELL_TYPE := env_var_or_default('SHELL_TYPE', if os() == "windows" { "powershell" } else { "bash" })
+SCRIPT_EXT := if SHELL_TYPE == "powershell" { "ps1" } else { "sh" }
+SHELL_CMD := if SHELL_TYPE == "powershell" { "pwsh" } else { "bash" }
+# Report Management Automation
+# Use with just (https://github.com/casey/just)
+
+# Set default shell
+set shell := ["bash", "-c"]
+
+# Variables
+reports_dir := justfile_directory()
+templates_dir := reports_dir + "/templates"
+output_dir := reports_dir + "/_output"
+reports_storage := reports_dir + "/reports"
+
+# Default recipe
+default:
+    @echo "Available report management commands:"
+    @just --list
+
+# === Setup and Initialization ===
+
+report-init: # Initialize report directory structure
+    mkdir -p "templates/"{technical,executive,project,grant} "_output/"{pdf,html,docx}/{draft,final} reports styles
+    touch _quarto.yml
+
+# === Template-based Creation ===
+
+create-technical name: # Create technical report
+    #!/usr/bin/env bash
+    mkdir -p "reports/{{name}}"
+    cp "templates/technical/technical_report.qmd" "reports/{{name}}/{{name}}.qmd"
+    echo "Created technical report in reports/{{name}}/"
+
+create-executive name: # Create executive summary
+    #!/usr/bin/env bash
+    mkdir -p "reports/{{name}}"
+    cp "templates/executive/executive_summary.qmd" "reports/{{name}}/{{name}}.qmd"
+    echo "Created executive summary in reports/{{name}}/"
+
+create-project name: # Create project report
+    #!/usr/bin/env bash
+    mkdir -p "reports/{{name}}"
+    cp "templates/project/project_report.qmd" "reports/{{name}}/{{name}}.qmd"
+    echo "Created project report in reports/{{name}}/"
+
+create-grant name: # Create grant progress report
+    #!/usr/bin/env bash
+    mkdir -p "reports/{{name}}"
+    cp "templates/grant/grant_progress.qmd" "reports/{{name}}/{{name}}.qmd"
+    echo "Created grant progress report in reports/{{name}}/"
+
+# === Rendering Reports ===
+
+render-report name format="pdf" version="draft": # Render a specific report
+    #!/usr/bin/env bash
+    if [ -f "reports/{{name}}/{{name}}.qmd" ]; then
+        mkdir -p "_output/{{format}}/{{version}}/{{name}}"
+        quarto render "reports/{{name}}/{{name}}.qmd" --to {{format}} --output-dir "_output/{{format}}/{{version}}/{{name}}"
+        echo "Rendered {{name}} to _output/{{format}}/{{version}}/{{name}}"
+    else
+        echo "Error: Report {{name}} not found"
+    fi
+
+# === Utility Functions ===
+
+list-reports: # List all reports
+    @echo "Available reports:"
+    @find reports -name "*.qmd" | sort
+
+list-templates: # List available templates
+    @echo "Available templates:"
+    @find templates -name "*.qmd" | sort
+
+clone-report source target: # Clone a report to create a new version
+    #!/usr/bin/env bash
+    if [ -f "reports/{{source}}/{{source}}.qmd" ]; then
+        mkdir -p "reports/{{target}}"
+        cp -r "reports/{{source}}/"* "reports/{{target}}/"
+        if [ -f "reports/{{target}}/{{source}}.qmd" ]; then
+            mv "reports/{{target}}/{{source}}.qmd" "reports/{{target}}/{{target}}.qmd"
+        fi
+        echo "Cloned {{source}} to {{target}}"
+    else
+        echo "Error: Source report {{source}} not found"
+    fi
+
+clean: # Clean output directories
+    rm -rf "_output/pdf/draft/"* "_output/html/draft/"*
+    echo "Cleaned draft output directories"
+
+clean-all: # Clean all output directories
+    rm -rf "_output/"*
+    echo "Cleaned all output directories"
+
+# === Advanced Functions ===
+
+batch-render format="pdf": # Render all reports to specified format
+    #!/usr/bin/env bash
+    echo "Batch rendering all reports to {{format}}..."
+    for report_dir in reports/*/; do
+        if [ -d "$report_dir" ]; then
+            report_name=$(basename "$report_dir")
+            report_file="$report_dir$report_name.qmd"
+            if [ -f "$report_file" ]; then
+                echo "Rendering $report_name..."
+                mkdir -p "_output/{{format}}/batch/$report_name"
+                quarto render "$report_file" --to {{format}} --output-dir "_output/{{format}}/batch/$report_name"
+            fi
+        fi
+    done
+    echo "Batch rendering complete"
+
+export-pdf name version="draft": # Export report as PDF with timestamp
+    #!/usr/bin/env bash
+    if [ -f "reports/{{name}}/{{name}}.qmd" ]; then
+        timestamp=$(date +"%Y%m%d_%H%M%S")
+        output_dir="_output/pdf/{{version}}/{{name}}"
+        mkdir -p "$output_dir"
+        
+        # Render to PDF
+        quarto render "reports/{{name}}/{{name}}.qmd" --to pdf --output-dir "$output_dir"
+        
+        # Copy with timestamp
+        cp "$output_dir/{{name}}.pdf" "$output_dir/{{name}}_$timestamp.pdf"
+        echo "Exported {{name}} to $output_dir/{{name}}_$timestamp.pdf"
+    else
+        echo "Error: Report {{name}} not found"
+    fi

@@ -1,0 +1,62 @@
+# Tower Run Information
+# Metadata fetched from Seqera Platform (Tower)
+
+experiment_id: "20251017_1218_deve-hello-default"
+tower_run_id: ""
+fetched_at: ""
+
+# Run URLs
+launch_url: ""
+view_url: ""
+
+# Workflow Details
+workflow:
+  status: ""  # SUBMITTED, RUNNING, SUCCEEDED, FAILED, CANCELLED
+  started: ""
+  completed: ""
+  duration: ""
+  duration_seconds: 0
+
+# Compute Environment
+compute:
+  workspace: "default"
+  compute_environment: ""
+  profile: ""
+  work_dir: ""
+
+# Pipeline Information
+pipeline:
+  name: ""
+  version: ""
+  revision: ""
+  commit_id: ""
+  repository: ""
+
+# Resource Usage
+resources:
+  cpus: 0
+  memory_gb: 0
+  cpu_hours: 0
+  cost_usd: 0
+
+# Task Statistics
+tasks:
+  total: 0
+  succeeded: 0
+  failed: 0
+  cached: 0
+  pending: 0
+  running: 0
+
+# Error Information (if failed)
+error:
+  message: ""
+  task_name: ""
+  exit_code: null
+
+# Reports Available
+reports:
+  execution_report: false
+  timeline_report: false
+  trace_report: false
+  logs: false

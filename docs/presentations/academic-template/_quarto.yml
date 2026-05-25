@@ -1,0 +1,28 @@
+project:
+  type: default
+  output-dir: ../output
+
+format:
+  revealjs:
+    theme: [default, assets/custom.scss]
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    logo: assets/logo.png
+    footer: "Comprehensive Academic Research Template"
+    transition: fade
+    background-transition: fade
+    highlight-style: github
+    code-line-numbers: true
+    code-overflow: wrap
+  pptx:
+    reference-doc: assets/template.pptx
+  pdf:
+    documentclass: beamer
+    theme: metropolis
+
+bibliography: assets/references.bib
+
+execute:
+  echo: true
+  eval: false

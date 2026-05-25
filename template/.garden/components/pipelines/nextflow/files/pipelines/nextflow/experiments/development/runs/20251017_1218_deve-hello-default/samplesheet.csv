@@ -1,0 +1,3 @@
+sample_id,input_file,condition
+sample1,/path/to/input1.csv,control
+sample2,/path/to/input2.csv,treatment

@@ -1,0 +1,22 @@
+;; Example: https://github.com/scicloj/clay/blob/3a4f3c29971f881725ec962a3b28c0ce603e6eb6/resources/clay-default.edn#L1
+
+{:base-target-path "notebooks/compiled"
+ :subdirs-to-sync  ["notebooks/src"]
+ :format           [:html]
+ :show             true
+ :browse           true
+ :live-reload      false
+ :run-quarto       true
+ :quarto           {:format                {:html     {:toc       true
+                                                       :toc-depth 4
+                                                       :theme     :cosmo}
+                                            :revealjs {:theme                 :solarized
+                                                       :navigation-mode       :vertical
+                                                       :transition            :slide
+                                                       :background-transition :fade
+                                                       :incremental           true}}
+                    :code-block-background true}
+ :kindly/options   {:datatables {:paging          false
+                                 :scrollY         400
+                                 :sPaginationType "full_numbers"
+                                 :order           []}}}

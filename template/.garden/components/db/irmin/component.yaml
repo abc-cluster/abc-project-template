@@ -1,0 +1,8 @@
+id: "db:irmin"
+description: "irmin database scaffolding"
+status: "experimental"
+version: "0.1.0"
+files:
+  - databases/irmin/README.md
+post_grow_hint: |
+  Restored databases/irmin/ scaffolding.

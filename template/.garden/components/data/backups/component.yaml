@@ -1,0 +1,10 @@
+id: "data:backups"
+description: "Versioned and timestamped data backups"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/backups/.gitkeep
+  - data/backups/101_timestamped/.gitkeep
+  - data/backups/102_versioned/.gitkeep
+post_grow_hint: |
+  Created data/backups/ stage directory.

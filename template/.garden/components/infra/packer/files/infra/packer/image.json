@@ -1,0 +1,27 @@
+{
+    "variables": {
+        "aws_region": "us-east-1",
+        "source_ami": "ami-0c02fb55956c7d316",
+        "instance_type": "t2.micro"
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "{{user `aws_region`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "instance_type": "{{user `instance_type`}}",
+            "ssh_username": "ubuntu",
+            "ami_name": "my-app-base-{{timestamp}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt-get update",
+                "sudo apt-get install -y docker.io",
+                "sudo systemctl enable docker"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,3 @@
+# Publication Data
+# Final datasets used in published research with DOI tracking
+# Use `just data::prepare-publication <dataset> <paper_name>` to prepare publication datasets

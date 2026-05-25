@@ -1,0 +1,43 @@
+# Example GitHub Actions workflow that runs the safety net.
+# Copy to .github/workflows/template-baselines.yml when ready to enable.
+#
+# This workflow runs `tests/check-baselines.sh` on every PR. If any scenario's
+# generated output diverges from the committed baseline, the PR is blocked
+# until either:
+#   1. The drift is intentional → run snapshot-baselines.sh and commit the
+#      updated baselines (with explanation in the PR description), or
+#   2. The drift is a regression → fix the template change.
+
+name: Template baselines
+
+on:
+  pull_request:
+    paths:
+      - 'template/**'
+      - 'copier.yml'
+      - 'ctt.toml'
+      - 'ctt-*.toml'
+      - 'tests/**'
+  push:
+    branches: [master, main]
+
+jobs:
+  check-baselines:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install copier-template-tester
+        run: pipx install copier-template-tester
+
+      - name: Verify baselines reproduce
+        run: ./tests/check-baselines.sh
+
+      # If you want a faster signal on most PRs, add a fast-path check:
+      # - name: Quick check (single scenario)
+      #   run: ./tests/check-baselines.sh ctt-minimal.toml

@@ -1,0 +1,295 @@
+#+TITLE: Computational Experiments
+#+AUTHOR: {{author}}
+#+STARTUP: showall
+#+PROPERTY: EXPERIMENT_TYPE all
+#+PROPERTY: STATUS all
+#+PROPERTY: PRIORITY all
+#+PROPERTY: TAGS all
+#+PROPERTY: CLOCK_INTO_DRAWER t
+#+PROPERTY: LOG_INTO_DRAWER t
+
+
+
+| Experiment ID                | Stage                   | Author   | Date/Time (UTC)     | Description           | Key Result/Metric |
+|-----------------------------+-------------------------+----------+---------------------+-----------------------+-------------------|
+| 2025-06-10T2052Z_mean_imp   | 04-feat_eng/41_feature_creation | abhi18av | 2025-06-10T20:52Z  | Mean imputation      | F1: 0.83          |
+| 2025-06-11T1340Z_domain_feat| 04-feat_eng/41_feature_creation | abhi18av | 2025-06-11T13:40Z  | Domain features       | F1: 0.86          |
+
+* Experiments
+:PROPERTIES:
+:EXPERIMENT_TYPE: all
+:STATUS: active
+:PRIORITY: high
+:TAGS: experiments
+:END:
+
+** Quick Reference
+:PROPERTIES:
+:EXPERIMENT_TYPE: reference
+:STATUS: active
+:PRIORITY: high
+:TAGS: reference
+:END:
+
+*** Experiment Types
+- [[#data-processing][Data Processing]]
+- [[#exploration][Exploration]]
+- [[#analysis][Analysis]]
+- [[#modeling][Modeling]]
+- [[#deployment][Deployment]]
+
+*** Status Tags
+- TODO
+- IN_PROGRESS
+- DONE
+- FAILED
+- ARCHIVED
+
+*** Priority Levels
+- P0 (Critical)
+- P1 (High)
+- P2 (Medium)
+- P3 (Low)
+
+** Templates
+:PROPERTIES:
+:EXPERIMENT_TYPE: template
+:STATUS: active
+:PRIORITY: high
+:TAGS: templates
+:END:
+
+*** Data Processing Template
+:PROPERTIES:
+:EXPERIMENT_TYPE: data
+:STATUS: template
+:PRIORITY: P2
+:TAGS: data_processing
+:END:
+
+**** Objective
+- Process and prepare data for analysis
+- Ensure data quality and consistency
+- Create reproducible data pipeline
+
+**** Input Data
+- Source:
+- Format:
+- Size:
+- Last Updated:
+
+**** Processing Steps
+- [ ] Data loading
+  - [ ] Source connection
+  - [ ] Initial validation
+  - [ ] Size check
+- [ ] Data cleaning
+  - [ ] Handle missing values
+  - [ ] Remove duplicates
+  - [ ] Fix inconsistencies
+- [ ] Data transformation
+  - [ ] Normalization
+  - [ ] Encoding
+  - [ ] Feature scaling
+
+**** Output
+- Format:
+- Location:
+- Validation:
+
+**** Dependencies
+- Libraries:
+- External Tools:
+- Compute Resources:
+
+**** Notes
+-
+
+*** Model Training Template
+:PROPERTIES:
+:EXPERIMENT_TYPE: modeling
+:STATUS: template
+:PRIORITY: P1
+:TAGS: model_training
+:END:
+
+**** Objective
+- Train and evaluate model performance
+- Optimize hyperparameters
+- Compare with baseline
+
+**** Model Details
+- Algorithm:
+- Version:
+- Framework:
+
+**** Training Configuration
+- [ ] Data split
+  - [ ] Training:
+  - [ ] Validation:
+  - [ ] Test:
+- [ ] Hyperparameters
+  - [ ] Learning rate:
+  - [ ] Batch size:
+  - [ ] Epochs:
+  - [ ] Other:
+- [ ] Training setup
+  - [ ] Hardware:
+  - [ ] Distributed:
+  - [ ] Checkpointing:
+
+**** Evaluation Metrics
+- [ ] Primary metrics
+  - [ ] Metric 1:
+  - [ ] Metric 2:
+- [ ] Secondary metrics
+  - [ ] Metric 1:
+  - [ ] Metric 2:
+
+**** Results
+- Training time:
+- Best performance:
+- Comparison with baseline:
+
+**** Notes
+-
+
+*** Feature Engineering Template
+:PROPERTIES:
+:EXPERIMENT_TYPE: feature_engineering
+:STATUS: template
+:PRIORITY: P2
+:TAGS: feature_engineering
+:END:
+
+**** Objective
+- Create new features
+- Select optimal feature set
+- Improve model performance
+
+**** Input Features
+- Original features:
+- Data types:
+- Missing values:
+
+**** Feature Creation
+- [ ] Domain features
+  - [ ] Feature 1:
+  - [ ] Feature 2:
+- [ ] Statistical features
+  - [ ] Feature 1:
+  - [ ] Feature 2:
+- [ ] Interaction features
+  - [ ] Feature 1:
+  - [ ] Feature 2:
+
+**** Feature Selection
+- [ ] Methods used
+  - [ ] Correlation analysis
+  - [ ] Importance ranking
+  - [ ] Dimensionality reduction
+- [ ] Selected features
+  - [ ] Feature 1:
+  - [ ] Feature 2:
+
+**** Impact Analysis
+- [ ] Performance improvement:
+- [ ] Feature importance:
+- [ ] Computational cost:
+
+**** Notes
+-
+
+*** Model Deployment Template
+:PROPERTIES:
+:EXPERIMENT_TYPE: deployment
+:STATUS: template
+:PRIORITY: P1
+:TAGS: deployment
+:END:
+
+**** Objective
+- Deploy model to production
+- Ensure scalability and reliability
+- Monitor performance
+
+**** Deployment Configuration
+- [ ] Infrastructure
+  - [ ] Cloud provider:
+  - [ ] Instance type:
+  - [ ] Scaling rules:
+- [ ] Model serving
+  - [ ] API design:
+  - [ ] Containerization:
+  - [ ] Load balancing:
+
+**** Monitoring Setup
+- [ ] Metrics
+  - [ ] Performance metrics:
+  - [ ] System metrics:
+  - [ ] Business metrics:
+- [ ] Alerts
+  - [ ] Performance thresholds:
+  - [ ] Error rates:
+  - [ ] Resource usage:
+
+**** Rollout Plan
+- [ ] Phases
+  - [ ] Phase 1:
+  - [ ] Phase 2:
+  - [ ] Phase 3:
+- [ ] Rollback plan
+  - [ ] Triggers:
+  - [ ] Procedures:
+
+**** Notes
+-
+
+*** A/B Testing Template
+:PROPERTIES:
+:EXPERIMENT_TYPE: analysis
+:STATUS: template
+:PRIORITY: P1
+:TAGS: ab_testing
+:END:
+
+**** Objective
+- Compare model versions
+- Measure impact
+- Make data-driven decisions
+
+**** Experiment Design
+- [ ] Hypothesis
+  - [ ] Null hypothesis:
+  - [ ] Alternative hypothesis:
+- [ ] Sample size
+  - [ ] Control group:
+  - [ ] Treatment group:
+- [ ] Duration
+  - [ ] Start date:
+  - [ ] End date:
+
+**** Metrics
+- [ ] Primary metrics
+  - [ ] Metric 1:
+  - [ ] Metric 2:
+- [ ] Secondary metrics
+  - [ ] Metric 1:
+  - [ ] Metric 2:
+
+**** Analysis
+- [ ] Statistical tests
+  - [ ] Test type:
+  - [ ] Significance level:
+- [ ] Results
+  - [ ] P-value:
+  - [ ] Effect size:
+  - [ ] Confidence intervals:
+
+**** Decision
+- [ ] Recommendation:
+- [ ] Next steps:
+- [ ] Documentation:
+
+**** Notes
+-

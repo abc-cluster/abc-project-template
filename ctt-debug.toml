@@ -1,0 +1,25 @@
+[template]
+src_path = "."
+
+[config]
+output_dir = ".ctt-debug"
+cleanup = false
+
+# Just one test to debug the issue
+[output."debug-test"]
+project_name = "Debug Test Project"
+short_name = "debug-test"
+description = "A test project for debugging CTT issues"
+author_name = "Debug User"
+author_email = "debug@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+include_publication_templates = false
+include_jujutsu = false
+include_fossil = false

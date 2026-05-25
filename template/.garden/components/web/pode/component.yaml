@@ -1,0 +1,11 @@
+id: "web:pode"
+description: "Pode (PowerShell) web framework"
+status: "experimental"
+version: "0.1.0"
+files:
+  - web/pode/backend/file.ps1
+  - web/pode/backend/ping-pong.ps1
+  - web/pode/backend/server.ps1
+  - web/pode/frontend/web.ps1
+post_grow_hint: |
+  Restored web/pode/ scaffolding.

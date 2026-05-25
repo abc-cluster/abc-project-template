@@ -1,0 +1,60 @@
+# Execution Details
+execution_id: "exec-20251017_1145-001"
+experiment_id: "20251017_1145_deve-test-pipeline"
+
+# Execution Environment
+environment:
+  scenario: "local-local"
+  head_location: "local"  # local, cloud
+  tasks_location: "local"  # local, aws-batch, slurm
+  
+# Git Information (filled by track-git-commit.sh)
+git:
+  repository: ""
+  branch: ""
+  commit_hash: ""
+  commit_message: ""
+  is_dirty: false
+  uncommitted_changes: []
+
+# Tower Information
+tower:
+  enabled: true
+  run_id: ""
+  workspace: "default"
+  launch_url: ""
+  compute_environment: ""
+
+# Nextflow Execution
+nextflow:
+  version: ""
+  command: ""
+  config_files: []
+  work_dir: ""
+  resume: false
+  
+# Execution Timeline
+timeline:
+  started_at: ""
+  completed_at: ""
+  duration_seconds: 0
+  duration_human: ""
+  
+# Status
+status: "planned"  # planned, running, completed, failed, cancelled
+exit_code: null
+success: null
+
+# Resource Usage
+resources:
+  total_cpus: 0
+  peak_memory_gb: 0
+  total_cpu_hours: 0
+  estimated_cost_usd: 0
+
+# Resume Information
+resume:
+  is_resumed: false
+  parent_execution_id: null
+  cached_tasks: 0
+  rerun_tasks: 0

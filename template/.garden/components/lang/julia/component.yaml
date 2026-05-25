@@ -1,0 +1,11 @@
+id: "lang:julia"
+description: "Julia package development automation (create / test / build)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/julia.just
+adds_imports:
+  - tasks/julia.just
+post_grow_hint: |
+  Julia package recipes added. Run `just create-julia-package <name>` to scaffold.
+  Note: status is experimental — recipe bodies are stubs awaiting real impl.

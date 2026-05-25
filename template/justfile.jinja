@@ -1,0 +1,98 @@
+# Top-level justfile — imports from tasks/ (Phase 4: consolidated layout)
+# Recipe organization: each *.just under tasks/ owns one area.
+# The garden import block below is managed by .garden/garden.py — don't edit by hand.
+
+import "tasks/_shell.just"          # shared SHELL_TYPE / SCRIPT_EXT / SHELL_CMD
+import "tasks/_introspection.just"  # just tour / doctor / where
+import "tasks/garden.just"          # seed-bank manager: just grow / prune / garden
+import "tasks/expansion.just"       # adding new components / scaling project
+
+# Always-active areas (everyday recipes)
+import "tasks/notebooks.just"
+import "tasks/data.just"
+import "tasks/scripts.just"
+import "tasks/pipelines.just"
+import "tasks/quality.just"
+
+# Language and packaging
+import "tasks/packages.just"
+import "tasks/python.just"
+import "tasks/r.just"
+
+# Writeup
+import "tasks/writeup.just"
+import "tasks/manuscript.just"
+
+{% if include_jujutsu %}import "tasks/jj.just"{% endif %}
+{% if include_jujutsu and include_fossil %}import "tasks/hybrid-vcs.just"{% endif %}
+
+# >>> garden imports (managed by .garden/garden.py) >>>
+# <<< garden imports <<<
+
+# {{ project_name }} - Data Science Project Tasks
+
+module_name := "{{module_name}}"
+
+# list commands
+default:
+    @just --list
+
+# update pre-commit file
+pc-update:
+  uvx pre-commit-update
+
+# Run full pipeline with DVC
+pipeline:
+    dvc repro
+
+# Visualize pipeline
+pipeline-dag:
+    dvc dag
+
+# Clean intermediate files
+clean:
+    rm -rf data/processed/*
+    rm -rf outputs/*
+
+project-fish:
+    ./.fish/run_fish.sh
+
+# === Version Control Management ===
+init-fossil-repos: # Initialize Fossil repositories for manuscript and analysis
+    # Initialize manuscript repository
+    cd writeup/manuscript && fossil init manuscript.fossil
+    fossil open manuscript.fossil
+    fossil add .
+    fossil commit -m "Initial manuscript commit"
+    cd ../..
+    
+    # Initialize analysis repository
+    cd analysis && fossil init analysis.fossil
+    fossil open analysis.fossil
+    fossil add .
+    fossil commit -m "Initial analysis commit"
+    cd ..
+
+sync-fossil-repos: # Sync Fossil repositories with Git
+    # Sync manuscript
+    cd writeup/manuscript
+    fossil add .
+    fossil commit -m "Sync with Git at $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || true
+    cd ../..
+    
+    # Sync analysis
+    cd analysis
+    fossil add .
+    fossil commit -m "Sync with Git at $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || true
+    cd ..
+
+backup-fossil-repos: # Backup Fossil repositories
+    # Backup manuscript
+    cd writeup/manuscript
+    fossil backup manuscript-backup-$(date -u +"%Y-%m-%dT%H:%M:%SZ").fossil
+    cd ../..
+    
+    # Backup analysis
+    cd analysis
+    fossil backup analysis-backup-$(date -u +"%Y-%m-%dT%H:%M:%SZ").fossil
+    cd ..

@@ -1,0 +1,11 @@
+id: "lang:go"
+description: "Go module development (build, test)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/go.just
+adds_imports:
+  - tasks/go.just
+post_grow_hint: |
+  go recipes added under tasks/go.just.
+  Note: experimental — recipe bodies are stubs.

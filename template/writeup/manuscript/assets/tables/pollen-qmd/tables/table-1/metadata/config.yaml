@@ -1,0 +1,75 @@
+---
+# Table Configuration Metadata
+table_id: table-1
+title: "Software Features and Themes"
+description: "Comparison of MTB-seq features organized by themes"
+version: "1.0"
+author: "Abhi"
+created: "2025-01-26"
+updated: "2025-01-26"
+
+# Data Configuration
+data:
+  # Specify which data file to use (relative to table's data directory)
+  # The system will auto-detect format based on extension
+  source_file: "features.json"
+  format: "json"  # json, csv, yaml
+  
+  # Column configuration for the table
+  columns:
+    - name: "theme"
+      display_name: "Theme"
+      type: "string"
+      description: "Software feature theme/category"
+    - name: "feature" 
+      display_name: "Feature"
+      type: "string"
+      description: "Specific software feature"
+
+# Template Configuration
+templates:
+  # Custom templates specific to this table (optional)
+  # If not specified, will use shared templates
+  typst:
+    # Custom Typst templates for this table
+    custom_imports: null  # Use shared templates
+    custom_functions: null  # Use shared templates
+  content:
+    heading: "features-heading.md"  # Custom heading template
+    
+# Style Configuration  
+styles:
+  default: "three-line"  # Default style for Typst output
+  available: ["three-line", "bordered"]  # Available styles for this table
+  
+# Output Configuration
+output:
+  filename_prefix: "features-table"
+  formats:
+    typst:
+      enabled: true
+      styles: ["three-line", "bordered"]
+    docx: 
+      enabled: true
+      
+# Custom Settings
+settings:
+  # Table-specific rendering options
+  typst:
+    font_size: "10pt"
+    column_widths: ["30%", "70%"]  # Custom column ratios
+    alternating_rows: true
+  docx:
+    table_style: "light_grid"
+    
+# Metadata for academic publishing
+academic:
+  label: "tbl-software-features"
+  caption: "Overview of MTB-seq software features organized by functional themes"
+  short_caption: "MTB-seq software features"
+  placement: "here"
+  
+# Dependencies
+dependencies:
+  shared_templates: true
+  external_data: false  # No external API calls needed

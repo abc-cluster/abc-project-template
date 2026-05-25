@@ -1,0 +1,11 @@
+id: "lang:powershell"
+description: "PowerShell module development"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/powershell.just
+adds_imports:
+  - tasks/powershell.just
+post_grow_hint: |
+  powershell recipes added under tasks/powershell.just.
+  Note: experimental — recipe bodies are stubs.

@@ -1,0 +1,11 @@
+id: "lang:rust"
+description: "Rust crate development (cargo)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/rust.just
+adds_imports:
+  - tasks/rust.just
+post_grow_hint: |
+  rust recipes added under tasks/rust.just.
+  Note: experimental — recipe bodies are stubs.

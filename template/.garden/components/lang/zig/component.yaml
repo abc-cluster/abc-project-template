@@ -1,0 +1,11 @@
+id: "lang:zig"
+description: "Zig package development"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/zig.just
+adds_imports:
+  - tasks/zig.just
+post_grow_hint: |
+  zig recipes added under tasks/zig.just.
+  Note: experimental — recipe bodies are stubs.

@@ -1,0 +1,11 @@
+description: Deploy Nomad with Docker as the container runtime.
+series: jammy
+applications:
+  nomad:
+    charm: nomad
+    channel: stable
+    num_units: 1
+    trust: true
+    options:
+      driver_docker_enable: true
+      driver_podman_enable: false

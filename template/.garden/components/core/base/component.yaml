@@ -1,0 +1,11 @@
+id: "core:base"
+description: "Minimal project base — README + .editorconfig + .gitignore"
+status: "stable"
+version: "1.0.0"
+files:
+  - README.md
+  - .editorconfig
+adds_imports: []
+post_grow_hint: |
+  Created README.md and .editorconfig.
+  Edit README.md to describe your project.

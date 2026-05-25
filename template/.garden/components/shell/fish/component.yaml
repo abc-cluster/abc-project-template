@@ -1,0 +1,14 @@
+id: "shell:fish"
+description: "Fish shell aliases, completions, config, and starship prompt"
+status: "experimental"
+version: "0.1.0"
+files:
+  - .fish/aliases.sh
+  - .fish/completions.sh
+  - .fish/config.fish
+  - .fish/functions.sh
+  - .fish/history
+  - .fish/run_fish.sh
+  - .fish/starship.toml
+post_grow_hint: |
+  Restored .fish from seed bank.

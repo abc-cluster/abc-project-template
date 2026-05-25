@@ -1,0 +1,71 @@
+# Launch and set up LXD environment for data science on macOS via Multipass
+setup-lxd-macos:
+    bash infra/containers/lxd/setup-multipass-lxd.sh
+
+setup-graalvm:
+    bash scripts/bash/setup_java.sh
+
+setup-jbang-java:
+    jbang jdk install 17 `sdk home java 17.0.4.1-tem`
+    jbang jdk java-env
+
+install-julia:
+    juliaup add lts
+
+start-lakefs:
+    python -m lakefs.quickstart
+
+install-jbang-java:
+    jbang jdk list --available
+    jbang jdk install 17
+    jbang jdk default 17
+
+install-eget:
+    eget https://github.com/zyedidia/eget --to ./pbin
+
+install-has:
+    curl -sL https://git.io/_has > ./pbin/has
+    chmod +x ./pbin/has
+
+check-system:
+    ./pbin/has
+
+{% if use_multipass %}
+# === Multipass VM Management ===
+
+# Set up Multipass VM for data science
+vm-setup:
+    @bash infrastructure/multipass/setup.sh
+
+# Start the VM
+vm-start:
+    @multipass start {{ project_name|lower|replace(" ", "-") }}
+
+# Stop the VM
+vm-stop:
+    @multipass stop {{ project_name|lower|replace(" ", "-") }}
+
+# Access VM shell
+vm-shell:
+    @multipass shell {{ project_name|lower|replace(" ", "-") }}
+
+# Start Jupyter Lab in VM
+vm-jupyter:
+    @multipass exec {{ project_name|lower|replace(" ", "-") }} -- sudo -H -u datascientist jupyter lab --ip=0.0.0.0 --port=8888 --no-browser
+
+# Mount project files to VM
+vm-mount:
+    @multipass mount . {{ project_name|lower|replace(" ", "-") }}:/home/datascientist/{{ project_name|lower|replace(" ", "-") }}
+
+# Delete VM
+vm-delete:
+    @multipass delete {{ project_name|lower|replace(" ", "-") }}
+    @multipass purge
+{% endif %}
+
+
+# Build and push Docker image
+docker-build:
+    docker build -t {{ project_name|lower|replace(" ", "-") }} .
+docker-push:
+    docker push {{ registry_url }}/{{ project_name|lower|replace(" ", "-") }}

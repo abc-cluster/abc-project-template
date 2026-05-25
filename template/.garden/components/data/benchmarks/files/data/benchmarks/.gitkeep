@@ -1,0 +1,3 @@
+# Benchmark Datasets
+# Standard benchmark datasets for academic comparisons
+# Use `just data::add-benchmark <name> <path>` to add benchmarks

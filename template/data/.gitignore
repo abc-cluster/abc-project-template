@@ -1,0 +1,257 @@
+# Enhanced Data Directory .gitignore
+# Supports academic research workflows with automated data management
+
+# === DIRECTORIES ===
+01_raw/
+02_intermediate/
+03_primary/
+04_feature/
+05_model_input/
+06_models/
+07_model_output/
+08_reporting/
+09_logs/
+10_backups/
+11_benchmarks/
+12_publications/
+13_external_validation/
+14_collaboration/
+15_pipelines/
+15_nextflow/
+
+# === GENERAL DATA FILES ===
+# Ignore all data files by default for security and size management
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.json
+*.jsonl
+*.tsv
+*.txt
+*.dat
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.feather
+*.arrow
+
+# === LARGE FILES AND BINARY DATA ===
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Image and media files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.tif
+*.svg
+*.mp4
+*.avi
+*.mkv
+*.mp3
+*.wav
+
+# Compressed archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# === AUTOMATICALLY GENERATED FILES ===
+# Data processing outputs
+*_processed_*
+*_cleaned_*
+*_validated_*
+*_profiled_*
+*_backup_*
+*_split_*
+
+# Quality reports (keep source, ignore generated)
+*_quality_report.html
+*_validation_report.yaml
+*_profile.yaml
+
+# Temporary files
+tmp_*
+temp_*
+.tmp_*
+*.tmp
+
+# === SENSITIVE AND PRIVATE DATA ===
+# Personal identifiable information
+*_pii_*
+*_personal_*
+*_sensitive_*
+
+# Collaboration data (protect institutional data)
+14_collaboration/*/shared/*.csv
+14_collaboration/*/shared/*.xlsx
+14_collaboration/*/shared/*.json
+14_collaboration/*/federated/data/
+
+# === BACKUP AND VERSIONING ===
+# Backup files (usually too large for git)
+10_backups/timestamped/*.csv
+10_backups/timestamped/*.xlsx
+10_backups/timestamped/*.parquet
+10_backups/versioned/*.csv
+10_backups/versioned/*.xlsx
+10_backups/versioned/*.parquet
+
+# === SYSTEM AND CACHE FILES ===
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# R files
+.Rdata
+.Rhistory
+.RData
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# === PRESERVE IMPORTANT FILES ===
+# Always include these files
+!.gitignore
+!.gitkeep
+!*.md
+!*.org
+!data.just
+!*.yaml
+!*.yml
+!*.toml
+!*.ini
+!*.conf
+!*.config
+
+# Preserve directory structure
+!*/
+
+# === METADATA AND CONFIGURATION ===
+# Keep metadata files (small and important)
+!*.metadata.yaml
+!*.metadata.yml
+!*_metadata.yaml
+!*_metadata.yml
+
+# Keep data registry and configuration
+!data_registry.yaml
+!data_config.yaml
+!quality_config.yaml
+
+# === ACADEMIC RESEARCH SPECIFIC ===
+# Keep publication datasets (but limit size)
+12_publications/*/datasets/*.csv
+12_publications/*/datasets/*.xlsx
+# But preserve metadata and documentation
+!12_publications/*/metadata/
+!12_publications/*/README.md
+!12_publications/*/LICENSE
+!12_publications/*/CITATION
+
+# Keep benchmark datasets under 10MB (add LFS for larger)
+11_benchmarks/standard/*.csv
+11_benchmarks/standard/*.xlsx
+# But preserve metadata
+!11_benchmarks/standard/*.metadata.yaml
+!11_benchmarks/*/README.md
+
+# === VALIDATION AND QUALITY REPORTS ===
+# Keep small validation and quality files
+!*_validation_summary.yaml
+!*_quality_summary.yaml
+!data_quality_config.yaml
+
+# === EXTERNAL VALIDATION ===
+# Protect external validation data
+13_external_validation/*/data/
+13_external_validation/*/*.csv
+13_external_validation/*/*.xlsx
+
+# === LOG FILES ===
+# Keep important logs but limit size
+*.log
+!data_pipeline.log
+!validation.log
+!quality_check.log
+
+# === SPECIAL CASES ===
+# Sample datasets (keep small examples)
+!sample_*.csv
+!example_*.csv
+!demo_*.csv
+!test_*.csv
+
+# Templates and schemas
+!*_template.*
+!*_schema.*
+!schema/
+
+# === COLLABORATION AGREEMENTS ===
+# Keep legal documents and agreements
+!14_collaboration/*/agreements/*.pdf
+!14_collaboration/*/agreements/*.docx
+!14_collaboration/*/agreements/*.md
+
+# === SIZE LIMITS REMINDER ===
+# Files larger than 100MB should use Git LFS
+# Consider using DVC for data version control
+# Encrypt sensitive data before committing
+
+# === PIPELINE FILES ===
+# Directory is now included
+15_pipelines/
+
+# Work directories (can be large and regenerated)
+15_pipelines/*/experiments/*/work/
+15_pipelines/*/workflows/*/work/
+
+# Large intermediate files
+15_pipelines/**/*.bam
+15_pipelines/**/*.sam
+15_pipelines/**/*.fastq
+15_pipelines/**/*.fq
+15_pipelines/**/*.vcf
+
+# Pipeline cache and temporary files
+.nextflow/
+.nextflow.log*
+.snakemake/
+work/
+
+# === PRESERVE PIPELINE IMPORTANT FILES ===
+# Keep pipeline definitions
+!15_pipelines/151_nextflow/pipelines/*/workflow/*.nf
+!15_pipelines/152_snakemake/workflows/*/*.smk
+!15_pipelines/*/shared/configs/*.config
+
+# Keep experiment metadata and small results
+!15_pipelines/*/experiments/*/*/run_metadata.yaml
+!15_pipelines/*/experiments/*/*/logs/*.html
+!15_pipelines/*/experiments/*/*/results/*.txt
+!15_pipelines/*/experiments/*/*/results/*.yaml
+!15_pipelines/*/experiments/*/*/results/*.json
+
+# Keep pipeline configuration
+!15_pipelines/151_nextflow/.pipeline_name
+!15_pipelines/152_snakemake/.workflow_name

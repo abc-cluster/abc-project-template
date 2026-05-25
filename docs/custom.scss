@@ -1,0 +1,239 @@
+/*-- scss:defaults --*/
+
+// Color scheme for academic presentation
+$primary-color: #2563eb;
+$secondary-color: #059669;
+$accent-color: #dc2626;
+$text-color: #1f2937;
+$background-color: #ffffff;
+$code-bg-color: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Inter', 'Segoe UI', 'Roboto', sans-serif !default;
+$font-family-monospace: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace !default;
+
+/*-- scss:rules --*/
+
+// Base styling
+.reveal {
+  font-family: $font-family-sans-serif;
+  color: $text-color;
+}
+
+// Title slide styling
+.reveal .slides section.title {
+  text-align: center;
+  
+  h1 {
+    color: $primary-color;
+    font-weight: 700;
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+  }
+  
+  h2 {
+    color: $secondary-color;
+    font-weight: 400;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+  }
+  
+  .author, .date {
+    color: #6b7280;
+    font-size: 1em;
+  }
+}
+
+// Section headers with colored backgrounds
+.reveal .slides section[data-background-color] {
+  h1, h2 {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+}
+
+// Code blocks
+.reveal pre code {
+  background-color: $code-bg-color;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1em;
+  font-family: $font-family-monospace;
+  font-size: 0.8em;
+  line-height: 1.4;
+  overflow-x: auto;
+}
+
+// Inline code
+.reveal code {
+  background-color: $code-bg-color;
+  color: $primary-color;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: $font-family-monospace;
+  font-size: 0.9em;
+}
+
+// Lists
+.reveal ul, .reveal ol {
+  margin-left: 1em;
+  
+  li {
+    margin-bottom: 0.5em;
+    line-height: 1.4;
+  }
+}
+
+// Emphasized text
+.reveal strong {
+  color: $primary-color;
+  font-weight: 600;
+}
+
+// Columns layout improvements
+.reveal .columns {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2em;
+  
+  .column {
+    flex: 1;
+  }
+}
+
+// Callout boxes
+.reveal .callout {
+  border-left: 4px solid $primary-color;
+  background-color: #f8fafc;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.reveal .callout.success {
+  border-left-color: $secondary-color;
+  background-color: #ecfdf5;
+}
+
+.reveal .callout.warning {
+  border-left-color: #f59e0b;
+  background-color: #fffbeb;
+}
+
+.reveal .callout.error {
+  border-left-color: $accent-color;
+  background-color: #fef2f2;
+}
+
+// Tables
+.reveal table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  
+  th, td {
+    border: 1px solid #e5e7eb;
+    padding: 0.75em;
+    text-align: left;
+  }
+  
+  th {
+    background-color: $primary-color;
+    color: white;
+    font-weight: 600;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9fafb;
+  }
+}
+
+// Buttons and interactive elements
+.reveal .button {
+  background-color: $primary-color;
+  color: white;
+  padding: 0.75em 1.5em;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+// Mermaid diagrams
+.reveal .mermaid {
+  text-align: center;
+  
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// Footer customization
+.reveal .footer {
+  font-size: 0.6em;
+  color: #6b7280;
+}
+
+// Progress bar
+.reveal .progress {
+  color: $primary-color;
+}
+
+// Slide numbers
+.reveal .slide-number {
+  color: $primary-color;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.3em 0.6em;
+  border-radius: 4px;
+}
+
+// Notes styling
+.reveal .notes {
+  font-style: italic;
+  color: #6b7280;
+  font-size: 0.9em;
+  margin-top: 1em;
+  padding: 1em;
+  background-color: #f9fafb;
+  border-radius: 6px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .reveal .columns {
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .reveal h1 {
+    font-size: 2em;
+  }
+  
+  .reveal h2 {
+    font-size: 1.5em;
+  }
+  
+  .reveal pre code {
+    font-size: 0.7em;
+  }
+}
+
+// Print styles
+@media print {
+  .reveal {
+    background: white;
+    color: black;
+  }
+  
+  .reveal .slides section {
+    page-break-after: always;
+  }
+}

@@ -1,0 +1,36 @@
+# Grant Budget Template
+
+This is a placeholder for an Excel budget template. In a real implementation, this would be an Excel file with the following sheets:
+
+## Sheet 1: Summary Budget
+- Total Direct Costs
+- Total Indirect Costs
+- Total Project Cost
+- Cost per year breakdown
+
+## Sheet 2: Personnel
+- PI, Co-PIs, Postdocs, Graduate Students, etc.
+- Salary, benefits, effort percentages
+- Annual escalation rates
+
+## Sheet 3: Equipment
+- Major equipment items
+- Justifications
+- Vendor quotes
+
+## Sheet 4: Supplies
+- Laboratory supplies
+- Computing resources
+- Office supplies
+
+## Sheet 5: Travel
+- Conference travel
+- Collaborative visits
+- Field work travel
+
+## Sheet 6: Other Costs
+- Publication costs
+- Software licenses
+- Consultant fees
+
+For actual use, replace this with a proper Excel template.

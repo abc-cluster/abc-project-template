@@ -1,0 +1,238 @@
+# Jujutsu (jj) Academic Workflow Automation
+# Enhanced version control for research projects
+
+# Set shell for cross-platform compatibility
+set shell := ["bash", "-c"]
+
+# Variables
+jj_config := ".jjconfig.toml"
+experiment_prefix := "exp"
+milestone_prefix := "milestone"
+
+# Default recipe - show available commands
+default:
+    @echo "🔬 Jujutsu Academic Workflow Commands:"
+    @just --list
+
+# === Repository Management ===
+
+# Initialize jj repository with Git backend
+init-jj:
+    #!/usr/bin/env bash
+    if [ ! -d ".jj" ]; then
+        echo "🚀 Initializing Jujutsu repository with Git backend..."
+        jj git init --git-repo .
+        echo "✅ Jujutsu repository initialized"
+    else
+        echo "ℹ️ Jujutsu repository already exists"
+    fi
+
+# Setup jj configuration for academic workflows
+setup-jj-config:
+    #!/usr/bin/env bash
+    if [ -f "{{jj_config}}" ]; then
+        echo "📝 Copying jj configuration..."
+        mkdir -p ~/.config/jj
+        cp "{{jj_config}}" ~/.config/jj/config.toml
+        echo "✅ Jujutsu configuration installed"
+    else
+        echo "⚠️ No .jjconfig.toml found in project"
+    fi
+
+# === Experiment Management ===
+
+# Start a new experiment
+experiment description="":
+    #!/usr/bin/env bash
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    if [ -z "{{description}}" ]; then
+        read -p "📝 Experiment description: " desc
+    else
+        desc="{{description}}"
+    fi
+    jj new -m "{{experiment_prefix}}-${timestamp}: ${desc}"
+    echo "🧪 Started experiment: ${desc}"
+
+# Create a research milestone
+milestone description="":
+    #!/usr/bin/env bash
+    if [ -z "{{description}}" ]; then
+        read -p "🎯 Milestone description: " desc
+    else
+        desc="{{description}}"
+    fi
+    jj describe -m "{{milestone_prefix}}: ${desc}"
+    echo "🎯 Created milestone: ${desc}"
+
+# List recent experiments
+list-experiments days="7":
+    @echo "🧪 Recent experiments (last {{days}} days):"
+    @jj log -r 'date("{{days}} days ago"..") & description(glob:"{{experiment_prefix}}-*")' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | " ++ author.name() ++ " | " ++ committer.timestamp().ago() ++ "\n"'
+
+# List milestones
+list-milestones:
+    @echo "🎯 Research milestones:"
+    @jj log -r 'description(glob:"{{milestone_prefix}}:*")' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | " ++ committer.timestamp().format("%Y-%m-%d") ++ "\n"'
+
+# === Analysis Workflow ===
+
+# Quick save current analysis work
+save-analysis description="WIP: analysis update":
+    jj describe -m "{{description}}"
+    @echo "💾 Analysis saved: {{description}}"
+
+# Commit notebook changes with automatic message
+save-notebook notebook_path:
+    #!/usr/bin/env bash
+    if [ -f "{{notebook_path}}" ]; then
+        notebook_name=$(basename "{{notebook_path}}" .qmd)
+        jj describe -m "📓 Update notebook: ${notebook_name}"
+        echo "📓 Notebook saved: ${notebook_name}"
+    else
+        echo "❌ Notebook not found: {{notebook_path}}"
+    fi
+
+# Save data pipeline changes
+save-pipeline description="Pipeline update":
+    jj describe -m "🔄 {{description}}"
+    @echo "🔄 Pipeline saved: {{description}}"
+
+# === Manuscript Workflow ===
+
+# Save manuscript changes
+save-manuscript section="":
+    #!/usr/bin/env bash
+    if [ -z "{{section}}" ]; then
+        msg="📝 Manuscript update"
+    else
+        msg="📝 Manuscript update: {{section}}"
+    fi
+    jj describe -m "${msg}"
+    echo "📝 Manuscript saved: ${msg}"
+
+# Create a manuscript draft version
+draft-version version_name:
+    #!/usr/bin/env bash
+    jj bookmark create "draft-{{version_name}}"
+    jj describe -m "📄 Draft version: {{version_name}}"
+    echo "📄 Created draft version: {{version_name}}"
+
+# === Collaboration ===
+
+# Share current experiment with collaborators
+share-experiment:
+    #!/usr/bin/env bash
+    current_desc=$(jj log -r @ --no-graph -T description.first_line())
+    echo "📤 Sharing experiment: ${current_desc}"
+    jj git push --branch @
+
+# Sync with collaborators
+sync-collaborators:
+    @echo "🔄 Syncing with collaborators..."
+    jj git fetch --all-remotes
+    @echo "✅ Sync complete"
+
+# Get latest changes and rebase current work
+update-and-rebase:
+    #!/usr/bin/env bash
+    echo "📥 Fetching latest changes..."
+    jj git fetch --all-remotes
+    echo "🔀 Rebasing current work..."
+    jj rebase -d main@origin
+
+# === History and Review ===
+
+# Show academic workflow summary
+workflow-summary:
+    @echo "📊 Academic Workflow Summary:"
+    @echo "================================"
+    @echo "🧪 Recent Experiments:"
+    @jj log -r 'date("2 weeks ago"..") & description(glob:"{{experiment_prefix}}-*")' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | " ++ committer.timestamp().ago() ++ "\n"' | head -5
+    @echo ""
+    @echo "🎯 Milestones:"
+    @jj log -r 'description(glob:"{{milestone_prefix}}:*")' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | " ++ committer.timestamp().format("%Y-%m-%d") ++ "\n"' | head -3
+    @echo ""
+    @echo "📝 Recent Manuscript Changes:"
+    @jj log -r 'file("writeup/manuscript") & date("1 week ago"..)' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | " ++ committer.timestamp().ago() ++ "\n"' | head -3
+
+# Show changes for specific analysis component
+component-history component:
+    @echo "📈 History for {{component}}:"
+    @jj log -r 'file("analysis/{{component}}") | file("writeup/{{component}}")' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | " ++ author.name() ++ " | " ++ committer.timestamp().format("%Y-%m-%d %H:%M") ++ "\n"'
+
+# Generate publication-ready changelog
+publication-changelog since="6 months ago":
+    @echo "📄 Publication Changelog (since {{since}}):"
+    @echo "============================================="
+    @jj log -r 'date("{{since}}"..") & !description(glob:"WIP:*") & !description(glob:"TEMP:*")' --template 'description.first_line() ++ " (" ++ commit_id.short() ++ ", " ++ committer.timestamp().format("%Y-%m-%d") ++ ")\n"'
+
+# === Conflict Resolution ===
+
+# Show current conflicts
+show-conflicts:
+    @echo "⚠️ Current conflicts:"
+    @jj log -r 'conflicts()' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | Conflicts in: " ++ file_path ++ "\n"'
+
+# Resolve conflicts interactively
+resolve-conflicts:
+    @echo "🔧 Starting interactive conflict resolution..."
+    jj resolve --tool interactive
+
+# === Backup and Maintenance ===
+
+# Create backup of current state
+backup tag_name:
+    #!/usr/bin/env bash
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    backup_tag="backup-{{tag_name}}-${timestamp}"
+    jj bookmark create "${backup_tag}"
+    echo "💾 Backup created: ${backup_tag}"
+
+# Clean up old experiment branches
+cleanup-experiments older_than="30 days":
+    @echo "🧹 Cleaning up experiments older than {{older_than}}..."
+    @jj log -r 'description(glob:"{{experiment_prefix}}-*") & date("..-{{older_than}}")' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ "\n"'
+    @echo "Run: jj abandon 'description(glob:\"{{experiment_prefix}}-*\") & date(\"..-{{older_than}}\")' to remove these"
+
+# === Integration with Analysis Tools ===
+
+# Show changes affecting notebooks
+notebook-changes since="1 week ago":
+    @echo "📓 Notebook changes since {{since}}:"
+    @jj log -r 'file(glob:"analysis/notebooks/**/*.qmd") & date("{{since}}"..)'
+
+# Show changes affecting data
+data-changes since="1 week ago":
+    @echo "📊 Data changes since {{since}}:"
+    @jj log -r 'file(glob:"analysis/data/**") & date("{{since}}"..)'
+
+# Show changes affecting scripts
+script-changes since="1 week ago":
+    @echo "🔧 Script changes since {{since}}:"
+    @jj log -r 'file(glob:"analysis/scripts/**") & date("{{since}}"..)'
+
+# === Help and Documentation ===
+
+# Show jj status and current state
+status:
+    @echo "📋 Current Jujutsu Status:"
+    @echo "=========================="
+    @jj status
+    @echo ""
+    @echo "📍 Current Change:"
+    @jj log -r @ --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | " ++ author.name() ++ " | " ++ committer.timestamp().ago() ++ "\n"'
+
+# Show jj configuration
+show-config:
+    @echo "⚙️ Jujutsu Configuration:"
+    @jj config list
+
+# Show available jj templates
+show-templates:
+    @echo "📋 Available Templates:"
+    @echo "======================"
+    @echo "experiment_log - For listing experiments"
+    @echo "milestone - For milestone commits"  
+    @echo "publication - For publication-ready commits"
+    @echo ""
+    @echo "Usage: jj log --template experiment_log"

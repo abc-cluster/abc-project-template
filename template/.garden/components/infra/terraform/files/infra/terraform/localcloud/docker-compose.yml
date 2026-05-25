@@ -1,0 +1,14 @@
+# https://www.emcken.dk/programming/2025/04/21/local-s3-storage-with-minio-for-clojure-dev-env/
+services:
+  s3:
+    image: minio/minio
+    ports:
+      - "9000:9000"     # S3 API service endpoint
+      - "9001:9001"     # Web interface
+    volumes:
+      - './data/minio:/data' # Persist data; path must match command 👇
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_DOMAIN: localhost:9000 # Requried for virtual-host bucket lookups
+      MINIO_ROOT_USER: AKIAIOSFODNN7EXAMPLE
+      MINIO_ROOT_PASSWORD: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY

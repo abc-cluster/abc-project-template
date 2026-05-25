@@ -1,0 +1,7 @@
+* 2025
+** Q3
+*** <2025-07-02 Wed>
+**** TODO Improve the overall documentation
+**** TODO Fix the just files
+**** TODO Complete the palmer-penguins case-study, in a separate repository
+**** TODO Explore the intergration with `jj` jujitsu git

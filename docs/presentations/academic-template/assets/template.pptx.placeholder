@@ -1,0 +1,21 @@
+# PowerPoint Template Placeholder
+
+Place your custom PowerPoint template here as `template.pptx`.
+
+## Requirements:
+- Format: PowerPoint (.pptx)
+- Include master slide layouts
+- Consistent branding and styling
+- Academic presentation formatting
+
+## Usage:
+This template will be used when rendering the presentation to PowerPoint format using:
+```bash
+quarto render ../src/template-presentation.qmd --to pptx
+```
+
+## Creating a Template:
+1. Create a PowerPoint file with your desired styling
+2. Set up master slide layouts
+3. Save as `template.pptx` in this directory
+4. Test by rendering the presentation

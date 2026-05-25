@@ -1,0 +1,35 @@
+# My Article
+
+**By:** Jane Smith
+**Date:** 2025-06-03
+**Tags:** tech, tutorial, pollen
+
+---
+
+## Introduction
+
+This article demonstrates how to use YAML data within Pollen markdown files.
+
+✅ This article is published and ready to read!
+
+## Content Section
+
+You can mix regular markdown with Pollen functions that access your YAML data.
+
+- **Author:** Jane Smith
+- **Publication status:** Published
+- **Number of tags:** 
+
+### Dynamic Content
+
+
+- This article covers **tech**
+- This article covers **tutorial**
+- This article covers **pollen**
+
+
+## Conclusion
+
+The description from our YAML file says: "A guide to using Pollen with markdown"
+
+*End of article by Jane Smith*

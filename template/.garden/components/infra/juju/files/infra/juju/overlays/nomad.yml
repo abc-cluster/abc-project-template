@@ -1,0 +1,6 @@
+description: Dev overlay for Nomad+Docker.
+applications:
+  nomad:
+    options:
+      datacenter: "dev"
+      bind_addr: "0.0.0.0"

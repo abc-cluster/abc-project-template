@@ -1,0 +1,12 @@
+id: "data:model-input"
+description: "Model input — train/validation/test/production splits"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/model-input/.gitkeep
+  - data/model-input/051_test/.gitkeep
+  - data/model-input/052_train/.gitkeep
+  - data/model-input/053_validation/.gitkeep
+  - data/model-input/054_production/.gitkeep
+post_grow_hint: |
+  Created data/model-input/ stage directory.

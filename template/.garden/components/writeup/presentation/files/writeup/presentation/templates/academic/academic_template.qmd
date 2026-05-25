@@ -1,0 +1,161 @@
+---
+title: "Academic Presentation Template"
+subtitle: "For Research Talks, Conferences, and Seminars"
+format: 
+  clean-revealjs:
+    self-contained: true
+    logo: "../../_extensions/SU_primary logo/RGB/Gold and maroon RGB/Png/SU corporate_horizontal_without_slogan_RGB-01.png"
+html-math-method:
+  method: mathjax
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+author:
+  - name: Your Name
+    orcid: 0000-0000-0000-0000
+    email: your.email@institution.edu
+    affiliations: Your Institution
+date: last-modified
+bibliography: ../../refs.bib
+brand:
+  color:
+    primary: "#61223b"
+    secondary: "#b79962"
+    tertiary: "#005F61"
+  typography:
+    fonts:
+      - family: Montserrat
+        source: google
+      - family: Josefin Sans
+        source: google
+      - family: Fira Code
+        source: google
+    base: Montserrat
+    headings:
+      family: Josefin Sans
+      weight: semi-bold
+    monospace:
+      family: Fira Code
+      size: 0.9em
+---
+
+## Introduction {background-color="#40666e"}
+
+### Research Background
+
+- Brief overview of the research field
+- Highlight key gaps or challenges
+- State the research question
+
+### Literature Review
+
+- Summarize existing work in 3-4 bullet points
+- Highlight theoretical framework
+- Identify methodological approaches in the literature
+
+## Methodology {background-color="#40666e"}
+
+### Research Design
+
+- Describe your approach
+- Define key variables or constructs
+- State hypotheses (if applicable)
+
+:::: {.columns}
+::: {.column width="50%"}
+#### Data Collection
+- Source of data
+- Sample size
+- Inclusion/exclusion criteria
+:::
+
+::: {.column width="50%"}
+#### Analysis Approach
+- Statistical methods
+- Software used
+- Validation approaches
+:::
+::::
+
+## Results {background-color="#40666e"}
+
+### Key Findings
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-cap: "Example figure showing results"
+# Your code to generate a plot would go here
+# This is just a placeholder
+plot(1:10, 1:10, type="l", xlab="X", ylab="Y")
+```
+:::
+
+::: {.column width="40%"}
+- Finding 1 with brief explanation
+- Finding 2 with brief explanation
+- Finding 3 with brief explanation
+:::
+::::
+
+### Statistical Results
+
+```{r}
+#| echo: false
+#| tbl-cap: "Regression Results"
+# Code to generate a table would go here
+# This is just a placeholder
+data.frame(
+  Variable = c("X1", "X2", "X3", "Constant"),
+  Coefficient = c(0.56, 1.23, -0.41, 2.34),
+  `Std. Error` = c(0.12, 0.18, 0.09, 0.22),
+  `p-value` = c(0.001, 0.04, 0.06, "<0.001")
+)
+```
+
+## Discussion {background-color="#40666e"}
+
+### Interpretation
+
+- Connect findings back to research question
+- Compare with previous literature
+- Highlight novel contributions
+
+### Limitations
+
+- Acknowledge key limitations
+- Explain impact on findings
+- Suggest improvements for future work
+
+## Conclusion {background-color="#40666e"}
+
+### Summary of Findings
+
+- Recap key results
+- Emphasize main contributions
+- Connect to broader implications
+
+### Future Directions
+
+- Identify next steps
+- Suggest extensions of current work
+- Propose new research questions
+
+## References {background-color="#40666e"}
+
+::: {#refs}
+:::
+
+## Acknowledgments {background-color="#40666e"}
+
+- Funding source(s)
+- Collaborators and contributions
+- Institutional support
+- Contact information
+
+## Appendix {background-color="#40666e"}
+
+### Supplementary Materials
+
+- Additional analyses
+- Extended methodology details
+- Access to data and code

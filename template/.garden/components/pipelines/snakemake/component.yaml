@@ -1,0 +1,17 @@
+id: "pipelines:snakemake"
+description: "Snakemake pipeline scaffolding (with cluster profiles)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - pipelines/snakemake/Snakefile
+  - pipelines/snakemake/experiments/.justscripts/check_samples.py
+  - pipelines/snakemake/experiments/.justscripts/show_stats.py
+  - pipelines/snakemake/experiments/README.md
+  - pipelines/snakemake/experiments/config/base.yaml
+  - pipelines/snakemake/experiments/profiles/cluster/config.yaml
+  - pipelines/snakemake/experiments/profiles/local/config.yaml
+  - pipelines/snakemake/experiments/runs/templates/execution-log.md
+  - pipelines/snakemake/experiments/runs/templates/experiment-plan.md
+  - pipelines/snakemake/experiments/snakemake-experiments.just
+post_grow_hint: |
+  Created pipelines/snakemake/ scaffolding. Requires snakemake installed on PATH.

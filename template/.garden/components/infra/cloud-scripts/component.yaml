@@ -1,0 +1,12 @@
+id: "infra:cloud-scripts"
+description: "Cloud automation scripts (bash + powershell + python)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/cloud-scripts/.gitkeep
+  - infra/cloud-scripts/cloud.bash
+  - infra/cloud-scripts/cloud.ps1
+  - infra/cloud-scripts/cloud.py
+post_grow_hint: |
+  Created infra/cloud-scripts/ with subsystem-specific scaffolding.
+  Inspect the generated files; some require external tools (e.g. terraform, packer).

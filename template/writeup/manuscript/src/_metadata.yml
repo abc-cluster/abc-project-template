@@ -1,0 +1,111 @@
+# Set names and affiliations.
+# It is nice to specify everyone's orcid, if possible.
+# There can be only one corresponding author, but declaring one is optional.
+author:
+    # Roles are optional.
+    # Select from the CRediT: Contributor Roles Taxonomy https://credit.niso.org/
+    #- conceptualization
+    #- data curation
+    #- formal Analysis
+    #- funding acquisition
+    #- investigation
+    #- methodology
+    #- project administration
+    #- resources
+    #- software
+    #- supervision
+    #- validation
+    #- visualization
+    #- writing
+    #- editing
+  - name: 'Abhinav Sharma'
+    orcid: 0000-0002-6402-6993
+    email: abhi18av@outlook.com
+    corresponding: true
+    roles:
+      - conceptualization
+      - funding acquisition
+      - investigation: equal
+      - methodology
+      - project administration
+      - software
+      - validation
+      - writing
+      - editing
+      - visualization
+    affiliations:
+      - id: sun
+        name: "SAMRC Centre for Tuberculosis Research; Division of Molecular Biology and Human Genetics, Faculty of Medicine and Health Sciences, Stellenbosch University, Cape Town, South Africa."
+
+author-note:
+  status-changes:
+  # Disclosures condensed to one paragraph, but you can start a field with two line breaks to break them up: \n\nNew Paragraph
+  disclosures:
+    # Acknowledge and cite data/materials to be shared.
+    data-sharing: ~
+    # Example: This article is based on data published in [Reference].
+    related-report: ~
+    conflict-of-interest: ~
+    # Example: This study was supported by Grant [Grant Number] from [Funding Source].
+    financial-support: ~
+    # Example: The authors are grateful to [Person] for [Reason].
+    gratitude: ~
+    # Example. Because the authors are equal contributors, order of authorship was determined by a fair coin toss.
+    authorship-agreements: ""
+# Put as many keywords at you like, separated by commmas (e.g., [reliability, validity, generalizability])
+keywords:
+  - Automated machine learning
+  - Interpretable machine learning
+# If true, tables and figures are mingled with the text instead of listed at the end of the document.
+floatsintext: true
+# Numbered lines (.pdf and .docx only)
+numbered-lines: true
+# File with references
+bibliography: references.bib
+
+
+# Suppress title page
+suppress-title-page: false
+# Link citations to references
+link-citations: true
+# Masks references that appear in the masked-citations list
+mask: false
+#masked-citations:
+#  - schneider2015intelligence
+
+# If true, adds today's date below author affiliations. If text, can be any value.
+# This is not standard APA format, but it is convenient.
+# Works with docx, html, and typst.
+draft-date: true
+# Language options. See https://quarto.org/docs/authoring/language.html
+
+#suppress-corresponding-paragraph: true
+#suppress-corresponding-email: true
+suppress-corresponding-group: true
+suppress-corresponding-department: true
+suppress-corresponding-address: true
+suppress-corresponding-city: true
+suppress-corresponding-region: true
+suppress-corresponding-postal-code: true
+suppress-short-title: true
+#blank-lines-above-author-note: true
+
+lang: en
+language:
+  citation-last-author-separator: "and"
+  citation-masked-author: "Masked Citation"
+  citation-masked-date: "n.d."
+  citation-masked-title: "Masked Title"
+  email: "Email"
+  title-block-author-note: "Author Note"
+  title-block-correspondence-note: "Correspondence concerning this article should be addressed to"
+  title-block-role-introduction: "Author roles were classified using the Contributor Role Taxonomy (CRediT; https://credit.niso.org/) as follows:"
+  references-meta-analysis: "References marked with an asterisk indicate studies included in the meta-analysis."
+
+always_allow_html: yes
+
+format:
+  apaquarto-docx: default
+  apaquarto-html: default
+  apaquarto-typst:
+    keep-typ: true

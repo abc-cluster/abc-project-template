@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+  # push:
+  #   branches: [main]
+permissions:
+  contents: read
+
+jobs:
+  test-clean-notebooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - run: uvx nbwipers check . --allow-no-notebooks
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+      - name: Install the project
+        run: uv sync --only-group lint --frozen
+      - name: check format
+        run: uv run ruff format --check --diff .
+      - name: check lints
+        run: uv run ruff check --output-format=github .
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+      - name: Install the project
+        run: uv sync --all-extras --all-groups --frozen
+      - name: unit tests
+        run: |
+          set -o pipefail && \
+          uv run pytest --cov {{module_name}} --junitxml=pytest.xml \
+          --cov-report=term-missing:skip-covered \
+          | tee pytest-coverage.txt
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
+        continue-on-error: true
+        with:
+          pytest-coverage-path: ./pytest-coverage.txt
+          junitxml-path: ./pytest.xml
+  check-markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: '**/*.md'

@@ -1,0 +1,20 @@
+id: "writeup:poster"
+description: "Academic and professional poster templates"
+status: "experimental"
+version: "0.1.0"
+files:
+  - writeup/poster/.gitkeep
+  - writeup/poster/MIGRATION.md
+  - writeup/poster/README.md
+  - writeup/poster/assets/logos/institution.png
+  - writeup/poster/conferences/2025-05-neurips/neurips_poster.qmd
+  - writeup/poster/conferences/2025/neurips/neurips_poster.qmd
+  - writeup/poster/justfile
+  - writeup/poster/templates/landscape/.gitkeep
+  - writeup/poster/templates/landscape/poster.qmd
+  - writeup/poster/templates/specialized/.gitkeep
+  - writeup/poster/templates/standard/.gitkeep
+  - writeup/poster/templates/standard/poster.qmd
+  - writeup/poster/versions/.gitkeep
+post_grow_hint: |
+  Created writeup/poster/ with format-specific scaffolding.

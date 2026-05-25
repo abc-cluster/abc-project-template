@@ -1,0 +1,414 @@
+---
+title: "Progress Summary: {{project_name}}"
+subtitle: "Meeting Update - {{date_range}}"
+format: clean-revealjs
+html-math-method:
+  method: mathjax
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+author:
+  - name: {{author_name}}
+    email: {{author_email}}
+    affiliations: {{affiliation}}
+date: last-modified
+brand:
+  color:
+    primary: "#2E86AB"
+    secondary: "#A23B72"
+    tertiary: "#F18F01"
+  typography:
+    fonts:
+      - family: Inter
+        source: google
+      - family: JetBrains Mono
+        source: google
+    base: Inter
+    headings:
+      family: Inter
+      weight: 600
+    monospace:
+      family: JetBrains Mono
+      size: 0.9em
+---
+
+## Meeting Overview {.center}
+
+### {{meeting_type}} - {{meeting_date}}
+
+::: {.incremental}
+- **Previous Meeting:** {{previous_meeting_date}}
+- **Time Period:** {{days_elapsed}} days
+- **Project Phase:** {{current_phase}}
+- **Key Focus Areas:** {{focus_areas}}
+:::
+
+---
+
+## Executive Summary {.center}
+
+### Key Achievements This Period
+
+::: {.fragment .fade-in}
+**✅ Major Milestones Completed**
+
+- {{milestone_1}}
+- {{milestone_2}}
+- {{milestone_3}}
+:::
+
+::: {.fragment .fade-in}
+**📊 Progress Metrics**
+
+- Tasks Completed: {{completed_tasks}}/{{total_tasks}}
+- Goals Met: {{goals_met}}%
+- Timeline Status: {{timeline_status}}
+:::
+
+---
+
+## Progress Since Last Meeting
+
+### What We Accomplished
+
+::: {.incremental}
+1. **{{category_1}}**
+   - {{accomplishment_1_1}}
+   - {{accomplishment_1_2}}
+   - {{accomplishment_1_3}}
+
+2. **{{category_2}}**
+   - {{accomplishment_2_1}}
+   - {{accomplishment_2_2}}
+
+3. **{{category_3}}**
+   - {{accomplishment_3_1}}
+   - {{accomplishment_3_2}}
+:::
+
+---
+
+## Detailed Progress Breakdown
+
+### Technical Achievements
+
+::: {.columns}
+::: {.column width="50%"}
+**Development Work**
+- {{dev_achievement_1}}
+- {{dev_achievement_2}}
+- {{dev_achievement_3}}
+
+**Testing & Quality**
+- {{test_achievement_1}}
+- {{test_achievement_2}}
+:::
+
+::: {.column width="50%"}
+**Documentation**
+- {{doc_achievement_1}}
+- {{doc_achievement_2}}
+
+**Integration**
+- {{integration_achievement_1}}
+- {{integration_achievement_2}}
+:::
+:::
+
+---
+
+## Challenges & Troubleshooting {.alert}
+
+### Issues Encountered
+
+::: {.incremental}
+1. **{{issue_1_title}}** [{{issue_1_severity}}]{.bg style="--col: #e74c3c"}
+   - **Problem:** {{issue_1_description}}
+   - **Impact:** {{issue_1_impact}}
+   - **Status:** {{issue_1_status}}
+
+2. **{{issue_2_title}}** [{{issue_2_severity}}]{.bg style="--col: #f39c12"}
+   - **Problem:** {{issue_2_description}}
+   - **Solution:** {{issue_2_solution}}
+   - **Status:** {{issue_2_status}}
+:::
+
+---
+
+## Problem Resolution
+
+### How We Solved Key Issues
+
+::: {.columns}
+::: {.column width="60%"}
+**{{resolved_issue_title}}**
+
+1. **Root Cause Analysis**
+   - {{root_cause_1}}
+   - {{root_cause_2}}
+
+2. **Solution Implemented**
+   - {{solution_step_1}}
+   - {{solution_step_2}}
+
+3. **Results**
+   - {{result_1}}
+   - {{result_2}}
+:::
+
+::: {.column width="40%"}
+```{mermaid}
+graph TD
+    A[Issue Identified] --> B[Analysis]
+    B --> C[Solution Design]
+    C --> D[Implementation]
+    D --> E[Testing]
+    E --> F[Resolution]
+    F --> G[Documentation]
+```
+:::
+:::
+
+---
+
+## Current Status Dashboard
+
+### Project Health Indicators
+
+::: {.columns}
+::: {.column width="33%"}
+**📈 Progress**
+- Overall: {{overall_progress}}%
+- On Track: {{on_track_items}}
+- At Risk: {{at_risk_items}}
+- Blocked: {{blocked_items}}
+:::
+
+::: {.column width="33%"}
+**⏱️ Timeline**
+- Days Remaining: {{days_remaining}}
+- Milestones Due: {{upcoming_milestones}}
+- Buffer Time: {{buffer_days}} days
+:::
+
+::: {.column width="33%"}
+**👥 Team**
+- Active Contributors: {{active_contributors}}
+- Workload Distribution: {{workload_status}}
+- Blockers: {{team_blockers}}
+:::
+:::
+
+---
+
+## Key Metrics & KPIs
+
+### Performance Indicators
+
+| Metric | Target | Current | Status | Trend |
+|--------|--------|---------|--------|-------|
+| {{metric_1}} | {{target_1}} | {{current_1}} | {{status_1}} | {{trend_1}} |
+| {{metric_2}} | {{target_2}} | {{current_2}} | {{status_2}} | {{trend_2}} |
+| {{metric_3}} | {{target_3}} | {{current_3}} | {{status_3}} | {{trend_3}} |
+| {{metric_4}} | {{target_4}} | {{current_4}} | {{status_4}} | {{trend_4}} |
+
+---
+
+## Lessons Learned
+
+### What Worked Well
+
+::: {.incremental}
+- **{{success_1}}** - {{success_1_detail}}
+- **{{success_2}}** - {{success_2_detail}}
+- **{{success_3}}** - {{success_3_detail}}
+:::
+
+### Areas for Improvement
+
+::: {.incremental}
+- **{{improvement_1}}** - {{improvement_1_action}}
+- **{{improvement_2}}** - {{improvement_2_action}}
+- **{{improvement_3}}** - {{improvement_3_action}}
+:::
+
+---
+
+## Next Steps & Action Items {.center}
+
+### Immediate Priorities (Next 1-2 Weeks)
+
+::: {.incremental}
+1. **{{priority_1}}** 
+   - Owner: {{owner_1}}
+   - Due: {{due_1}}
+   - Dependencies: {{deps_1}}
+
+2. **{{priority_2}}**
+   - Owner: {{owner_2}}
+   - Due: {{due_2}}
+   - Dependencies: {{deps_2}}
+
+3. **{{priority_3}}**
+   - Owner: {{owner_3}}
+   - Due: {{due_3}}
+   - Dependencies: {{deps_3}}
+:::
+
+---
+
+## Medium-Term Goals
+
+### Next 2-4 Weeks
+
+::: {.columns}
+::: {.column width="50%"}
+**Development Focus**
+- {{dev_goal_1}}
+- {{dev_goal_2}}
+- {{dev_goal_3}}
+
+**Quality Assurance**
+- {{qa_goal_1}}
+- {{qa_goal_2}}
+:::
+
+::: {.column width="50%"}
+**Documentation**
+- {{doc_goal_1}}
+- {{doc_goal_2}}
+
+**Stakeholder Engagement**
+- {{stake_goal_1}}
+- {{stake_goal_2}}
+:::
+:::
+
+---
+
+## Risk Assessment & Mitigation
+
+### Current Risks
+
+::: {.incremental}
+1. **{{risk_1}}** [{{risk_1_probability}} / {{risk_1_impact}}]{.alert}
+   - **Mitigation:** {{risk_1_mitigation}}
+   - **Owner:** {{risk_1_owner}}
+
+2. **{{risk_2}}** [{{risk_2_probability}} / {{risk_2_impact}}]{.fg style="--col: #f39c12"}
+   - **Mitigation:** {{risk_2_mitigation}}
+   - **Owner:** {{risk_2_owner}}
+
+3. **{{risk_3}}** [{{risk_3_probability}} / {{risk_3_impact}}]{.fg style="--col: #27ae60"}
+   - **Mitigation:** {{risk_3_mitigation}}
+   - **Owner:** {{risk_3_owner}}
+:::
+
+---
+
+## Dependencies & Blockers
+
+### External Dependencies
+
+::: {.columns}
+::: {.column width="50%"}
+**Waiting On:**
+- {{dependency_1}} ({{dep_1_eta}})
+- {{dependency_2}} ({{dep_2_eta}})
+- {{dependency_3}} ({{dep_3_eta}})
+:::
+
+::: {.column width="50%"}
+**Action Required:**
+- {{action_1}} - {{action_1_owner}}
+- {{action_2}} - {{action_2_owner}}
+- {{action_3}} - {{action_3_owner}}
+:::
+:::
+
+---
+
+## Resource Requirements
+
+### What We Need
+
+::: {.incremental}
+**👥 Human Resources**
+- {{resource_need_1}}
+- {{resource_need_2}}
+
+**💻 Technical Resources**
+- {{tech_resource_1}}
+- {{tech_resource_2}}
+
+**💰 Budget/Procurement**
+- {{budget_need_1}}
+- {{budget_need_2}}
+:::
+
+---
+
+## Communication Plan
+
+### Stakeholder Updates
+
+| Stakeholder Group | Next Update | Format | Key Messages |
+|-------------------|-------------|---------|--------------|
+| {{stakeholder_1}} | {{update_1_date}} | {{format_1}} | {{message_1}} |
+| {{stakeholder_2}} | {{update_2_date}} | {{format_2}} | {{message_2}} |
+| {{stakeholder_3}} | {{update_3_date}} | {{format_3}} | {{message_3}} |
+
+---
+
+## Questions & Discussion {.center}
+
+### Open Items for Team Input
+
+::: {.incremental}
+1. **{{question_1}}**
+   - Context: {{context_1}}
+   - Options: {{options_1}}
+
+2. **{{question_2}}**
+   - Context: {{context_2}}
+   - Decision needed by: {{decision_date_2}}
+
+3. **{{question_3}}**
+   - Context: {{context_3}}
+   - Impact: {{impact_3}}
+:::
+
+---
+
+## Next Meeting Preview
+
+### Agenda for {{next_meeting_date}}
+
+::: {.incremental}
+- **Review of Action Items** ({{estimated_time_1}})
+- **{{agenda_item_1}}** ({{estimated_time_2}})
+- **{{agenda_item_2}}** ({{estimated_time_3}})
+- **{{agenda_item_3}}** ({{estimated_time_4}})
+- **Planning for {{next_phase}}** ({{estimated_time_5}})
+:::
+
+### Preparation Required
+
+- {{prep_item_1}} - {{prep_owner_1}}
+- {{prep_item_2}} - {{prep_owner_2}}
+- {{prep_item_3}} - {{prep_owner_3}}
+
+---
+
+## Thank You {.center}
+
+### Contact Information
+
+**{{primary_contact}}**  
+📧 {{contact_email}}  
+📱 {{contact_phone}}  
+
+**Project Resources:**
+- 📁 Project Repository: {{repo_url}}
+- 📊 Dashboard: {{dashboard_url}}
+- 📝 Documentation: {{docs_url}}
+
+[Questions?]{.button}

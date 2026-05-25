@@ -1,0 +1,77 @@
+# Base Configuration for Snakemake Experiments
+# Default settings that apply to all experiments
+
+# Basic experiment metadata
+experiment_metadata:
+  version: "1.0.0"
+  description: "Academic research pipeline with resume support"
+  maintainer: "Research Team"
+
+# Input/Output configuration
+paths:
+  input_dir: "data/01_raw"
+  output_dir: "data/02_processed"
+  temp_dir: "data/temp"
+  log_dir: "logs"
+  reference_dir: "data/references"
+  
+# Resource defaults
+resources:
+  default_threads: 1
+  max_threads: 8
+  default_memory_mb: 4000
+  max_memory_mb: 32000
+  default_time_min: 60
+  max_time_min: 1440  # 24 hours
+
+# Software environment management
+environments:
+  conda_prefix: "envs"
+  use_conda: true
+  use_singularity: false
+  create_envs_only: false
+
+# Quality control parameters
+quality_control:
+  min_quality_score: 20
+  min_length: 50
+  max_n_content: 5  # percentage
+
+# Analysis parameters (can be overridden per experiment)
+analysis:
+  trim_adapters: true
+  remove_duplicates: true
+  quality_filtering: true
+  
+# Output format preferences
+output_formats:
+  compress_intermediate: true
+  keep_temp_files: false
+  report_format: "html"
+
+# Logging and monitoring
+logging:
+  level: "INFO"
+  capture_stderr: true
+  timestamp_logs: true
+
+# Resume and checkpoint configuration
+resume:
+  enable_checkpoints: true
+  checkpoint_interval: 10  # Save checkpoint every N jobs
+  auto_cleanup_failed: false
+  keep_incomplete: true
+
+# Cluster configuration (base settings)
+cluster:
+  default_account: "research"
+  default_partition: "compute"
+  max_jobs: 100
+  job_name_prefix: "snakemake"
+
+# Performance tuning
+performance:
+  use_threads: true
+  optimize_io: true
+  parallel_compression: true
+  buffer_size_mb: 64

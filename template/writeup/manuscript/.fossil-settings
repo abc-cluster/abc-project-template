@@ -1,0 +1,18 @@
+# Fossil SCM Settings
+
+# Ignore patterns
+ignore-glob .DS_Store
+ignore-glob "*.fossil"
+ignore-glob "*.log"
+ignore-glob "*.tmp"
+ignore-glob "*.pyc"
+ignore-glob "__pycache__"
+ignore-glob ".ipynb_checkpoints"
+ignore-glob ".Rproj.user"
+ignore-glob ".Rhistory"
+ignore-glob ".RData"
+ignore-glob ".Ruserdata"
+
+# Repository settings
+autosync off
+allow-symlinks on

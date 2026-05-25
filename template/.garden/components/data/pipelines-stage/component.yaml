@@ -1,0 +1,28 @@
+id: "data:pipelines-stage"
+description: "Pipeline-internal data stage (work directories, intermediate pipeline outputs)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/pipelines-stage/.gitkeep
+  - data/pipelines-stage/151_nextflow/.gitkeep
+  - data/pipelines-stage/151_nextflow/experiments/archive/.gitkeep
+  - data/pipelines-stage/151_nextflow/experiments/by_analysis/.gitkeep
+  - data/pipelines-stage/151_nextflow/experiments/by_dataset/.gitkeep
+  - data/pipelines-stage/151_nextflow/pipelines/.gitkeep
+  - data/pipelines-stage/151_nextflow/shared/configs/.gitkeep
+  - data/pipelines-stage/151_nextflow/shared/configs/nextflow.config
+  - data/pipelines-stage/151_nextflow/shared/containers/.gitkeep
+  - data/pipelines-stage/151_nextflow/shared/references/.gitkeep
+  - data/pipelines-stage/152_snakemake/.gitkeep
+  - data/pipelines-stage/152_snakemake/experiments/archive/.gitkeep
+  - data/pipelines-stage/152_snakemake/experiments/by_analysis/.gitkeep
+  - data/pipelines-stage/152_snakemake/experiments/by_dataset/.gitkeep
+  - data/pipelines-stage/152_snakemake/shared/configs/.gitkeep
+  - data/pipelines-stage/152_snakemake/shared/configs/config.yaml
+  - data/pipelines-stage/152_snakemake/shared/environments/.gitkeep
+  - data/pipelines-stage/152_snakemake/shared/environments/base.yaml
+  - data/pipelines-stage/152_snakemake/shared/resources/.gitkeep
+  - data/pipelines-stage/152_snakemake/workflows/.gitkeep
+  - data/pipelines-stage/README.md
+post_grow_hint: |
+  Created data/pipelines-stage/ stage directory.

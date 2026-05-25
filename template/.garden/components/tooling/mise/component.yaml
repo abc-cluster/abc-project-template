@@ -1,0 +1,9 @@
+id: "tooling:mise"
+description: "mise task runner configuration (.mise/tasks/)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - .mise/tasks/build
+  - .mise/tasks/greet
+post_grow_hint: |
+  Restored .mise from seed bank.

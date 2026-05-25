@@ -1,0 +1,6 @@
+id: "lang:javascript"
+description: "JavaScript / Node.js package.json scaffolding"
+status: "experimental"
+version: "0.1.0"
+files:
+  - package.json

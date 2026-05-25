@@ -1,0 +1,16 @@
+id: "writeup:abstracts"
+description: "Conference and journal abstract templates"
+status: "experimental"
+version: "0.1.0"
+files:
+  - writeup/abstracts/README.md
+  - writeup/abstracts/abstracts.just
+  - writeup/abstracts/submissions/conference/.gitkeep
+  - writeup/abstracts/submissions/journal/.gitkeep
+  - writeup/abstracts/submissions/symposium/.gitkeep
+  - writeup/abstracts/templates/conference_abstract.qmd
+  - writeup/abstracts/templates/journal_abstract.qmd
+  - writeup/abstracts/templates/symposium_abstract.qmd
+  - writeup/abstracts/versions/.gitkeep
+post_grow_hint: |
+  Created writeup/abstracts/ with format-specific scaffolding.

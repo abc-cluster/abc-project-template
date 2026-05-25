@@ -1,0 +1,46 @@
+{:deps {;; CORE
+        org.clojure/clojure {:mvn/version "1.12.0"}
+
+        io.github.pfeodrippe/wally {:mvn/version "0.0.4"}
+
+        ;; parallel computing
+        ;;missionary/missionary {:mvn/version "b.44"}
+
+        ;; SCICLOJ
+        scicloj/clojisr {:mvn/version "1.0.0"}
+        org.scicloj/kind-clerk {:mvn/version "1-alpha9"}
+        org.scicloj/kindly {:mvn/version "4-beta16"}
+        org.scicloj/noj        {:mvn/version "2-beta16"}
+        org.scicloj/wolframite {:mvn/version "1.1.0"}}
+
+ :aliases {
+           :fs-clojure {:classpath-overrides {org.clojure/clojure nil}
+                        :extra-deps {com.github.flow-storm/clojure {:mvn/version "1.12.0-9"}
+                                     com.github.flow-storm/flow-storm-dbg {:mvn/version "4.4.3"}}}
+
+           ;; Optional plugins you find yourself using regularly
+           :fs-web {:extra-deps {com.github.flow-storm/flow-storm-web-plugin {:mvn/version "1.0.0-beta"}}
+                           :jvm-opts ["-Dclojure.storm.instrumentOnlyPrefixes.webPlugin=org.httpkit.server,ring.adapter.jetty,next.jdbc.result-set"
+                                      "-Dflowstorm.plugins.namespaces.webPlugin=flow-storm.plugins.web.all"]}
+
+           :cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.11.132"}}}
+
+           :fig {:extra-deps {com.bhauman/figwheel-main       {:mvn/version "0.2.20"}
+                              com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}}
+                 :main-opts  ["-m" "figwheel.main"]}
+
+           :portal {:extra-deps {djblue/portal             {:mvn/version "0.59.0"}
+                                 org.clojure/clojurescript {:mvn/version "1.10.844"}}}
+
+           :debug {:extra-deps {djblue/flowstorm {:mvn/version "0.4.0"}}}
+
+           :nextjournal/clerk {:extra-deps {org.babashka/cli {:mvn/version "0.7.52"}
+                                            org.scicloj/kind-clerk {:mvn/version "1-alpha9"}
+                                            io.github.nextjournal/clerk {:mvn/version "0.17.1102"}}
+                               ;:exec-fn     nextjournal.clerk/build!
+                               #_#_:main-opts   ["-m" "babashka.cli.exec"]}}
+
+ :paths ["scripts/clojurescript/figwheel/src"
+         "scripts/clojurescript/src/figwheel/resources"
+         "scripts/clojurescript/src/figwheel/target"]
+ }

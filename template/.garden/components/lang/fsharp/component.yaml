@@ -1,0 +1,11 @@
+id: "lang:fsharp"
+description: "F# (.NET) package development"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/fsharp.just
+adds_imports:
+  - tasks/fsharp.just
+post_grow_hint: |
+  fsharp recipes added under tasks/fsharp.just.
+  Note: experimental — recipe bodies are stubs.

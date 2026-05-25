@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="abc-project-template ABC mark">
+  <!-- Light-theme navbar: warm-green trio rings on transparent ground.
+       Matches the site's primary `#2d7060` so the mark sits naturally on
+       the mint-cream navbar without a competing badge. Mirrors abc-cluster-cli. -->
+  <g fill="none" stroke="#2d7060" stroke-width="2.2">
+    <circle cx="14" cy="32" r="9"/>
+    <circle cx="32" cy="32" r="9"/>
+    <circle cx="50" cy="32" r="9"/>
+  </g>
+  <g fill="#2d7060" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace"
+     font-weight="700" font-size="11" text-anchor="middle" letter-spacing="-0.02em">
+    <text x="14" y="35.9">A</text>
+    <text x="32" y="35.9">B</text>
+    <text x="50" y="35.9">C</text>
+  </g>
+</svg>

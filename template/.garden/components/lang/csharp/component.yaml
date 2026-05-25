@@ -1,0 +1,11 @@
+id: "lang:csharp"
+description: "C# (.NET) package development"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/csharp.just
+adds_imports:
+  - tasks/csharp.just
+post_grow_hint: |
+  csharp recipes added under tasks/csharp.just.
+  Note: experimental — recipe bodies are stubs.

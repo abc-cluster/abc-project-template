@@ -1,0 +1,11 @@
+id: "lang:distribution"
+description: "Multi-language package distribution"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/distribution.just
+adds_imports:
+  - tasks/distribution.just
+post_grow_hint: |
+  distribution recipes added under tasks/distribution.just.
+  Note: experimental — recipe bodies are stubs.

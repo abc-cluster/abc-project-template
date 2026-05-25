@@ -1,0 +1,13 @@
+id: "data:features"
+description: "Feature engineering stage (transforms, scaling, encoding, dimensionality reduction)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/features/.gitkeep
+  - data/features/041_domain/.gitkeep
+  - data/features/042_statistical/.gitkeep
+  - data/features/043_interaction/.gitkeep
+  - data/features/044_scaled/.gitkeep
+  - data/features/045_dimensionality_reduced/.gitkeep
+post_grow_hint: |
+  Created data/features/ stage directory.

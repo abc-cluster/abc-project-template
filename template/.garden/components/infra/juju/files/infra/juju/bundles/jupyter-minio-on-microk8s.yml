@@ -1,0 +1,26 @@
+description: Deploy JupyterHub and MinIO on MicroK8s via Juju.
+series: jammy
+applications:
+  jupyterhub:
+    charm: jupyterhub-k8s
+    channel: stable
+    scale: 1
+    trust: true
+    options:
+      admin-user: admin
+      auth-type: dummy
+      root-password: admin
+    kubernetes:
+      storage: microk8s-hostpath
+  minio:
+    charm: minio
+    channel: stable
+    scale: 1
+    trust: true
+    options:
+      access-key: minioadmin
+      secret-key: minioadmin
+    kubernetes:
+      storage: microk8s-hostpath
+relations:
+  - [jupyterhub, minio]

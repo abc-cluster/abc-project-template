@@ -1,0 +1,16 @@
+id: "lang:clojure"
+description: "Clojure / ClojureScript package development"
+status: "experimental"
+version: "0.1.0"
+files:
+  - bb.edn
+  - clay.edn
+  - deps.edn
+  - dev.cljs.edn
+  - nbb.edn
+  - tasks/clojure.just
+adds_imports:
+  - tasks/clojure.just
+post_grow_hint: |
+  clojure recipes added under tasks/clojure.just.
+  Note: experimental — recipe bodies are stubs.

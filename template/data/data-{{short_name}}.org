@@ -1,0 +1,23 @@
+* Dataset: <Name>
+  :PROPERTIES:
+  :SOURCE: <URL or file>
+  :UPDATED: <YYYY-MM-DD>
+  :TAGS: dataset
+  :END:
+** Description
+<What is this dataset?>
+
+** Schema
+| Column   | Type   | Description      |
+|----------+--------+------------------|
+| user_id  | int    | User identifier  |
+| name     | string | User full name   |
+
+** Sample Data
+#+BEGIN_SRC python :results output
+import pandas as pd
+print(pd.read_csv("data.csv").head())
+#+END_SRC
+
+** Provenance
+<Where did the data come from?>

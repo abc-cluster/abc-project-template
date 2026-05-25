@@ -1,0 +1,57 @@
+#cloud-config
+
+# Update and upgrade packages
+package_update: true
+package_upgrade: true
+
+# Install necessary packages
+packages:
+  - build-essential
+  - python3-pip
+  - python3-dev
+  - r-base
+  - git
+  - curl
+  - wget
+  - htop
+  - tmux
+  - vim
+
+# Configure user settings
+users:
+  - default
+  - name: datascientist
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - {{ ssh_public_key|default('') }}
+
+# Run commands after setup
+runcmd:
+  - sudo -H -u datascientist pip3 install --upgrade pip setuptools wheel
+  - sudo -H -u datascientist pip3 install jupyterlab pandas numpy matplotlib scikit-learn
+  {% if specialized_domain == "Bioinformatics" %}
+  - sudo -H -u datascientist pip3 install biopython
+  {% endif %}
+  {% if specialized_domain == "Geospatial" %}
+  - sudo -H -u datascientist pip3 install geopandas folium
+  {% endif %}
+  - echo 'export PATH="$HOME/.local/bin:$PATH"' >> /home/datascientist/.bashrc
+  - mkdir -p /home/datascientist/{{ project_name|lower|replace(" ", "-") }}
+  - chown -R datascientist:datascientist /home/datascientist/{{ project_name|lower|replace(" ", "-") }}
+
+# Mount project directory
+mounts:
+  - [ "host:/home/{{ user }}/projects/{{ project_name|lower|replace(' ', '-') }}", "/home/datascientist/{{ project_name|lower|replace(' ', '-') }}", "9p", "trans=virtio,version=9p2000.L", "0", "0" ]
+
+# Write files
+write_files:
+  - path: /home/datascientist/welcome.txt
+    content: |
+      Welcome to the {{ project_name }} data science environment!
+
+      Project files are mounted at ~/{{ project_name|lower|replace(" ", "-") }}
+      To start Jupyter Lab, run: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser
+    owner: datascientist:datascientist
+    permissions: '0644'

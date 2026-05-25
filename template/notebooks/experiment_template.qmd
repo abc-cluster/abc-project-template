@@ -1,0 +1,24 @@
+---
+title: "Experiment Notebook"
+author: "abhi18av"
+date: "{{DATE}}"
+format: html
+---
+
+# Experiment Notebook
+
+This is an experiment for the sub-stage: **{{SUBSTAGE}}**
+**Experiment ID:** {{EXPERIMENT_ID}}
+
+## Objective
+
+<!-- State the goal of this experiment -->
+
+## Methods
+
+<!-- Describe approach, parameters, variations, etc. -->
+
+## Code
+
+```{python}
+# Your experiment code here

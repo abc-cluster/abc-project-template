@@ -1,0 +1,8 @@
+id: "web:r"
+description: "R web framework templates (Shiny/Plumber)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - web/r/plumber.R
+post_grow_hint: |
+  Restored web/r/ scaffolding.

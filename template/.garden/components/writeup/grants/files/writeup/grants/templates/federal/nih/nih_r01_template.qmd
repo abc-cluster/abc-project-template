@@ -1,0 +1,276 @@
+---
+title: "NIH R01 Grant Proposal Template"
+subtitle: "[Insert FOA Number and Title]"
+author: 
+  - name: "Principal Investigator Name"
+    affiliation: "Institution"
+    email: "pi@institution.edu"
+format:
+  pdf:
+    documentclass: article
+    geometry: margin=0.5in
+    fontsize: 11pt
+    linestretch: 1
+bibliography: references.bib
+---
+
+# Project Summary/Abstract
+
+**[Maximum 30 lines of text]**
+
+Brief overview of the proposed research including:
+- Background and significance
+- Specific aims
+- Research design and methods
+- Expected outcomes and impact
+
+# Specific Aims
+
+**[Maximum 1 page]**
+
+## Background and Significance
+
+Brief background establishing the importance of the research problem.
+
+## Specific Aims
+
+**Aim 1**: [Title of first aim]
+*Hypothesis*: 
+*Approach*: 
+
+**Aim 2**: [Title of second aim]
+*Hypothesis*: 
+*Approach*: 
+
+**Aim 3**: [Title of third aim]
+*Hypothesis*: 
+*Approach*: 
+
+## Expected Outcomes and Impact
+
+# Research Strategy
+
+**[Maximum 12 pages]**
+
+## Significance
+
+### Impact on the Field
+### Clinical/Translational Relevance
+### Innovation
+
+## Innovation
+
+### Novel Approaches
+### New Technologies or Methods
+### Conceptual Innovation
+
+## Approach
+
+### Preliminary Studies/Progress Report
+
+#### Previous Work
+#### Pilot Data
+#### Publications and Funding
+
+### Research Design and Methods
+
+#### **Aim 1**: [Title]
+
+**Rationale**: 
+
+**Experimental Design**: 
+
+**Methods**: 
+
+**Expected Results**: 
+
+**Potential Problems and Alternative Approaches**: 
+
+#### **Aim 2**: [Title]
+
+**Rationale**: 
+
+**Experimental Design**: 
+
+**Methods**: 
+
+**Expected Results**: 
+
+**Potential Problems and Alternative Approaches**: 
+
+#### **Aim 3**: [Title]
+
+**Rationale**: 
+
+**Experimental Design**: 
+
+**Methods**: 
+
+**Expected Results**: 
+
+**Potential Problems and Alternative Approaches**: 
+
+### Timeline
+
+| Year | Aim 1 | Aim 2 | Aim 3 | Milestones |
+|------|-------|-------|-------|------------|
+| 1    |       |       |       |            |
+| 2    |       |       |       |            |
+| 3    |       |       |       |            |
+| 4    |       |       |       |            |
+| 5    |       |       |       |            |
+
+### Data Analysis Plan
+
+### Power Analysis and Sample Size Calculations
+
+### Data Management and Sharing
+
+## References
+
+---
+
+# Personnel Justification
+
+## Principal Investigator (PI)
+
+**Role**: 
+**Effort**: [% effort]
+**Qualifications**: 
+**Contribution to Project**: 
+
+## Co-Investigator(s)
+
+**Name**: 
+**Role**: 
+**Effort**: [% effort]
+**Qualifications**: 
+**Contribution to Project**: 
+
+## Key Personnel
+
+### Postdoctoral Fellows
+### Graduate Students
+### Research Staff
+
+## Consultant(s)
+
+**Name**: 
+**Expertise**: 
+**Role in Project**: 
+**Compensation**: 
+
+---
+
+# Environment and Institutional Commitment
+
+## Institutional Environment
+
+### Research Infrastructure
+### Core Facilities
+### Collaborative Environment
+
+## Institutional Commitment
+
+### Space Allocation
+### Equipment Access
+### Administrative Support
+
+---
+
+# Budget and Budget Justification
+
+## Direct Costs
+
+### Personnel (Salary and Fringe Benefits)
+
+| Position | % Effort | Months | Salary | Fringe | Total |
+|----------|----------|--------|--------|--------|-------|
+| PI       |          |        |        |        |       |
+| Co-I     |          |        |        |        |       |
+| Postdoc  |          |        |        |        |       |
+| Grad Student |      |        |        |        |       |
+
+### Equipment
+
+| Item | Justification | Year | Cost |
+|------|---------------|------|------|
+|      |               |      |      |
+
+### Supplies
+
+| Category | Justification | Annual Cost |
+|----------|---------------|-------------|
+| Laboratory |              |             |
+| Computing  |              |             |
+| Other      |              |             |
+
+### Travel
+
+| Purpose | Annual Cost |
+|---------|-------------|
+| Scientific Meetings |  |
+| Collaboration |        |
+
+### Other Expenses
+
+### Consortium/Contractual Costs
+
+## Indirect Costs (F&A)
+
+## Total Direct Costs
+## Total Costs
+
+---
+
+# Human Subjects Research
+
+## Data and Safety Monitoring Plan
+
+## Inclusion of Women and Minorities
+
+## Inclusion of Children
+
+## Vertebrate Animals (if applicable)
+
+---
+
+# Resource Sharing Plan
+
+## Data Sharing Plan
+
+## Model Organism Sharing Plan (if applicable)
+
+## Genome Wide Association Studies (if applicable)
+
+---
+
+# Authentication of Key Biological and/or Chemical Resources
+
+| Resource | Source | Authentication Method |
+|----------|--------|--------------------|
+|          |        |                    |
+
+---
+
+# Select Agent Research (if applicable)
+
+---
+
+# Multiple Principal Investigator (MPI) Leadership Plan (if applicable)
+
+---
+
+# Consortium/Contractual Arrangements (if applicable)
+
+---
+
+# Letters of Support (if applicable)
+
+---
+
+# Appendix (if allowed)
+
+## Additional Figures
+## Detailed Protocols
+## Supplementary Data

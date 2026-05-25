@@ -1,0 +1,10 @@
+id: "infra:lxd"
+description: "LXD container-based development environments"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/lxd/macos-multipass-lxd.sh
+  - infra/lxd/setup.md
+post_grow_hint: |
+  Created infra/lxd/ with subsystem-specific scaffolding.
+  Inspect the generated files; some require external tools (e.g. terraform, packer).

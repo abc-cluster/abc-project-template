@@ -1,0 +1,11 @@
+id: "lang:c"
+description: "C/C++ package development (build, test)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/c.just
+adds_imports:
+  - tasks/c.just
+post_grow_hint: |
+  c recipes added under tasks/c.just.
+  Note: experimental — recipe bodies are stubs.

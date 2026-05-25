@@ -1,0 +1,11 @@
+id: "data:publications"
+description: "Publication-ready figures and tables"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/publications/.gitkeep
+  - data/publications/121_archives/.gitkeep
+  - data/publications/122_datasets/.gitkeep
+  - data/publications/123_metadata/.gitkeep
+post_grow_hint: |
+  Created data/publications/ stage directory.

@@ -1,0 +1,10 @@
+description: Overlay for development/testing deployments.
+applications:
+  minio:
+    options:
+      access-key: devminio
+      secret-key: devminio
+  jupyterhub:
+    options:
+      admin-user: devadmin
+      root-password: devpassword

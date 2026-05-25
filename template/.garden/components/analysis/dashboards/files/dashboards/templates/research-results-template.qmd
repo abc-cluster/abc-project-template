@@ -1,0 +1,480 @@
+---
+title: "Research Results: {{PROJECT_NAME}}"
+subtitle: "Analysis and Findings Dashboard"
+author: "Research Team"
+date: "{{DATE}}"
+format:
+  dashboard:
+    theme: [cosmo, custom.scss]
+    nav-buttons: [github, linkedin]
+    logo: images/logo.png
+server: shiny
+execute:
+  warning: false
+  message: false
+---
+
+```{python}
+#| context: setup
+import pandas as pd
+import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import seaborn as sns
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Load your data here
+# df = pd.read_csv("../data/02_processed/{{PROJECT_NAME}}_processed.csv")
+# results_df = pd.read_csv("../results/{{PROJECT_NAME}}_results.csv")
+
+# For demo purposes, create sample data
+np.random.seed(42)
+n_samples = 1000
+df = pd.DataFrame({
+    'feature_1': np.random.normal(0, 1, n_samples),
+    'feature_2': np.random.normal(2, 1.5, n_samples),
+    'target': np.random.choice([0, 1], n_samples, p=[0.6, 0.4])
+})
+
+# Sample experiment results
+experiment_results = pd.DataFrame({
+    'method': ['Baseline', 'Method A', 'Method B', 'Method C'],
+    'accuracy': [0.78, 0.84, 0.86, 0.83],
+    'precision': [0.75, 0.82, 0.85, 0.81],
+    'recall': [0.72, 0.81, 0.84, 0.80],
+    'f1_score': [0.73, 0.81, 0.84, 0.80]
+})
+```
+
+# {.sidebar}
+
+![Research Project Logo](images/research-logo.png){width="80%"}
+
+## Project Overview
+
+**Research Question**: {{RESEARCH_QUESTION}}
+
+**Hypothesis**: {{HYPOTHESIS}}
+
+**Dataset**: {{DATASET_NAME}}
+- **Size**: {{DATASET_SIZE}} samples
+- **Features**: {{NUM_FEATURES}}
+- **Target**: {{TARGET_VARIABLE}}
+
+## Navigation
+
+- [Results Summary](#results-summary)
+- [Statistical Analysis](#statistical-analysis) 
+- [Model Performance](#model-performance)
+- [Feature Analysis](#feature-analysis)
+- [Experimental Comparison](#experimental-comparison)
+
+## Key Findings
+
+🔍 **Primary Finding**: [Brief description of main result]
+
+📊 **Statistical Significance**: p < 0.05
+
+🎯 **Best Performance**: Method B (F1: 0.84)
+
+⚡ **Impact**: [Practical significance]
+
+---
+
+## Methodology
+
+**Experimental Design**: [Brief description]
+
+**Sample Size**: {{SAMPLE_SIZE}}
+
+**Statistical Tests**: [List key tests used]
+
+**Validation**: [Cross-validation strategy]
+
+# Results Summary
+
+## Row {height=30%}
+
+### Column
+
+```{python}
+#| title: "Primary Metric Performance"
+fig = px.bar(experiment_results, 
+             x='method', y='f1_score',
+             title='F1-Score Comparison Across Methods',
+             color='f1_score',
+             color_continuous_scale='viridis',
+             text='f1_score')
+fig.update_traces(texttemplate='%{text:.3f}', textposition='outside')
+fig.update_layout(showlegend=False, 
+                  xaxis_title="Method",
+                  yaxis_title="F1-Score")
+fig.show()
+```
+
+### Column
+
+```{python}
+#| title: "Performance Metrics Heatmap"
+metrics_matrix = experiment_results.set_index('method')[['accuracy', 'precision', 'recall', 'f1_score']]
+fig = px.imshow(metrics_matrix.T, 
+                text_auto='.3f',
+                aspect="auto",
+                color_continuous_scale='RdYlBu_r',
+                title='Performance Metrics Heatmap')
+fig.update_xaxes(side="bottom")
+fig.show()
+```
+
+## Row {height=70%}
+
+### Column {width=60%}
+
+```{python}
+#| title: "Feature Distribution Analysis"
+fig = make_subplots(rows=1, cols=2, 
+                    subplot_titles=('Feature 1 Distribution', 'Feature 2 Distribution'))
+
+# Feature 1 histogram
+fig.add_trace(go.Histogram(x=df[df['target']==0]['feature_1'], 
+                          name='Class 0', opacity=0.7), row=1, col=1)
+fig.add_trace(go.Histogram(x=df[df['target']==1]['feature_1'], 
+                          name='Class 1', opacity=0.7), row=1, col=1)
+
+# Feature 2 histogram  
+fig.add_trace(go.Histogram(x=df[df['target']==0]['feature_2'], 
+                          name='Class 0', opacity=0.7, showlegend=False), row=1, col=2)
+fig.add_trace(go.Histogram(x=df[df['target']==1]['feature_2'], 
+                          name='Class 1', opacity=0.7, showlegend=False), row=1, col=2)
+
+fig.update_layout(height=400, 
+                  title_text="Feature Distributions by Target Class",
+                  barmode='overlay')
+fig.show()
+```
+
+### Column {width=40%}
+
+```{python}
+#| title: "Sample Size and Statistical Power"
+import plotly.graph_objects as go
+
+# Sample size analysis
+sample_sizes = [100, 250, 500, 750, 1000]
+power_values = [0.65, 0.78, 0.88, 0.94, 0.98]
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=sample_sizes, y=power_values,
+                        mode='lines+markers',
+                        line=dict(color='blue', width=3),
+                        marker=dict(size=8),
+                        name='Statistical Power'))
+
+fig.add_hline(y=0.8, line_dash="dash", line_color="red", 
+              annotation_text="Power = 0.8 (minimum)")
+
+fig.update_layout(title="Statistical Power Analysis",
+                  xaxis_title="Sample Size",
+                  yaxis_title="Statistical Power",
+                  yaxis=dict(range=[0, 1]))
+fig.show()
+```
+
+# Statistical Analysis
+
+## Row {height=50%}
+
+### Column {width=50%}
+
+```{python}
+#| title: "Hypothesis Testing Results"
+from scipy import stats
+
+# Perform t-test between groups
+group_0 = df[df['target'] == 0]['feature_1']
+group_1 = df[df['target'] == 1]['feature_1']
+t_stat, p_value = stats.ttest_ind(group_0, group_1)
+
+# Effect size (Cohen's d)
+pooled_std = np.sqrt(((len(group_0) - 1) * group_0.var() + 
+                      (len(group_1) - 1) * group_1.var()) / 
+                     (len(group_0) + len(group_1) - 2))
+cohens_d = (group_1.mean() - group_0.mean()) / pooled_std
+
+# Create results table
+stats_results = pd.DataFrame({
+    'Test': ['T-test', 'Cohen\'s d', 'Sample Size', 'Degrees of Freedom'],
+    'Value': [f'{t_stat:.4f}', f'{cohens_d:.4f}', len(df), len(group_0) + len(group_1) - 2],
+    'P-value': [f'{p_value:.4f}', 'N/A', 'N/A', 'N/A'],
+    'Significance': ['***' if p_value < 0.001 else '**' if p_value < 0.01 else '*' if p_value < 0.05 else 'ns', 
+                     'Large' if abs(cohens_d) > 0.8 else 'Medium' if abs(cohens_d) > 0.5 else 'Small',
+                     'N/A', 'N/A']
+})
+
+fig = go.Figure(data=[go.Table(
+    header=dict(values=list(stats_results.columns),
+                fill_color='paleturquoise',
+                align='left'),
+    cells=dict(values=[stats_results[col] for col in stats_results.columns],
+               fill_color='lavender',
+               align='left'))
+])
+fig.update_layout(title="Statistical Test Results")
+fig.show()
+```
+
+### Column {width=50%}
+
+```{python}
+#| title: "Confidence Intervals"
+# Calculate confidence intervals
+from scipy.stats import t
+
+def calculate_ci(data, confidence=0.95):
+    n = len(data)
+    mean = np.mean(data)
+    se = stats.sem(data)
+    h = se * t.ppf((1 + confidence) / 2., n-1)
+    return mean - h, mean + h
+
+ci_group_0 = calculate_ci(group_0)
+ci_group_1 = calculate_ci(group_1)
+
+fig = go.Figure()
+
+# Add confidence intervals
+fig.add_trace(go.Scatter(
+    x=[0, 1], 
+    y=[group_0.mean(), group_1.mean()],
+    error_y=dict(
+        type='data',
+        symmetric=False,
+        array=[group_0.mean() - ci_group_0[0], group_1.mean() - ci_group_1[0]],
+        arrayminus=[ci_group_0[1] - group_0.mean(), ci_group_1[1] - group_1.mean()]
+    ),
+    mode='markers',
+    marker=dict(size=12),
+    name='Group Means'
+))
+
+fig.update_layout(
+    title="95% Confidence Intervals for Group Means",
+    xaxis_title="Group",
+    yaxis_title="Feature 1 Value",
+    xaxis=dict(tickmode='array', tickvals=[0, 1], ticktext=['Group 0', 'Group 1'])
+)
+fig.show()
+```
+
+## Row {height=50%}
+
+```{python}
+#| title: "Residual Analysis and Model Diagnostics"
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+# Fit a simple model for residual analysis
+X = df[['feature_1', 'feature_2']]
+y = df['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+y_pred_proba = model.predict_proba(X_test)[:, 1]
+
+# Create residual plots
+fig = make_subplots(rows=1, cols=2,
+                    subplot_titles=('Predicted vs Actual', 'Residual Distribution'))
+
+# Predicted vs Actual
+fig.add_trace(go.Scatter(x=y_test, y=y_pred_proba,
+                        mode='markers',
+                        name='Predictions'), row=1, col=1)
+fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1],
+                        mode='lines',
+                        name='Perfect Prediction',
+                        line=dict(dash='dash', color='red')), row=1, col=1)
+
+# Residuals
+residuals = y_test - y_pred_proba
+fig.add_trace(go.Histogram(x=residuals, name='Residuals'), row=1, col=2)
+
+fig.update_layout(height=400, title_text="Model Diagnostic Plots")
+fig.show()
+```
+
+# Model Performance
+
+## Row 
+
+### Column {width=70%}
+
+```{python}
+#| title: "ROC Curves Comparison"
+from sklearn.metrics import roc_curve, auc
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+
+# Train multiple models for comparison
+models = {
+    'Logistic Regression': LogisticRegression(random_state=42),
+    'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42),
+    'SVM': SVC(probability=True, random_state=42)
+}
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1],
+                        mode='lines',
+                        line=dict(dash='dash', color='black'),
+                        name='Random Classifier'))
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    y_pred_proba = model.predict_proba(X_test)[:, 1]
+    fpr, tpr, _ = roc_curve(y_test, y_pred_proba)
+    roc_auc = auc(fpr, tpr)
+    
+    fig.add_trace(go.Scatter(x=fpr, y=tpr,
+                            mode='lines',
+                            name=f'{name} (AUC = {roc_auc:.3f})'))
+
+fig.update_layout(
+    title='ROC Curve Comparison',
+    xaxis_title='False Positive Rate',
+    yaxis_title='True Positive Rate',
+    xaxis=dict(range=[0, 1]),
+    yaxis=dict(range=[0, 1])
+)
+fig.show()
+```
+
+### Column {width=30%}
+
+```{python}
+#| title: "Performance Summary"
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+performance_data = []
+for name, model in models.items():
+    y_pred = model.predict(X_test)
+    performance_data.append({
+        'Model': name,
+        'Accuracy': accuracy_score(y_test, y_pred),
+        'Precision': precision_score(y_test, y_pred),
+        'Recall': recall_score(y_test, y_pred),
+        'F1-Score': f1_score(y_test, y_pred)
+    })
+
+performance_df = pd.DataFrame(performance_data)
+
+fig = go.Figure(data=[go.Table(
+    header=dict(values=list(performance_df.columns),
+                fill_color='lightblue',
+                align='left'),
+    cells=dict(values=[performance_df[col].round(3) if col != 'Model' else performance_df[col] 
+                      for col in performance_df.columns],
+               fill_color='white',
+               align='left'))
+])
+fig.update_layout(title="Model Performance Comparison")
+fig.show()
+```
+
+# Feature Analysis
+
+## Row
+
+```{python}
+#| title: "Feature Importance and Correlation Analysis"
+# Calculate feature importance from Random Forest
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_model.fit(X_train, y_train)
+feature_importance = pd.DataFrame({
+    'feature': X_train.columns,
+    'importance': rf_model.feature_importances_
+}).sort_values('importance', ascending=True)
+
+# Create subplot for feature importance and correlation
+fig = make_subplots(rows=1, cols=2,
+                    subplot_titles=('Feature Importance', 'Feature Correlation Matrix'))
+
+# Feature importance
+fig.add_trace(go.Bar(x=feature_importance['importance'],
+                    y=feature_importance['feature'],
+                    orientation='h',
+                    name='Importance'), row=1, col=1)
+
+# Correlation matrix
+corr_matrix = X.corr()
+fig.add_trace(go.Heatmap(z=corr_matrix.values,
+                        x=corr_matrix.columns,
+                        y=corr_matrix.columns,
+                        colorscale='RdBu',
+                        zmid=0,
+                        name='Correlation'), row=1, col=2)
+
+fig.update_layout(height=500, title_text="Feature Analysis Dashboard")
+fig.show()
+```
+
+# Experimental Comparison
+
+## Row
+
+```{python}
+#| title: "Method Comparison and Statistical Significance"
+# Detailed comparison with error bars and significance tests
+methods = experiment_results['method'].tolist()
+metrics = ['accuracy', 'precision', 'recall', 'f1_score']
+
+fig = make_subplots(rows=2, cols=2,
+                    subplot_titles=metrics)
+
+positions = [(1,1), (1,2), (2,1), (2,2)]
+
+for i, metric in enumerate(metrics):
+    row, col = positions[i]
+    values = experiment_results[metric].tolist()
+    
+    # Add some random error for demonstration
+    np.random.seed(42)
+    errors = np.random.normal(0, 0.02, len(values))
+    
+    fig.add_trace(go.Bar(x=methods, y=values,
+                        error_y=dict(type='data', array=np.abs(errors)),
+                        name=metric.title(),
+                        showlegend=False), row=row, col=col)
+
+fig.update_layout(height=600, title_text="Comprehensive Method Comparison")
+fig.show()
+```
+
+---
+
+## Research Conclusions
+
+### Key Findings
+1. **Primary Result**: [Summarize main finding]
+2. **Statistical Significance**: [Report p-values and effect sizes]
+3. **Practical Significance**: [Discuss real-world implications]
+
+### Limitations
+- [List study limitations]
+- [Discuss potential confounds]
+- [Address generalizability]
+
+### Future Work
+- [Suggested next steps]
+- [Additional experiments needed]
+- [Methodological improvements]
+
+### References
+[Add relevant citations and links to supporting materials]
+
+---
+
+*Dashboard ID: {{DASHBOARD_ID}}*  
+*Generated: {{DATE}}*  
+*Last Updated: `r Sys.time()`*

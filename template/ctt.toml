@@ -1,0 +1,63 @@
+# Copier Template Tester configuration
+
+[ctt]
+output_dir = "test_outputs"
+cleanup = true
+timeout = 300
+
+# Test scenarios
+[[ctt.scenario]]
+name = "minimal-python"
+description = "Minimal Python-only setup"
+
+[ctt.scenario.data]
+project_name = "Test Python Project"
+short_name = "test-python"
+author_name = "Test Author"
+author_email = "test@example.com"
+institution = "Test University"
+programming_language = "Python"
+use_analysis = true
+use_writeup = true
+use_infrastructure = false
+github_actions = true
+include_examples = true
+license = "MIT"
+
+[[ctt.scenario]]
+name = "full-stack-r"
+description = "Full stack with R and infrastructure"
+
+[ctt.scenario.data]
+project_name = "Test R Project"
+short_name = "test-r"
+author_name = "R Test Author"
+author_email = "rtest@example.com"
+institution = "R University"
+programming_language = "R"
+use_analysis = true
+use_writeup = true
+use_infrastructure = true
+use_multipass = true
+use_docker = true
+github_actions = true
+include_examples = true
+license = "Apache-2.0"
+
+[[ctt.scenario]]
+name = "writeup-only"
+description = "Writeup and publication tools only"
+
+[ctt.scenario.data]
+project_name = "Writeup Only Project"
+short_name = "writeup-only"
+author_name = "Writeup Author"
+author_email = "writeup@example.com"
+institution = "Writeup University"
+programming_language = "Python"
+use_analysis = false
+use_writeup = true
+use_infrastructure = false
+github_actions = false
+include_examples = false
+license = "CC-BY-4.0"

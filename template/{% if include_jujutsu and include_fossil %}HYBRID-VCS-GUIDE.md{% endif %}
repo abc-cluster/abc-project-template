@@ -1,0 +1,342 @@
+# Hybrid Version Control: Jujutsu + Fossil SCM for Academic Research
+
+## Overview
+
+This template integrates **Jujutsu (jj)** with **Fossil SCM** to create a comprehensive version control system tailored for academic research workflows. Each system serves specific purposes while maintaining compatibility and synchronization.
+
+## System Architecture
+
+### 🔄 **Dual-Layer Strategy**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    PRIMARY LAYER (jj + Git)                │
+├─────────────────────────────────────────────────────────────┤
+│ • Daily development workflow                                │
+│ • Experimental branching                                    │
+│ • Collaboration via GitHub/GitLab                          │
+│ • CI/CD integration                                         │
+│ • Real-time conflict resolution                            │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                   ARCHIVAL LAYER (Fossil)                  │
+├─────────────────────────────────────────────────────────────┤
+│ • Self-contained manuscript versioning                     │
+│ • Computational provenance tracking                        │
+│ • Long-term preservation                                    │
+│ • Publication-ready bundles                                │
+│ • Offline access and web UI                                │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Benefits of This Hybrid Approach
+
+### 🚀 **Why Jujutsu (Primary Layer)?**
+
+1. **Frictionless Experimentation**
+   - Anonymous commits encourage frequent saves during analysis
+   - Easy history rewriting for clean publication history
+   - Superior conflict resolution for collaborative research
+
+2. **Modern Development Workflow**
+   - Compatible with existing Git infrastructure
+   - Excellent performance with large repositories
+   - Powerful revset queries for finding specific experiments
+
+3. **Academic Collaboration**
+   - Seamless integration with GitHub/GitLab workflows
+   - CI/CD compatibility for automated testing
+   - Real-time collaboration without complex branching
+
+### 🦴 **Why Fossil SCM (Archival Layer)?**
+
+1. **Self-Contained Archives**
+   - Single-file repositories perfect for publication supplements
+   - Built-in web UI for reviewing manuscript history
+   - No external dependencies for long-term access
+
+2. **Manuscript Versioning**
+   - Ideal for tracking manuscript evolution
+   - Clear timeline view for editorial processes
+   - Easy version comparisons and rollbacks
+
+3. **Computational Provenance**
+   - Track analysis environments and dependencies
+   - Link manuscript changes to specific analysis versions
+   - Generate publication-ready research trails
+
+## Repository Structure
+
+```
+project/
+├── .jj/                          # Jujutsu primary repository
+├── .git/                         # Git backend for jj
+├── .hybrid-vcs-config            # Sync configuration
+├── writeup/
+│   └── manuscript/
+│       ├── manuscript.fossil     # Self-contained manuscript repo
+│       └── src/                  # Manuscript source files
+├── analysis/
+│   ├── analysis.fossil          # Computational provenance repo
+│   ├── notebooks/               # Analysis notebooks
+│   └── data/                    # Research data
+└── archives/
+    ├── project-archive.fossil   # Long-term preservation
+    └── publication-bundles/     # Export-ready archives
+```
+
+## Workflow Integration
+
+### 📝 **Daily Development Workflow**
+
+```bash
+# Start development session
+just dev-start "exploring new analysis approach"
+
+# Work on analysis (tracked in jj)
+# Edit notebooks, modify scripts, update data
+
+# Save progress (auto-syncs to relevant Fossil repos)
+just dev-save "completed initial feature engineering"
+
+# End session with milestone
+just dev-end "major data preprocessing complete"
+```
+
+### 📖 **Manuscript Writing Workflow**
+
+```bash
+# Start manuscript session
+just manuscript-start "methodology section"
+
+# Write and edit (tracked in both jj and Fossil)
+# Manuscript changes are dual-tracked for comprehensive history
+
+# Save progress with detailed versioning
+just manuscript-save "added statistical analysis methodology"
+
+# Create submission version
+just manuscript-version "journal-submission-v1"
+```
+
+### 🔬 **Analysis Session Workflow**
+
+```bash
+# Start analysis with computational tracking
+just analysis-start "hypothesis testing for feature X"
+
+# Run analysis (computational environment tracked)
+# Python/R versions, dependencies automatically logged
+
+# Save with provenance metadata
+just analysis-save "completed statistical tests" --include-data=true
+```
+
+## Synchronization Strategy
+
+### 🔄 **Automatic Synchronization**
+
+The system automatically syncs changes based on file paths:
+
+- **Manuscript changes** → Synced to `manuscript.fossil`
+- **Analysis changes** → Synced to `analysis.fossil`
+- **Major milestones** → Archived in `project-archive.fossil`
+
+### 📊 **Sync Triggers**
+
+```bash
+# Manual comprehensive sync
+just sync-all-to-fossil
+
+# Bidirectional sync (advanced)
+just bidirectional-sync
+
+# Check sync status
+just hybrid-status
+```
+
+## Archival and Preservation
+
+### 📦 **Archive Creation**
+
+```bash
+# Create milestone archive
+just create-archive-snapshot "paper-accepted-by-nature"
+
+# Export publication bundle
+just export-publication-bundle "nature-submission-2024"
+
+# Generate reproducibility package
+just generate-data-checksums
+```
+
+### 🎯 **Publication Workflow**
+
+1. **During Research:**
+   - Use jj for daily development and collaboration
+   - Fossil automatically tracks manuscript and analysis evolution
+
+2. **Pre-Submission:**
+   - Create clean jj history for publication
+   - Generate Fossil bundles for supplementary materials
+   - Export comprehensive archives
+
+3. **Post-Publication:**
+   - Archive complete research trail
+   - Create self-contained reproducibility packages
+   - Maintain long-term accessibility
+
+## Collaboration Patterns
+
+### 👥 **Team Collaboration**
+
+```bash
+# Share current experiment
+just share-with-collaborators "new analysis approach ready for review"
+
+# Receive updates from team
+just receive-updates
+
+# Review collaboration history
+just workflow-summary
+```
+
+### 🌐 **External Sharing**
+
+- **jj/Git**: Share via GitHub/GitLab for real-time collaboration
+- **Fossil**: Export bundles for journal submissions and archives
+- **Hybrid**: Comprehensive research packages for reproducibility
+
+## Maintenance and Utilities
+
+### 🏥 **System Health**
+
+```bash
+# Verify system status
+just verify-hybrid-system
+
+# Open Fossil web UIs for browsing
+just open-fossil-uis
+
+# Show comprehensive status
+just hybrid-status
+```
+
+### 🧹 **Cleanup and Optimization**
+
+```bash
+# Clean old experiments
+just cleanup-experiments "30 days"
+
+# Optimize repositories
+just backup-fossil-repos
+
+# Generate checksums for data integrity
+just generate-data-checksums
+```
+
+## Best Practices
+
+### 📋 **Development Guidelines**
+
+1. **Use jj for daily work** - Primary development in jj with frequent commits
+2. **Let Fossil track archives** - Automatic syncing handles Fossil updates
+3. **Create meaningful milestones** - Use milestones to trigger archive creation
+4. **Maintain clean history** - Use jj's history rewriting before publication
+
+### 🎯 **Academic Workflow Tips**
+
+1. **Manuscript versioning** - Create named versions for each submission
+2. **Computational provenance** - Include environment info in analysis saves
+3. **Collaboration clarity** - Use descriptive commit messages for both systems
+4. **Archive regularly** - Create snapshots at major project milestones
+
+## Installation and Setup
+
+### 📦 **Prerequisites**
+
+```bash
+# Install Jujutsu
+brew install jj  # macOS
+# or follow: https://github.com/jj-vcs/jj
+
+# Install Fossil SCM
+brew install fossil  # macOS
+# or follow: https://fossil-scm.org/home/doc/trunk/www/build.wiki
+```
+
+### 🚀 **Initialization**
+
+```bash
+# Initialize hybrid system
+just init-hybrid-vcs
+
+# Verify installation
+just verify-hybrid-system
+
+# View workflow guide
+just show-workflows
+```
+
+## Advanced Features
+
+### 🔍 **Querying and Analysis**
+
+```bash
+# Find recent experiments
+just list-experiments 14  # last 14 days
+
+# Show component history
+just component-history notebooks
+
+# Generate publication changelog
+just publication-changelog "6 months ago"
+```
+
+### 📈 **Reporting and Metrics**
+
+```bash
+# Comprehensive workflow summary
+just workflow-summary
+
+# Show recent changes by type
+just notebook-changes "1 week ago"
+just data-changes "1 week ago"
+just script-changes "1 week ago"
+```
+
+## Troubleshooting
+
+### ⚠️ **Common Issues**
+
+1. **Sync conflicts** - Use `just resolve-conflicts` for jj conflicts
+2. **Fossil UI not starting** - Check port availability (8080, 8081, 8082)
+3. **Large file handling** - Consider DVC for large datasets in jj
+4. **Performance** - Use `.gitignore`/`.ignore` for temporary files
+
+### 🛠️ **Recovery Procedures**
+
+```bash
+# Restore from archive
+fossil clone project-archive.fossil restored-project
+cd restored-project && fossil open project-archive.fossil
+
+# Recover manuscript version
+fossil timeline -n 100  # Find specific version
+fossil checkout [version-id]
+
+# Verify system integrity
+just verify-hybrid-system
+```
+
+## Integration with Other Tools
+
+### 🔗 **Ecosystem Compatibility**
+
+- **CI/CD**: jj/Git integration works with GitHub Actions, GitLab CI
+- **IDEs**: Standard Git support works through jj's Git backend
+- **Documentation**: Fossil web UI provides built-in documentation hosting
+- **Collaboration**: Standard Git workflows + Fossil sharing capabilities
+
+This hybrid approach provides the best of both worlds: modern development workflows with jj and comprehensive archival capabilities with Fossil, perfectly suited for the demanding requirements of academic research.

@@ -1,0 +1,27 @@
+id: "writeup:presentation"
+description: "Beamer / Reveal.js / Quarto presentation templates (academic, corporate, workshop)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - writeup/presentation/.gitignore
+  - writeup/presentation/.gitkeep
+  - writeup/presentation/README.md
+  - writeup/presentation/_brand.yml
+  - writeup/presentation/_output/.gitkeep
+  - writeup/presentation/_quarto.yml
+  - writeup/presentation/justfile
+  - writeup/presentation/presentation.just
+  - writeup/presentation/presentation.qmd
+  - writeup/presentation/presentations/conferences/.gitkeep
+  - writeup/presentation/presentations/meetings/.gitkeep
+  - writeup/presentation/presentations/seminars/.gitkeep
+  - writeup/presentation/presentations/workshops/.gitkeep
+  - writeup/presentation/refs.bib
+  - writeup/presentation/src/index.qmd
+  - writeup/presentation/templates/academic/academic_template.qmd
+  - writeup/presentation/templates/corporate/corporate_template.qmd
+  - writeup/presentation/templates/meeting/meeting-progress-summary.qmd
+  - writeup/presentation/templates/poster/poster_template.qmd
+  - writeup/presentation/templates/workshop/workshop_template.qmd
+post_grow_hint: |
+  Created writeup/presentation/ with format-specific scaffolding.

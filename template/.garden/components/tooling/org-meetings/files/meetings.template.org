@@ -1,0 +1,35 @@
+#+title: Meetings Template
+
+* Meeting: <MEETING TITLE>
+  :PROPERTIES:
+  :DATE:     <2025-05-25 Sun 14:00-15:00>
+  :LOCATION: <Zoom/Room/Etc.>
+  :ATTENDEES: <Name1, Name2, ...>
+  :END:
+
+** Purpose
+<Short statement of meeting goal or expected outcome.>
+
+** Agenda
+1. [ ] <Topic 1> (Owner: <Name>)
+2. [ ] <Topic 2> (Owner: <Name>)
+3. [ ] <Topic 3> (Owner: <Name>)
+
+** Notes
+*** <Topic 1>
+- <Discussion points, insights, etc.>
+*** <Topic 2>
+-
+*** <Topic 3>
+-
+
+** Action Items
+- [ ] <TODO Action> (Owner: <Name>, Due: <Date>)
+- [ ] <TODO Action> (Owner: <Name>, Due: <Date>)
+
+** Decisions
+- <Decision 1>
+- <Decision 2>
+
+** Follow-ups
+- <Open questions, items to revisit>

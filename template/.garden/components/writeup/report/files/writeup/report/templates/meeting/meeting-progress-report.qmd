@@ -1,0 +1,655 @@
+---
+title: "Progress Report: {{project_name}}"
+subtitle: "{{meeting_type}} Update - {{date_range}}"
+author:
+  - name: {{author_name}}
+    email: {{author_email}}
+    affiliations: {{affiliation}}
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+    css: ../../styles/meeting-report.css
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    geometry:
+      - top=1in
+      - bottom=1in
+      - left=1in
+      - right=1in
+  docx:
+    toc: true
+    number-sections: true
+    highlight-style: github
+bibliography: references.bib
+csl: apa.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center"
+)
+
+# Load required libraries
+library(knitr)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(DT)
+```
+
+# Executive Summary
+
+## Meeting Overview
+
+**Meeting Details:**
+- **Type:** {{meeting_type}}
+- **Date:** {{meeting_date}}
+- **Previous Meeting:** {{previous_meeting_date}}
+- **Period Covered:** {{days_elapsed}} days ({{start_date}} to {{end_date}})
+- **Project Phase:** {{current_phase}}
+- **Report Prepared By:** {{author_name}}
+
+## Key Highlights
+
+:::{.callout-note}
+## At a Glance
+- **Overall Progress:** {{overall_progress}}% complete
+- **Major Milestones:** {{milestones_completed}}/{{total_milestones}} completed
+- **Critical Issues:** {{critical_issues}} active
+- **Team Velocity:** {{team_velocity}} ({{velocity_trend}})
+- **Budget Status:** {{budget_status}}
+- **Timeline Status:** {{timeline_status}}
+:::
+
+### Major Achievements This Period
+
+1. **{{achievement_1}}** - {{achievement_1_detail}}
+2. **{{achievement_2}}** - {{achievement_2_detail}}
+3. **{{achievement_3}}** - {{achievement_3_detail}}
+
+### Critical Issues Requiring Attention
+
+1. **{{critical_issue_1}}** - Priority: {{priority_1}}
+2. **{{critical_issue_2}}** - Priority: {{priority_2}}
+3. **{{critical_issue_3}}** - Priority: {{priority_3}}
+
+# Detailed Progress Report
+
+## Accomplishments Since Last Meeting
+
+### {{category_1}}
+
+**Completed Items:**
+- {{completed_1_1}} - {{completion_date_1_1}}
+- {{completed_1_2}} - {{completion_date_1_2}}
+- {{completed_1_3}} - {{completion_date_1_3}}
+
+**Key Outcomes:**
+- {{outcome_1_1}}
+- {{outcome_1_2}}
+- {{outcome_1_3}}
+
+**Metrics:**
+- Tasks Completed: {{tasks_completed_1}}/{{tasks_planned_1}}
+- Quality Score: {{quality_score_1}}/10
+- Timeline Adherence: {{timeline_adherence_1}}%
+
+### {{category_2}}
+
+**Completed Items:**
+- {{completed_2_1}} - {{completion_date_2_1}}
+- {{completed_2_2}} - {{completion_date_2_2}}
+- {{completed_2_3}} - {{completion_date_2_3}}
+
+**Key Outcomes:**
+- {{outcome_2_1}}
+- {{outcome_2_2}}
+- {{outcome_2_3}}
+
+**Metrics:**
+- Tasks Completed: {{tasks_completed_2}}/{{tasks_planned_2}}
+- Quality Score: {{quality_score_2}}/10
+- Timeline Adherence: {{timeline_adherence_2}}%
+
+### {{category_3}}
+
+**Completed Items:**
+- {{completed_3_1}} - {{completion_date_3_1}}
+- {{completed_3_2}} - {{completion_date_3_2}}
+- {{completed_3_3}} - {{completion_date_3_3}}
+
+**Key Outcomes:**
+- {{outcome_3_1}}
+- {{outcome_3_2}}
+- {{outcome_3_3}}
+
+**Metrics:**
+- Tasks Completed: {{tasks_completed_3}}/{{tasks_planned_3}}
+- Quality Score: {{quality_score_3}}/10
+- Timeline Adherence: {{timeline_adherence_3}}%
+
+## Progress Dashboard
+
+```{r progress-dashboard}
+# Create sample progress data
+progress_data <- data.frame(
+  Category = c("{{category_1}}", "{{category_2}}", "{{category_3}}", "Overall"),
+  Planned = c({{tasks_planned_1}}, {{tasks_planned_2}}, {{tasks_planned_3}}, {{total_tasks_planned}}),
+  Completed = c({{tasks_completed_1}}, {{tasks_completed_2}}, {{tasks_completed_3}}, {{total_tasks_completed}}),
+  Percentage = c({{progress_1}}, {{progress_2}}, {{progress_3}}, {{overall_progress}})
+)
+
+# Create progress visualization
+ggplot(progress_data, aes(x = Category)) +
+  geom_col(aes(y = Planned, fill = "Planned"), alpha = 0.6, width = 0.6) +
+  geom_col(aes(y = Completed, fill = "Completed"), width = 0.6) +
+  geom_text(aes(y = Completed + 0.5, label = paste0(Percentage, "%")), 
+            vjust = 0, fontweight = "bold") +
+  scale_fill_manual(values = c("Planned" = "#e0e0e0", "Completed" = "#2E86AB")) +
+  labs(title = "Progress by Category",
+       subtitle = "Tasks Completed vs Planned",
+       x = "Category",
+       y = "Number of Tasks",
+       fill = "Status") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+# Issues and Troubleshooting
+
+## Problems Encountered
+
+### {{issue_1_category}} Issues
+
+#### {{issue_1_title}}
+
+**Severity:** {{issue_1_severity}}  
+**Status:** {{issue_1_status}}  
+**Date Identified:** {{issue_1_date}}  
+**Owner:** {{issue_1_owner}}
+
+**Problem Description:**
+{{issue_1_description}}
+
+**Impact Analysis:**
+- **Technical Impact:** {{issue_1_tech_impact}}
+- **Timeline Impact:** {{issue_1_timeline_impact}}
+- **Budget Impact:** {{issue_1_budget_impact}}
+- **Stakeholder Impact:** {{issue_1_stakeholder_impact}}
+
+**Root Cause Analysis:**
+1. **Primary Cause:** {{issue_1_primary_cause}}
+2. **Contributing Factors:** 
+   - {{issue_1_factor_1}}
+   - {{issue_1_factor_2}}
+   - {{issue_1_factor_3}}
+
+**Resolution Approach:**
+1. **Immediate Actions:** {{issue_1_immediate_actions}}
+2. **Short-term Solutions:** {{issue_1_short_term}}
+3. **Long-term Prevention:** {{issue_1_long_term}}
+
+**Current Status:** {{issue_1_current_status}}
+
+#### {{issue_2_title}}
+
+**Severity:** {{issue_2_severity}}  
+**Status:** {{issue_2_status}}  
+**Date Identified:** {{issue_2_date}}  
+**Owner:** {{issue_2_owner}}
+
+**Problem Description:**
+{{issue_2_description}}
+
+**Resolution Summary:**
+{{issue_2_resolution}}
+
+**Lessons Learned:**
+- {{issue_2_lesson_1}}
+- {{issue_2_lesson_2}}
+- {{issue_2_lesson_3}}
+
+## Issue Resolution Process
+
+```{mermaid}
+graph TD
+    A[Issue Identified] --> B{Severity Assessment}
+    B -->|Critical| C[Immediate Response Team]
+    B -->|High| D[Priority Assignment]
+    B -->|Medium/Low| E[Standard Process]
+    C --> F[Emergency Mitigation]
+    D --> G[Resource Allocation]
+    E --> H[Analysis \u0026 Planning]
+    F --> I[Root Cause Analysis]
+    G --> I
+    H --> I
+    I --> J[Solution Development]
+    J --> K[Implementation]
+    K --> L[Testing \u0026 Validation]
+    L --> M[Documentation]
+    M --> N[Process Improvement]
+```
+
+## Troubleshooting Knowledge Base
+
+### Common Issues and Solutions
+
+| Issue Type | Frequency | Avg Resolution Time | Standard Solution |
+|------------|-----------|---------------------|-------------------|
+| {{issue_type_1}} | {{frequency_1}} | {{resolution_time_1}} | {{solution_1}} |
+| {{issue_type_2}} | {{frequency_2}} | {{resolution_time_2}} | {{solution_2}} |
+| {{issue_type_3}} | {{frequency_3}} | {{resolution_time_3}} | {{solution_3}} |
+
+### Prevention Measures
+
+1. **{{prevention_1}}** - {{prevention_1_description}}
+2. **{{prevention_2}}** - {{prevention_2_description}}
+3. **{{prevention_3}}** - {{prevention_3_description}}
+
+# Team Performance and Notes
+
+## Team Velocity and Capacity
+
+```{r team-metrics}
+# Team performance data
+team_data <- data.frame(
+  Week = 1:{{weeks_in_period}},
+  Planned_Velocity = c({{planned_velocity_data}}),
+  Actual_Velocity = c({{actual_velocity_data}}),
+  Team_Capacity = c({{team_capacity_data}})
+)
+
+# Velocity trend chart
+ggplot(team_data, aes(x = Week)) +
+  geom_line(aes(y = Planned_Velocity, color = "Planned"), size = 1.2) +
+  geom_line(aes(y = Actual_Velocity, color = "Actual"), size = 1.2) +
+  geom_line(aes(y = Team_Capacity, color = "Capacity"), linetype = "dashed") +
+  scale_color_manual(values = c("Planned" = "#2E86AB", "Actual" = "#A23B72", "Capacity" = "#F18F01")) +
+  labs(title = "Team Velocity Trend",
+       subtitle = "Planned vs Actual Velocity Over Time",
+       x = "Week",
+       y = "Story Points",
+       color = "Metric") +
+  theme_minimal()
+```
+
+## Individual Contributions
+
+### Team Member Performance
+
+```{r team-performance}
+# Individual performance data
+individual_data <- data.frame(
+  Team_Member = c("{{member_1}}", "{{member_2}}", "{{member_3}}", "{{member_4}}"),
+  Tasks_Completed = c({{member_1_tasks}}, {{member_2_tasks}}, {{member_3_tasks}}, {{member_4_tasks}}),
+  Quality_Score = c({{member_1_quality}}, {{member_2_quality}}, {{member_3_quality}}, {{member_4_quality}}),
+  Contribution_Percentage = c({{member_1_contrib}}, {{member_2_contrib}}, {{member_3_contrib}}, {{member_4_contrib}})
+)
+
+# Display as interactive table
+datatable(individual_data, 
+          options = list(pageLength = 10, searching = FALSE),
+          caption = "Individual Team Member Performance") %>%
+  formatPercentage(c('Contribution_Percentage'), 1) %>%
+  formatRound(c('Quality_Score'), 1)
+```
+
+## Key Observations and Notes
+
+### What Worked Well
+
+1. **{{success_observation_1}}**
+   - **Evidence:** {{success_evidence_1}}
+   - **Impact:** {{success_impact_1}}
+   - **Replication Strategy:** {{success_replication_1}}
+
+2. **{{success_observation_2}}**
+   - **Evidence:** {{success_evidence_2}}
+   - **Impact:** {{success_impact_2}}
+   - **Replication Strategy:** {{success_replication_2}}
+
+### Areas for Improvement
+
+1. **{{improvement_area_1}}**
+   - **Current State:** {{current_state_1}}
+   - **Desired State:** {{desired_state_1}}
+   - **Action Plan:** {{action_plan_1}}
+   - **Success Metrics:** {{success_metrics_1}}
+
+2. **{{improvement_area_2}}**
+   - **Current State:** {{current_state_2}}
+   - **Desired State:** {{desired_state_2}}
+   - **Action Plan:** {{action_plan_2}}
+   - **Success Metrics:** {{success_metrics_2}}
+
+### Process Improvements Implemented
+
+1. **{{process_improvement_1}}**
+   - **Rationale:** {{improvement_rationale_1}}
+   - **Implementation Date:** {{implementation_date_1}}
+   - **Early Results:** {{early_results_1}}
+
+2. **{{process_improvement_2}}**
+   - **Rationale:** {{improvement_rationale_2}}
+   - **Implementation Date:** {{implementation_date_2}}
+   - **Early Results:** {{early_results_2}}
+
+# Next Steps and Action Plan
+
+## Immediate Priorities (Next 1-2 Weeks)
+
+### Priority 1: {{priority_1}}
+
+**Objective:** {{priority_1_objective}}  
+**Owner:** {{priority_1_owner}}  
+**Due Date:** {{priority_1_due}}  
+**Dependencies:** {{priority_1_dependencies}}
+
+**Success Criteria:**
+- {{priority_1_criteria_1}}
+- {{priority_1_criteria_2}}
+- {{priority_1_criteria_3}}
+
+**Resource Requirements:**
+- **Human Resources:** {{priority_1_hr}}
+- **Technical Resources:** {{priority_1_tech}}
+- **Budget:** {{priority_1_budget}}
+
+**Risk Factors:**
+- {{priority_1_risk_1}} (Probability: {{risk_1_prob}}, Impact: {{risk_1_impact}})
+- {{priority_1_risk_2}} (Probability: {{risk_2_prob}}, Impact: {{risk_2_impact}})
+
+### Priority 2: {{priority_2}}
+
+**Objective:** {{priority_2_objective}}  
+**Owner:** {{priority_2_owner}}  
+**Due Date:** {{priority_2_due}}  
+**Dependencies:** {{priority_2_dependencies}}
+
+**Success Criteria:**
+- {{priority_2_criteria_1}}
+- {{priority_2_criteria_2}}
+- {{priority_2_criteria_3}}
+
+### Priority 3: {{priority_3}}
+
+**Objective:** {{priority_3_objective}}  
+**Owner:** {{priority_3_owner}}  
+**Due Date:** {{priority_3_due}}  
+**Dependencies:** {{priority_3_dependencies}}
+
+**Success Criteria:**
+- {{priority_3_criteria_1}}
+- {{priority_3_criteria_2}}
+- {{priority_3_criteria_3}}
+
+## Medium-Term Goals (2-4 Weeks)
+
+### Development Focus
+
+1. **{{dev_goal_1}}**
+   - **Timeline:** {{dev_timeline_1}}
+   - **Milestones:** {{dev_milestones_1}}
+   - **Resources:** {{dev_resources_1}}
+
+2. **{{dev_goal_2}}**
+   - **Timeline:** {{dev_timeline_2}}
+   - **Milestones:** {{dev_milestones_2}}
+   - **Resources:** {{dev_resources_2}}
+
+### Quality Assurance Focus
+
+1. **{{qa_goal_1}}**
+   - **Testing Strategy:** {{qa_strategy_1}}
+   - **Coverage Target:** {{qa_coverage_1}}
+   - **Timeline:** {{qa_timeline_1}}
+
+2. **{{qa_goal_2}}**
+   - **Testing Strategy:** {{qa_strategy_2}}
+   - **Coverage Target:** {{qa_coverage_2}}
+   - **Timeline:** {{qa_timeline_2}}
+
+## Risk Management
+
+### Current Risk Register
+
+```{r risk-matrix}
+# Risk assessment data
+risk_data <- data.frame(
+  Risk = c("{{risk_1}}", "{{risk_2}}", "{{risk_3}}", "{{risk_4}}"),
+  Probability = c("{{prob_1}}", "{{prob_2}}", "{{prob_3}}", "{{prob_4}}"),
+  Impact = c("{{impact_1}}", "{{impact_2}}", "{{impact_3}}", "{{impact_4}}"),
+  Mitigation = c("{{mitigation_1}}", "{{mitigation_2}}", "{{mitigation_3}}", "{{mitigation_4}}"),
+  Owner = c("{{risk_owner_1}}", "{{risk_owner_2}}", "{{risk_owner_3}}", "{{risk_owner_4}}")
+)
+
+datatable(risk_data,
+          options = list(pageLength = 10, scrollX = TRUE),
+          caption = "Active Risk Register")
+```
+
+### Mitigation Strategies
+
+1. **High-Priority Risks**
+   - {{high_risk_mitigation_1}}
+   - {{high_risk_mitigation_2}}
+
+2. **Medium-Priority Risks**
+   - {{medium_risk_mitigation_1}}
+   - {{medium_risk_mitigation_2}}
+
+3. **Monitoring and Review**
+   - **Review Frequency:** {{risk_review_frequency}}
+   - **Escalation Criteria:** {{escalation_criteria}}
+   - **Communication Plan:** {{risk_communication_plan}}
+
+# Dependencies and Blockers
+
+## Current Dependencies
+
+### External Dependencies
+
+| Dependency | Provider | Expected Delivery | Status | Impact if Delayed |
+|------------|----------|-------------------|--------|-------------------|
+| {{dependency_1}} | {{provider_1}} | {{delivery_1}} | {{status_1}} | {{impact_1}} |
+| {{dependency_2}} | {{provider_2}} | {{delivery_2}} | {{status_2}} | {{impact_2}} |
+| {{dependency_3}} | {{provider_3}} | {{delivery_3}} | {{status_3}} | {{impact_3}} |
+
+### Internal Dependencies
+
+| Dependency | Owner | Required By | Status | Action Required |
+|------------|-------|-------------|--------|-----------------|
+| {{internal_dep_1}} | {{internal_owner_1}} | {{internal_due_1}} | {{internal_status_1}} | {{internal_action_1}} |
+| {{internal_dep_2}} | {{internal_owner_2}} | {{internal_due_2}} | {{internal_status_2}} | {{internal_action_2}} |
+| {{internal_dep_3}} | {{internal_owner_3}} | {{internal_due_3}} | {{internal_status_3}} | {{internal_action_3}} |
+
+## Active Blockers
+
+### Technical Blockers
+
+1. **{{tech_blocker_1}}**
+   - **Description:** {{tech_blocker_1_desc}}
+   - **Impact:** {{tech_blocker_1_impact}}
+   - **Resolution Plan:** {{tech_blocker_1_plan}}
+   - **ETA:** {{tech_blocker_1_eta}}
+
+2. **{{tech_blocker_2}}**
+   - **Description:** {{tech_blocker_2_desc}}
+   - **Impact:** {{tech_blocker_2_impact}}
+   - **Resolution Plan:** {{tech_blocker_2_plan}}
+   - **ETA:** {{tech_blocker_2_eta}}
+
+### Process Blockers
+
+1. **{{process_blocker_1}}**
+   - **Description:** {{process_blocker_1_desc}}
+   - **Impact:** {{process_blocker_1_impact}}
+   - **Resolution Plan:** {{process_blocker_1_plan}}
+   - **ETA:** {{process_blocker_1_eta}}
+
+# Communication and Stakeholder Management
+
+## Stakeholder Updates
+
+### Communication Schedule
+
+| Stakeholder Group | Next Update | Format | Key Messages | Owner |
+|-------------------|-------------|--------|--------------|-------|
+| {{stakeholder_1}} | {{update_date_1}} | {{format_1}} | {{message_1}} | {{owner_1}} |
+| {{stakeholder_2}} | {{update_date_2}} | {{format_2}} | {{message_2}} | {{owner_2}} |
+| {{stakeholder_3}} | {{update_date_3}} | {{format_3}} | {{message_3}} | {{owner_3}} |
+
+### Key Messages by Audience
+
+#### Executive Leadership
+- **Progress Summary:** {{exec_progress}}
+- **Critical Issues:** {{exec_issues}}
+- **Resource Needs:** {{exec_resources}}
+- **Timeline Update:** {{exec_timeline}}
+
+#### Technical Teams
+- **Technical Achievements:** {{tech_achievements}}
+- **Upcoming Challenges:** {{tech_challenges}}
+- **Integration Points:** {{tech_integration}}
+- **Support Needed:** {{tech_support}}
+
+#### Project Stakeholders
+- **Milestone Updates:** {{stakeholder_milestones}}
+- **Quality Metrics:** {{stakeholder_quality}}
+- **User Impact:** {{stakeholder_impact}}
+- **Feedback Requests:** {{stakeholder_feedback}}
+
+# Meeting Planning
+
+## Next Meeting Agenda
+
+**Date:** {{next_meeting_date}}  
+**Duration:** {{meeting_duration}}  
+**Format:** {{meeting_format}}
+
+### Planned Agenda Items
+
+1. **Review of Action Items** ({{agenda_time_1}})
+   - Follow-up on previous meeting action items
+   - Status updates from owners
+
+2. **{{agenda_item_1}}** ({{agenda_time_2}})
+   - {{agenda_detail_1}}
+   - **Presenter:** {{presenter_1}}
+   - **Outcome:** {{outcome_1}}
+
+3. **{{agenda_item_2}}** ({{agenda_time_3}})
+   - {{agenda_detail_2}}
+   - **Presenter:** {{presenter_2}}
+   - **Outcome:** {{outcome_2}}
+
+4. **{{agenda_item_3}}** ({{agenda_time_4}})
+   - {{agenda_detail_3}}
+   - **Presenter:** {{presenter_3}}
+   - **Outcome:** {{outcome_3}}
+
+5. **Risk and Issue Review** ({{agenda_time_5}})
+   - Current risk status
+   - New issues identification
+   - Mitigation updates
+
+6. **Next Steps and Action Items** ({{agenda_time_6}})
+   - Assignment of new action items
+   - Confirmation of timelines
+   - Resource allocation decisions
+
+### Pre-Meeting Preparation
+
+**Required Preparation:**
+- {{prep_item_1}} - Due: {{prep_due_1}} - Owner: {{prep_owner_1}}
+- {{prep_item_2}} - Due: {{prep_due_2}} - Owner: {{prep_owner_2}}
+- {{prep_item_3}} - Due: {{prep_due_3}} - Owner: {{prep_owner_3}}
+
+**Materials to Review:**
+- {{material_1}}
+- {{material_2}}
+- {{material_3}}
+
+**Questions for Discussion:**
+1. {{discussion_question_1}}
+2. {{discussion_question_2}}
+3. {{discussion_question_3}}
+
+# Appendices
+
+## Appendix A: Detailed Metrics
+
+### Performance Metrics
+
+```{r detailed-metrics}
+# Detailed performance metrics
+metrics_data <- data.frame(
+  Metric = c("{{metric_name_1}}", "{{metric_name_2}}", "{{metric_name_3}}", "{{metric_name_4}}"),
+  Target = c({{target_1}}, {{target_2}}, {{target_3}}, {{target_4}}),
+  Current = c({{current_1}}, {{current_2}}, {{current_3}}, {{current_4}}),
+  Previous = c({{previous_1}}, {{previous_2}}, {{previous_3}}, {{previous_4}}),
+  Trend = c("{{trend_1}}", "{{trend_2}}", "{{trend_3}}", "{{trend_4}}")
+)
+
+datatable(metrics_data,
+          options = list(pageLength = 10),
+          caption = "Detailed Performance Metrics") %>%
+  formatRound(c('Target', 'Current', 'Previous'), 2)
+```
+
+## Appendix B: Technical Details
+
+### System Performance
+
+- **Uptime:** {{system_uptime}}%
+- **Response Time:** {{response_time}}ms (avg)
+- **Error Rate:** {{error_rate}}%
+- **Throughput:** {{throughput}} requests/second
+
+### Code Quality Metrics
+
+- **Code Coverage:** {{code_coverage}}%
+- **Technical Debt:** {{technical_debt}} hours
+- **Complexity Score:** {{complexity_score}}
+- **Security Vulnerabilities:** {{security_vulns}}
+
+## Appendix C: Resource Utilization
+
+### Budget Tracking
+
+| Category | Budgeted | Spent | Remaining | Utilization % |
+|----------|----------|-------|-----------|---------------|
+| {{budget_cat_1}} | ${{budget_1}} | ${{spent_1}} | ${{remaining_1}} | {{utilization_1}}% |
+| {{budget_cat_2}} | ${{budget_2}} | ${{spent_2}} | ${{remaining_2}} | {{utilization_2}}% |
+| {{budget_cat_3}} | ${{budget_3}} | ${{spent_3}} | ${{remaining_3}} | {{utilization_3}}% |
+
+### Team Capacity
+
+| Team Member | Allocated Hours | Actual Hours | Efficiency % | Availability |
+|-------------|----------------|--------------|--------------|--------------|
+| {{team_member_1}} | {{allocated_1}} | {{actual_1}} | {{efficiency_1}}% | {{availability_1}} |
+| {{team_member_2}} | {{allocated_2}} | {{actual_2}} | {{efficiency_2}}% | {{availability_2}} |
+| {{team_member_3}} | {{allocated_3}} | {{actual_3}} | {{efficiency_3}}% | {{availability_3}} |
+
+---
+
+**Report Generated:** `r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`  
+**Next Review:** {{next_review_date}}  
+**Distribution:** {{distribution_list}}
+
+:::{.callout-tip}
+## Document Information
+- **Template Version:** 1.0
+- **Last Updated:** {{template_last_updated}}
+- **Feedback:** {{feedback_contact}}
+:::

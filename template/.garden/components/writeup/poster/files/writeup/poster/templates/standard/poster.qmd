@@ -1,0 +1,30 @@
+---
+title: "{{CONFERENCE}} {{YEAR}} - {{TITLE}}"
+author: "{{AUTHOR}}"
+institute: "{{INSTITUTE}}"
+format:
+  poster-typst:
+    size: "36x24in"
+    poster-authors: "{{AUTHOR}}"
+    departments: "{{DEPARTMENT}}"
+    institution-logo: "../../../assets/logos/institution.png"
+    footer-text: "{{CONFERENCE}} {{YEAR}}"
+    footer-url: "{{URL}}"
+    footer-emails: "{{EMAIL}}"
+---
+
+# Introduction
+
+Your introduction content here.
+
+# Methods
+
+Your methods content here.
+
+# Results
+
+Your results content here.
+
+# Conclusions
+
+Your conclusions here.

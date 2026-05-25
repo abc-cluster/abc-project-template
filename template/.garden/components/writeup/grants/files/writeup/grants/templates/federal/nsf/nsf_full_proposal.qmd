@@ -1,0 +1,217 @@
+---
+title: "NSF Grant Proposal Template"
+subtitle: "[Insert Program Solicitation Number and Title]"
+author: 
+  - name: "Principal Investigator Name"
+    affiliation: "Institution"
+    email: "pi@institution.edu"
+  - name: "Co-Principal Investigator Name"
+    affiliation: "Institution"
+    email: "copi@institution.edu"
+format:
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 11pt
+    linestretch: 1.15
+bibliography: references.bib
+---
+
+# Project Summary
+
+**Overview** (One sentence description):
+
+**Statement on Intellectual Merit** (One paragraph):
+
+**Statement on Broader Impacts** (One paragraph):
+
+**Keywords**: [List 5-10 keywords]
+
+# Project Description
+
+## 1. Introduction and Motivation
+
+### 1.1 Background and Significance
+
+### 1.2 Problem Statement
+
+### 1.3 Research Questions/Hypotheses
+
+## 2. Literature Review and Related Work
+
+### 2.1 Current State of Knowledge
+
+### 2.2 Gaps in Understanding
+
+### 2.3 Preliminary Work (if applicable)
+
+## 3. Research Objectives and Approach
+
+### 3.1 Specific Aims
+
+**Aim 1**: [Title]
+- Hypothesis:
+- Approach:
+- Expected Outcomes:
+
+**Aim 2**: [Title]
+- Hypothesis:
+- Approach:
+- Expected Outcomes:
+
+**Aim 3**: [Title]
+- Hypothesis:
+- Approach:
+- Expected Outcomes:
+
+### 3.2 Research Methodology
+
+#### 3.2.1 Experimental Design
+
+#### 3.2.2 Data Collection Methods
+
+#### 3.2.3 Data Analysis Plan
+
+### 3.3 Innovation and Novelty
+
+## 4. Broader Impacts
+
+### 4.1 Scientific Impact
+
+### 4.2 Societal Benefits
+
+### 4.3 Education and Outreach
+
+### 4.4 Diversity and Inclusion
+
+## 5. Management Plan and Timeline
+
+### 5.1 Project Timeline
+
+| Year | Quarters | Activities | Milestones |
+|------|----------|------------|------------|
+| 1    | Q1-Q2    |            |            |
+|      | Q3-Q4    |            |            |
+| 2    | Q1-Q2    |            |            |
+|      | Q3-Q4    |            |            |
+| 3    | Q1-Q2    |            |            |
+|      | Q3-Q4    |            |            |
+
+### 5.2 Risk Assessment and Mitigation
+
+### 5.3 Success Metrics
+
+## 6. Facilities, Equipment, and Resources
+
+### 6.1 Institutional Resources
+
+### 6.2 Equipment and Instrumentation
+
+### 6.3 Computational Resources
+
+## 7. Personnel and Collaboration
+
+### 7.1 Principal Investigator Qualifications
+
+### 7.2 Key Personnel
+
+### 7.3 Collaborative Arrangements
+
+## 8. Data Management and Sharing Plan
+
+### 8.1 Data Types and Formats
+
+### 8.2 Data Storage and Backup
+
+### 8.3 Data Sharing Timeline
+
+### 8.4 Access and Privacy Considerations
+
+## References
+
+---
+
+# Budget Justification
+
+## Personnel
+
+### Senior Personnel
+- PI: [Name] - [% effort] - [months] - $[amount]
+- Co-PI: [Name] - [% effort] - [months] - $[amount]
+
+### Other Personnel
+- Postdoctoral Researcher - [% effort] - [months] - $[amount]
+- Graduate Student - [% effort] - [months] - $[amount]
+- Undergraduate Student - [% effort] - [months] - $[amount]
+
+## Equipment
+
+| Item | Justification | Cost |
+|------|---------------|------|
+|      |               |      |
+
+## Travel
+
+| Purpose | Destination | Duration | Cost |
+|---------|-------------|----------|------|
+|         |             |          |      |
+
+## Participant Support Costs
+
+## Other Direct Costs
+
+## Total Direct Costs
+
+## Indirect Costs (F&A)
+
+## Total Project Cost
+
+---
+
+# Biographical Sketch Template
+
+## Professional Preparation
+
+| Institution | Major/Area | Degree & Year |
+|-------------|------------|---------------|
+|             |            |               |
+
+## Appointments
+
+## Products
+
+### Publications (5 most relevant)
+
+1. 
+
+### Other Significant Products
+
+## Synergistic Activities
+
+## Collaborators & Other Affiliations
+
+---
+
+# Current and Pending Support Template
+
+## Current Support
+
+**Award Number**: 
+**Source**: 
+**Title**: 
+**PI**: 
+**Total Award Amount**: 
+**Award Period**: 
+**Person-Months**: 
+**Overlap**: 
+
+## Pending Support
+
+**Award Number**: 
+**Source**: 
+**Title**: 
+**PI**: 
+**Total Award Amount**: 
+**Award Period**: 
+**Person-Months**: 
+**Overlap**: 

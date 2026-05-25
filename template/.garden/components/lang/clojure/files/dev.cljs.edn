@@ -1,0 +1,1 @@
+{:main clojurescript.figwheel.src.hello-world.core}

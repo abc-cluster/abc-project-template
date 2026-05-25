@@ -1,0 +1,78 @@
+# Data Processing Pipeline Configuration Template
+# Copy this file and customize for your specific pipeline
+
+# Data paths
+input_path: "../data/01_raw/{{PIPELINE_NAME}}.csv"
+output_path: "../data/02_processed/{{PIPELINE_NAME}}_processed.csv"
+
+# Logging configuration
+log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+save_intermediate: true
+
+# Data validation rules
+validation_rules:
+  required_columns: []  # List of column names that must be present
+  min_rows: 1           # Minimum number of rows required
+  max_missing_ratio: 0.5  # Maximum ratio of missing values allowed (0.0 to 1.0)
+  
+  # Additional validation rules (optional)
+  column_types:
+    # column_name: expected_dtype
+    # "age": "int64"
+    # "name": "object"
+  
+  value_ranges:
+    # column_name: [min_value, max_value]
+    # "age": [0, 120]
+    # "score": [0.0, 1.0]
+
+# Data processing steps
+processing_steps:
+  normalize_columns: false    # Convert column names to lowercase with underscores
+  remove_duplicates: true     # Remove duplicate rows
+  handle_missing: "drop"      # Options: "drop", "mean", "median", "mode", "forward_fill", "none"
+  
+  # Additional processing options
+  outlier_detection:
+    enabled: false
+    method: "iqr"            # "iqr", "zscore", "isolation_forest"
+    threshold: 3.0
+  
+  feature_engineering:
+    enabled: false
+    create_datetime_features: false  # Extract year, month, day, etc. from datetime columns
+    create_interaction_features: false
+    
+  data_quality:
+    check_duplicates: true
+    check_missing: true
+    check_outliers: false
+    generate_profile: true    # Generate data profiling report
+
+# Output options
+output_format: "csv"         # "csv", "parquet", "json"
+compression: null            # "gzip", "bz2", "xz" (for csv), "snappy", "gzip" (for parquet)
+
+# Experiment tracking (optional)
+experiment_tracking:
+  enabled: false
+  framework: "mlflow"        # "mlflow", "wandb", "neptune"
+  experiment_name: "{{PIPELINE_NAME}}_processing"
+  tags:
+    - "data_processing"
+    - "{{PIPELINE_NAME}}"
+  
+# Performance monitoring
+monitoring:
+  track_memory_usage: true
+  track_execution_time: true
+  save_pipeline_metadata: true
+
+# Custom processing functions (advanced)
+custom_functions:
+  # Define custom processing functions to apply
+  # These should be defined in the pipeline script
+  enabled: false
+  functions: []
+    # - "custom_feature_engineering"
+    # - "domain_specific_cleaning"

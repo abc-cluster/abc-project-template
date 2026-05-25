@@ -1,0 +1,10 @@
+id: "data:external-validation"
+description: "External validation datasets"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/external-validation/131_cross_domain/.gitkeep
+  - data/external-validation/132_cross_population/.gitkeep
+  - data/external-validation/133_replication/.gitkeep
+post_grow_hint: |
+  Created data/external-validation/ stage directory.

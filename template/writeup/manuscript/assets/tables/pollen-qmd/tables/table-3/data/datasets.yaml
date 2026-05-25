@@ -1,0 +1,24 @@
+- dataset: "TB-001"
+  samples: 150
+  coverage: "50x"
+  source: "Local clinical isolates"
+
+- dataset: "TB-002"
+  samples: 89
+  coverage: "75x"
+  source: "Public database (SRA)"
+
+- dataset: "TB-003"
+  samples: 234
+  coverage: "40x"
+  source: "Multi-center study"
+
+- dataset: "TB-REF"
+  samples: 45
+  coverage: "100x"
+  source: "Reference collection"
+
+- dataset: "TB-VAL"
+  samples: 67
+  coverage: "60x"
+  source: "Validation cohort"

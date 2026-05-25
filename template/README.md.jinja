@@ -1,0 +1,115 @@
+# {{project_name}}
+
+> **{{description|default('A data science analysis project')}}**
+
+Generated from [`abc-project-template`](https://github.com/abhi18av/abc-project-template) — a logical, standardized, but flexible structure for conducting, reporting, and publishing data science / bioinformatics work.
+
+## Project structure
+
+```
+{{short_name}}/
+├── notebooks/        exploratory work
+├── data/             raw / intermediate / primary / reports
+├── src/              importable library code
+├── scripts/          operational scripts (download, run, deploy)
+├── pipelines/        DVC + Nextflow + Snakemake
+├── tests/            test suite
+├── writeup/          manuscripts, papers
+├── config/           project-level configs (DB, experiment tracking)
+├── tasks/            just recipes (one *.just per area)
+└── .garden/          seed bank (dormant components — see below)
+```
+
+Tool config files at the root: `pyproject.toml`{% if programming_language in ['R', 'Both'] %}, `renv.lock`{% endif %}, `pixi.toml`, `environment.yml`, `dvc.yaml`, `.pre-commit-config.yaml`, `.editorconfig`.
+
+## The Garden model — grow the project as you need
+
+This template ships ~70 dormant components (data stages, language scaffolds,
+infra subsystems, writeup formats, ...) in `.garden/components/`. Most stay
+hidden until you grow them.
+
+```bash
+just garden                       # what's planted vs dormant
+just garden-list dormant          # browse all available components
+just grow data:features           # plant the feature-engineering data stage
+just grow writeup:poster          # add a poster scaffold
+just grow preset:bioinformatics   # plant a curated bundle
+just prune <component>            # archive a planted component back to dormant
+```
+
+After scaffolding, the project starts with the components for your chosen
+project_type (`{{project_type}}`) auto-planted via `just replant` (called by
+copier after rendering).
+
+## Get started
+
+```bash
+just setup                  # install dependencies (uv + pre-commit)
+just tour                   # 5-line orientation
+just doctor                 # check tools/state for currently planted components
+just where <thing>          # find where X lives in this project
+```
+
+## Common workflows
+
+### Exploration
+
+```bash
+# Create a new EDA notebook in stage 02
+just notebooks new-eda "my-topic"
+
+# List recent notebooks
+just notebooks list-recent
+```
+
+### Data validation + profiling
+
+```bash
+just data validate-dataset path/to/data.csv
+just data profile-dataset  path/to/data.csv
+```
+
+### Run pipelines
+
+```bash
+just pipeline                         # `dvc repro` for the whole pipeline
+just pipeline-dag                     # visualize the pipeline graph
+```
+
+### Build the manuscript (if writeup:manuscript planted)
+
+```bash
+just manuscript-render
+```
+
+## Cross-platform commands
+
+Most recipes work on Linux / macOS / Windows automatically. For paired
+recipes that need explicit shell control:
+
+```bash
+just data validate-dataset           # uses bash on Unix, pwsh on Windows
+just data validate-dataset-pwsh      # force PowerShell
+just data validate-dataset-bash      # force bash
+```
+
+## Author
+
+{{author_name}} <{{author_email}}>
+
+{% if include_publication_templates %}
+## Publication
+
+This project follows the publication conventions from
+abc-project-template. See `writeup/manuscript/` for manuscript
+sources, `data/08_reporting/` for figures and tables, and `writeup/abstracts/`
+for conference / journal abstracts (planted via `just grow writeup:abstracts`).
+{% endif %}
+
+## License
+
+See [LICENSE](LICENSE).
+
+---
+
+*Project version: 0.1.0 · Template: `abc-project-template` v{{ '{{ template_version|default(\'unknown\') }}' if false else 'unknown' }}*

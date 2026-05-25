@@ -1,0 +1,7 @@
+title: "My Article"
+author: "Jane Smith"
+date: "2025-06-03"
+tags: ["tech", "tutorial", "pollen"]
+meta:
+  description: "A guide to using Pollen with markdown"
+  published: true

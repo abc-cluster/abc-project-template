@@ -1,0 +1,12 @@
+id: "lang:ocaml"
+description: "OCaml package development (with dune)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - dune-project
+  - tasks/ocaml.just
+adds_imports:
+  - tasks/ocaml.just
+post_grow_hint: |
+  ocaml recipes added under tasks/ocaml.just.
+  Note: experimental — recipe bodies are stubs.

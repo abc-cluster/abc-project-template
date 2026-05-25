@@ -1,0 +1,280 @@
+# Shell Platform Selection
+SHELL_TYPE := env_var_or_default('SHELL_TYPE', if os() == "windows" { "powershell" } else { "bash" })
+SCRIPT_EXT := if SHELL_TYPE == "powershell" { "ps1" } else { "sh" }
+SHELL_CMD := if SHELL_TYPE == "powershell" { "pwsh" } else { "bash" }
+# Academic Conference Poster System
+# Streamlined automation for academic conference poster creation
+
+# Set shell
+set shell := ["zsh", "-c"]
+
+# Variables
+poster_dir := justfile_directory()
+templates_dir := poster_dir + "/templates"
+conferences_dir := poster_dir + "/conferences"
+assets_dir := poster_dir + "/assets"
+output_dir := poster_dir + "/_output"
+
+# Default recipe - show available commands
+default:
+    @echo "Academic Conference Poster System"
+    @echo "================================="
+    @just --list
+
+# === Setup and Initialization ===
+
+# Initialize complete poster system
+init: create-dirs create-templates
+    @echo "✅ Poster system initialized successfully!"
+
+# Create directory structure
+create-dirs:
+    #!/usr/bin/env zsh
+    mkdir -p templates/{standard,landscape,specialized/{biology,cs,physics,chemistry,psychology}}
+    mkdir -p conferences
+    mkdir -p assets/{figures,logos,data,references}
+    mkdir -p _output/{drafts,reviews,final}
+    echo "📁 Directory structure created"
+
+# === Conference Poster Creation ===
+
+# Create new conference poster with YYYY-MM-VENUE format
+create venue year month template="standard": 
+    #!/usr/bin/env zsh
+    conference_dir="conferences/{{year}}-{{month}}-{{venue}}"
+    mkdir -p "$conference_dir"
+    
+    # Select template
+    template_file="templates/{{template}}/poster.qmd"
+    if [[ ! -f "$template_file" ]]; then
+        template_file="templates/standard/poster.qmd"
+    fi
+    
+    # Copy template and customize
+    cp "$template_file" "$conference_dir/{{venue}}_poster.qmd"
+    
+    echo "✅ Created poster for {{venue}} ({{year}}-{{month}})"
+    echo "📝 Edit: $conference_dir/{{venue}}_poster.qmd"
+
+# Quick create for current year/month
+create-now venue template="standard": (create venue "2025" "07" template)
+
+# Create with automatic date detection
+create-auto venue template="standard":
+    #!/usr/bin/env zsh
+    current_year=$(date +"%Y")
+    current_month=$(date +"%m")
+    conference_dir="conferences/${current_year}-${current_month}-{{venue}}"
+    mkdir -p "$conference_dir"
+    
+    # Select template
+    template_file="templates/{{template}}/poster.qmd"
+    if [[ ! -f "$template_file" ]]; then
+        template_file="templates/standard/poster.qmd"
+    fi
+    
+    # Copy template and customize
+    cp "$template_file" "$conference_dir/{{venue}}_poster.qmd"
+    
+    echo "✅ Created poster for {{venue}} (${current_year}-${current_month})"
+    echo "📝 Edit: $conference_dir/{{venue}}_poster.qmd"
+
+# Create basic templates
+create-templates:
+    #!/usr/bin/env zsh
+    # Standard template
+    mkdir -p templates/standard
+    cat > templates/standard/poster.qmd << 'EOF'
+---
+title: "{{CONFERENCE}} {{YEAR}} - {{TITLE}}"
+author: "{{AUTHOR}}"
+institute: "{{INSTITUTE}}"
+format:
+  poster-typst:
+    size: "36x24in"
+    poster-authors: "{{AUTHOR}}"
+    departments: "{{DEPARTMENT}}"
+    institution-logo: "../../../assets/logos/institution.png"
+    footer-text: "{{CONFERENCE}} {{YEAR}}"
+    footer-url: "{{URL}}"
+    footer-emails: "{{EMAIL}}"
+---
+
+# Introduction
+
+Your introduction content here.
+
+# Methods
+
+Your methods content here.
+
+# Results
+
+Your results content here.
+
+# Conclusions
+
+Your conclusions here.
+EOF
+    
+    # Landscape template
+    mkdir -p templates/landscape
+    cp templates/standard/poster.qmd templates/landscape/poster.qmd
+    sed -i '' 's/36x24in/48x36in/' templates/landscape/poster.qmd
+    
+    echo "📝 Basic templates created"
+
+# === Rendering and Output ===
+
+# Render poster to draft (finds by venue name)
+render venue format="pdf":
+    #!/usr/bin/env zsh
+    # Find poster file by venue name in conferences
+    poster_file=$(find conferences -name "{{venue}}_poster.qmd" | head -1)
+    if [[ -f "$poster_file" ]]; then
+        venue_dir=$(basename $(dirname "$poster_file"))
+        mkdir -p "_output/drafts/$venue_dir"
+        quarto render "$poster_file" --to {{format}} --output-dir "_output/drafts/$venue_dir"
+        echo "✅ Rendered {{venue}} poster to _output/drafts/$venue_dir/"
+    else
+        echo "❌ Poster file not found for venue: {{venue}}"
+        echo "Available posters:"
+        find conferences -name "*_poster.qmd" | sed 's|.*/||' | sed 's|_poster.qmd||'
+    fi
+
+# Render for review
+render-review venue format="pdf": 
+    #!/usr/bin/env zsh
+    poster_file=$(find conferences -name "{{venue}}_poster.qmd" | head -1)
+    if [[ -f "$poster_file" ]]; then
+        venue_dir=$(basename $(dirname "$poster_file"))
+        mkdir -p "_output/reviews/$venue_dir"
+        quarto render "$poster_file" --to {{format}} --output-dir "_output/reviews/$venue_dir"
+        echo "✅ Review version rendered to _output/reviews/$venue_dir/"
+    else
+        echo "❌ Poster file not found for venue: {{venue}}"
+    fi
+
+# Create final submission version
+finalize venue format="pdf":
+    #!/usr/bin/env zsh
+    poster_file=$(find conferences -name "{{venue}}_poster.qmd" | head -1)
+    if [[ -f "$poster_file" ]]; then
+        venue_dir=$(basename $(dirname "$poster_file"))
+        timestamp=$(date +"%Y%m%d_%H%M%S")
+        mkdir -p "_output/final/$venue_dir"
+        quarto render "$poster_file" --to {{format}} --output-dir "_output/final/$venue_dir"
+        
+        # Create timestamped copy
+        cp "_output/final/$venue_dir/{{venue}}_poster.{{format}}" \
+           "_output/final/$venue_dir/{{venue}}_final_${timestamp}.{{format}}"
+        
+        echo "✅ Final version created: _output/final/$venue_dir/"
+    else
+        echo "❌ Poster file not found for venue: {{venue}}"
+    fi
+
+# === Asset Management ===
+
+# Add figure to assets
+add-figure name file:
+    #!/usr/bin/env zsh
+    cp "{{file}}" "assets/figures/{{name}}"
+    echo "✅ Added figure: assets/figures/{{name}}"
+
+# Add logo to assets
+add-logo name file:
+    #!/usr/bin/env zsh
+    cp "{{file}}" "assets/logos/{{name}}"
+    echo "✅ Added logo: assets/logos/{{name}}"
+
+# === Listing and Information ===
+
+# List all conference posters
+list:
+    #!/usr/bin/env zsh
+    echo "Conference Posters:"
+    echo "==================="
+    find conferences -name "*_poster.qmd" -exec echo "📄 {}" \; | sort
+
+# List by year
+list-year year:
+    #!/usr/bin/env zsh
+    echo "Posters for {{year}}:"
+    echo "===================="
+    find conferences -name "{{year}}-*" -type d | sort
+
+# List upcoming (current year and later)
+list-upcoming:
+    #!/usr/bin/env zsh
+    current_year=$(date +"%Y")
+    echo "Upcoming Posters (${current_year}+):"
+    echo "===================================="
+    find conferences -name "${current_year}-*" -o -name "$((current_year + 1))-*" | sort
+
+# Show poster info
+info venue:
+    #!/usr/bin/env zsh
+    poster_file=$(find conferences -name "{{venue}}_poster.qmd" | head -1)
+    if [[ -f "$poster_file" ]]; then
+        venue_dir=$(basename $(dirname "$poster_file"))
+        echo "Poster: {{venue}}"
+        echo "Conference: $venue_dir"
+        echo "File: $poster_file"
+        echo "Size: $(wc -l < "$poster_file") lines"
+        echo "Modified: $(stat -f %Sm "$poster_file")"
+    else
+        echo "❌ Poster not found: {{venue}}"
+    fi
+
+# List available templates
+list-templates:
+    #!/usr/bin/env zsh
+    echo "Available Templates:"
+    echo "==================="
+    find templates -name "poster.qmd" -exec dirname {} \; | sed 's|templates/||' | sort
+
+# === Cleanup ===
+
+# Clean draft outputs
+clean-drafts:
+    rm -rf _output/drafts/*
+    echo "🧹 Cleaned draft outputs"
+
+# Clean all outputs
+clean-all:
+    rm -rf _output/{drafts,reviews,final}/*
+    echo "🧹 Cleaned all outputs"
+
+# === Archive Management ===
+
+# Archive completed poster
+archive venue:
+    #!/usr/bin/env zsh
+    timestamp=$(date +"%Y%m%d")
+    poster_file=$(find conferences -name "{{venue}}_poster.qmd" | head -1)
+    if [[ -f "$poster_file" ]]; then
+        poster_dir=$(dirname "$poster_file")
+        venue_dir=$(basename "$poster_dir")
+        mkdir -p "conferences/archived"
+        tar -czf "conferences/archived/${venue_dir}_${timestamp}.tar.gz" "$poster_dir"
+        echo "📦 Archived: conferences/archived/${venue_dir}_${timestamp}.tar.gz"
+    else
+        echo "❌ Poster not found: {{venue}}"
+    fi
+
+# === Quick Commands ===
+
+# Quick render of current working poster (assumes you're in a conference folder)
+quick-render:
+    #!/usr/bin/env zsh
+    if [[ -f *_poster.qmd ]]; then
+        poster_file=$(ls *_poster.qmd | head -1)
+        venue_name=$(basename "$poster_file" _poster.qmd)
+        venue_dir=$(basename "$PWD")
+        mkdir -p "../../_output/drafts/quick"
+        quarto render "$poster_file" --to pdf --output-dir "../../_output/drafts/quick"
+        echo "✅ Quick render complete: _output/drafts/quick/"
+    else
+        echo "❌ No poster file found in current directory"
+    fi

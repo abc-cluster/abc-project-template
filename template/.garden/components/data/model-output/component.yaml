@@ -1,0 +1,13 @@
+id: "data:model-output"
+description: "Model output — predictions / probabilities / evaluation / explanations"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/model-output/.gitkeep
+  - data/model-output/071_predictions/.gitkeep
+  - data/model-output/072_probabilities/.gitkeep
+  - data/model-output/073_evaluation/.gitkeep
+  - data/model-output/074_explanations/.gitkeep
+  - data/model-output/075_comparisons/.gitkeep
+post_grow_hint: |
+  Created data/model-output/ stage directory.

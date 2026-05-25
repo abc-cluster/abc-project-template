@@ -1,0 +1,95 @@
+---
+title: "[Journal Abstract Title]"
+subtitle: "[Journal Name - Special Issue/Call]"
+author:
+  - name: "[Your Name]"
+    affiliation: "[Your Institution]"
+    email: "[your.email@institution.edu]"
+  - name: "[Co-author Name]"
+    affiliation: "[Co-author Institution]"
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: false
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 11pt
+---
+
+# Journal Details
+
+**Journal Name:** [Full Journal Name]  
+**Special Issue/Theme:** [If applicable]  
+**Submission Type:** [Abstract for consideration/Conference abstract within journal]  
+**Submission Deadline:** [Abstract Deadline]  
+**Word Limit:** [e.g., 300 words]  
+**ISSN:** [Journal ISSN if known]
+
+---
+
+# Structured Abstract
+
+## Objective/Purpose
+[1-2 sentences clearly stating the research objective, hypothesis, or purpose of the study.]
+
+## Design/Methods
+[2-3 sentences describing the study design, setting, participants, interventions, and main outcome measures.]
+
+## Results
+[3-4 sentences presenting the main findings with specific data, statistical results, and effect sizes where appropriate.]
+
+## Conclusions/Implications
+[2-3 sentences discussing the meaning of the results, limitations, and implications for practice, policy, or future research.]
+
+---
+
+# Unstructured Abstract (Alternative Format)
+[For journals that prefer unstructured abstracts - a single paragraph of 200-300 words covering background, methods, results, and conclusions in a flowing narrative format.]
+
+---
+
+# Keywords
+[List 5-8 relevant keywords/phrases, including MeSH terms if applicable]
+
+---
+
+# Submission Information
+
+**Status:** [Draft/Submitted/Under Review/Accepted/Rejected/Published]  
+**Submission Date:** [Date]  
+**Review Timeline:** [Expected review period]  
+**Publication Target:** [Expected publication date]  
+
+## Journal Requirements
+- **Funding Statement Required:** [Yes/No]
+- **Conflict of Interest:** [Yes/No]
+- **IRB Approval:** [Required/Not Required]
+- **Data Availability Statement:** [Required/Not Required]
+
+## Notes
+[Any specific journal requirements, reviewer feedback, or editorial comments]
+
+---
+
+# Funding Information
+[List all funding sources that supported this work]
+
+---
+
+# Related Work
+- **Full Manuscript:** [Link to full paper if this is for a conference within journal]
+- **Grant:** [Link to related grant application if applicable]
+- **Previous Work:** [Any related previous publications]
+- **Data Repository:** [Link to data if publicly available]
+
+---
+
+*Word Count: [Current word count]*
+
+---
+
+# Submission History
+| Date | Action | Status | Notes |
+|------|--------|--------|-------|
+| [Date] | [Submitted/Revised/etc.] | [Status] | [Any notes] |

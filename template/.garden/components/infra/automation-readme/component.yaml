@@ -1,0 +1,8 @@
+id: "infra:automation-readme"
+description: "Automation category README"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/03_automation/README.md
+post_grow_hint: |
+  Restored infra/03_automation/ scaffolding.

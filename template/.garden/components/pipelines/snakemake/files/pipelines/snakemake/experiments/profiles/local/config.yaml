@@ -1,0 +1,86 @@
+# Local Execution Profile for Snakemake
+# Optimized for running experiments on local workstation
+
+# Core execution settings
+jobs: 4                    # Maximum number of parallel jobs
+cores: 8                   # Total CPU cores available
+resources:
+  mem_mb: 32000           # Total memory in MB
+  disk_mb: 100000         # Available disk space in MB
+
+# Local execution specific
+local-cores: 8
+max-jobs-per-second: 10
+max-status-checks-per-second: 1
+
+# Output and logging
+printshellcmds: true
+reason: true
+show-failed-logs: true
+keep-going: false         # Stop on first error for debugging
+
+# Software environments  
+use-conda: true
+conda-prefix: "../envs"
+create-envs-only: false
+
+# Resume and restart behavior
+rerun-incomplete: true
+rerun-triggers: ["mtime", "params", "input", "software-env", "code"]
+
+# Performance optimization for local runs
+latency-wait: 3           # Wait time for filesystem operations
+restart-times: 2          # Number of restart attempts
+
+# Resource allocation
+default-resources:
+  - mem_mb=4000
+  - disk_mb=1000  
+  - tmpdir="/tmp"
+
+# Logging configuration
+log-level: "INFO"
+stats: "stats.json"
+
+# Report generation
+report-stylesheet: "assets/report.css"
+
+# Temporary directory
+shadow-prefix: ".snakemake/shadow"
+
+# Lock settings for concurrent runs
+lock: true
+unlock: false
+
+# Benchmark and profiling
+benchmark-repeats: 1
+
+# Container settings (if needed)
+use-singularity: false
+use-envmodules: false
+
+# Job grouping for efficiency
+group-components: 1
+
+# Archive settings
+archive: "results.tar.gz"
+
+# Execution behavior
+immediate-submit: false
+notemp: false             # Keep temporary files for debugging
+quiet: false
+verbose: false
+
+# Cluster integration (disabled for local)
+cluster: null
+cluster-config: null
+cluster-sync: null
+
+# Cloud integration (disabled for local)
+kubernetes: null
+tibanna: null
+google-lifesciences: null
+
+# Additional local optimizations
+local-grouping: true      # Group jobs that can run together
+batch: null              # No batch system integration

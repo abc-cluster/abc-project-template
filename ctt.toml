@@ -1,0 +1,1040 @@
+[template]
+src_path = "."
+vcs_ref = "HEAD"
+
+[config]
+output_dir = ".ctt"
+cleanup = false
+
+[defaults]
+project_name = "Test Project"
+short_name = "test-proj"
+description = "A test project"
+author_name = "Test User"
+author_email = "test@example.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+include_publication_templates = false
+include_jujutsu = false
+include_fossil = false
+
+# ====== EXISTING TESTS (BACKWARDS COMPATIBILITY) ======
+
+# Test 1: Full Academic Project (default configuration)
+[output."full-academic"]
+project_name = "Test Academic Project"
+short_name = "test-academic"
+description = "A comprehensive academic research project"
+author_name = "Dr. Test Researcher"
+author_email = "test@university.edu"
+project_type = "Full Academic Project (analysis + writeup)"
+programming_language = "Both"
+experiment_tracking = "MLflow"
+data_versioning = true
+
+# Test 2: Analysis Only Project
+[output."analysis-only"]
+project_name = "Data Pipeline Project"
+short_name = "data-pipeline"
+description = "Data science analysis pipeline only"
+author_name = "Data Scientist"
+author_email = "datascientist@company.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "Weights & Biases"
+data_versioning = true
+include_ml_components = true
+
+# Test 3: Manuscript Only Project
+[output."manuscript-only"]
+project_name = "Research Paper"
+short_name = "research-paper"
+description = "Academic manuscript writing project"
+author_name = "Prof. Writer"
+author_email = "writer@academic.org"
+project_type = "Manuscript Only (writing and publications)"
+programming_language = "R"
+documentation_format = "Quarto"
+include_publication_templates = true
+
+# Test 4: Package Development Project
+[output."package-dev"]
+project_name = "Scientific Package"
+short_name = "sci-package"
+description = "Python/R package for scientific computing"
+author_name = "Package Developer"
+author_email = "dev@packages.io"
+project_type = "Package Development (software/library)"
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+github_actions = true
+pre_commit_hooks = true
+
+# Test 5: Custom Configuration - Minimal Setup
+[output."custom-minimal"]
+project_name = "Minimal Project"
+short_name = "minimal"
+description = "Minimal custom project setup"
+author_name = "Minimalist"
+author_email = "minimal@example.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = false
+include_misc = false
+include_notebooks = true
+include_scripts = false
+include_data_pipeline = true
+include_testing = false
+include_packages = false
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+
+# Test 6: Custom Configuration - Maximum Setup
+[output."custom-maximal"]
+project_name = "Comprehensive Project"
+short_name = "comprehensive"
+description = "Full-featured custom project with all components"
+author_name = "Power User"
+author_email = "power@research.edu"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = true
+include_infrastructure = true
+include_misc = true
+# Analysis subcomponents
+include_notebooks = true
+include_scripts = true
+include_data_pipeline = true
+include_testing = true
+include_packages = true
+# Writeup subcomponents
+include_manuscript = true
+include_presentations = true
+include_grants = true
+include_abstracts = true
+include_posters = true
+include_reports = true
+include_blog = true
+# Infrastructure subcomponents
+include_docker = true
+include_cloud_deployment = true
+include_virtualization = true
+include_automation = true
+# Other settings
+programming_language = "Both"
+experiment_tracking = "Neptune"
+data_versioning = true
+documentation_format = "Quarto"
+github_actions = true
+pre_commit_hooks = true
+
+# Test 7: Bioinformatics Specialized Project
+[output."bioinformatics"]
+project_name = "Genomics Analysis"
+short_name = "genomics"
+description = "Bioinformatics project for genomic data analysis"
+author_name = "Bioinformatician"
+author_email = "bio@genomics.edu"
+project_type = "Full Academic Project (analysis + writeup)"
+programming_language = "Both"
+experiment_tracking = "MLflow"
+data_versioning = true
+include_eda_templates = true
+include_statistical_analysis = true
+include_ml_components = true
+documentation_format = "Quarto"
+include_publication_templates = true
+
+# Test 8: Minimal Starter Project (Beginner-Friendly)
+[output."minimal-starter"]
+project_name = "My First Analysis"
+short_name = "first-analysis"
+description = "A beginner-friendly data science project"
+author_name = "New User"
+author_email = "newuser@example.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+include_publication_templates = false
+include_jujutsu = false
+include_fossil = false
+
+# Test 9: Quick Manuscript Project
+[output."quick-manuscript"]
+project_name = "Conference Paper"
+short_name = "conf-paper"
+description = "Quick manuscript for conference submission"
+author_name = "Research Fellow"
+author_email = "fellow@university.edu"
+project_type = "Manuscript Only (writing and publications)"
+programming_language = "R"
+documentation_format = "RMarkdown"
+include_publication_templates = true
+github_actions = false
+pre_commit_hooks = false
+
+# ====== NEW COMPREHENSIVE TESTS ======
+
+# === PROGRESSIVE ENHANCEMENT TESTS ===
+
+# Test 10: Progressive - Minimal with Tracking
+[output."progressive-minimal-tracking"]
+project_name = "Enhanced Minimal Project"
+short_name = "enhanced-minimal"
+description = "Minimal project with experiment tracking"
+author_name = "Beginning Researcher"
+author_email = "beginner@research.edu"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "MLflow"
+data_versioning = true
+data_validation = true
+github_actions = false
+pre_commit_hooks = true
+
+# Test 11: Progressive - Minimal with Writeup
+[output."progressive-minimal-writeup"]
+project_name = "Minimal with Writing"
+short_name = "minimal-write"
+description = "Minimal project enhanced with writing tools"
+author_name = "Student Researcher"
+author_email = "student@university.edu"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Quarto"
+include_publication_templates = true
+github_actions = true
+pre_commit_hooks = true
+data_validation = false
+
+# Test 12: Progressive - Full Upgrade
+[output."progressive-full-upgrade"]
+project_name = "Full Featured Project"
+short_name = "full-featured"
+description = "Complete academic project with all features"
+author_name = "Senior Researcher"
+author_email = "senior@research.edu"
+project_type = "Full Academic Project (analysis + writeup)"
+programming_language = "Both"
+documentation_format = "Quarto"
+experiment_tracking = "Neptune"
+data_versioning = true
+data_validation = true
+include_eda_templates = true
+include_statistical_analysis = true
+include_ml_components = true
+include_docker = true
+include_cloud_deployment = true
+include_virtualization = true
+include_automation = true
+github_actions = true
+pre_commit_hooks = true
+include_publication_templates = true
+
+# === DOCUMENTATION FORMAT COVERAGE ===
+
+# Test 13: Markdown Documentation
+[output."docs-markdown"]
+project_name = "Markdown Documentation Project"
+short_name = "markdown-docs"
+description = "Project using Markdown for documentation"
+author_name = "Documentation Writer"
+author_email = "docs@example.com"
+project_type = "Manuscript Only (writing and publications)"
+programming_language = "R"
+documentation_format = "Markdown"
+include_publication_templates = true
+github_actions = false
+pre_commit_hooks = false
+
+# Test 14: RMarkdown Focus
+[output."docs-rmarkdown"]
+project_name = "R-Centric Analysis"
+short_name = "r-analysis"
+description = "R-focused project with RMarkdown"
+author_name = "R Developer"
+author_email = "r.dev@stats.org"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "R"
+documentation_format = "RMarkdown"
+experiment_tracking = "None"
+data_versioning = false
+include_statistical_analysis = true
+
+# === VERSION CONTROL VARIATIONS ===
+
+# Test 15: Jujutsu VCS
+[output."vcs-jujutsu"]
+project_name = "Jujutsu VCS Project"
+short_name = "jj-project"
+description = "Project using Jujutsu version control"
+author_name = "VCS Explorer"
+author_email = "vcs@example.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+include_jujutsu = true
+include_fossil = false
+documentation_format = "Jupyter Notebooks"
+
+# Test 16: Fossil VCS
+[output."vcs-fossil"]
+project_name = "Fossil VCS Project"
+short_name = "fossil-project"
+description = "Project using Fossil version control"
+author_name = "Archive Keeper"
+author_email = "archive@research.edu"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "R"
+include_jujutsu = false
+include_fossil = true
+documentation_format = "RMarkdown"
+
+# Test 17: Hybrid VCS
+[output."vcs-hybrid"]
+project_name = "Hybrid VCS Project"
+short_name = "hybrid-vcs"
+description = "Project using both Jujutsu and Fossil"
+author_name = "VCS Master"
+author_email = "vcsmaster@example.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = true
+include_infrastructure = true
+include_misc = false
+programming_language = "Both"
+include_jujutsu = true
+include_fossil = true
+use_hybrid_vcs = true
+documentation_format = "Quarto"
+
+# === EXPERIMENT TRACKING COVERAGE ===
+
+# Test 18: Weights & Biases with Python
+[output."tracking-wandb"]
+project_name = "WandB Experiment Tracking"
+short_name = "wandb-exp"
+description = "Python project with Weights & Biases tracking"
+author_name = "ML Experimenter"
+author_email = "ml@experiments.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "Weights & Biases"
+data_versioning = true
+data_validation = true
+include_ml_components = true
+
+# Test 19: Neptune with R
+[output."tracking-neptune-r"]
+project_name = "Neptune R Analysis"
+short_name = "neptune-r"
+description = "R project with Neptune experiment tracking"
+author_name = "R ML Researcher"
+author_email = "rml@research.edu"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "R"
+documentation_format = "RMarkdown"
+experiment_tracking = "Neptune"
+data_versioning = false
+data_validation = true
+include_statistical_analysis = true
+
+# === INFRASTRUCTURE COMBINATIONS ===
+
+# Test 20: Docker Only
+[output."infra-docker-only"]
+project_name = "Docker-Only Project"
+short_name = "docker-proj"
+description = "Project with Docker containerization only"
+author_name = "Container Developer"
+author_email = "docker@dev.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = true
+include_misc = false
+include_docker = true
+include_cloud_deployment = false
+include_virtualization = false
+include_automation = false
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+
+# Test 21: Cloud Deployment Focus
+[output."infra-cloud"]
+project_name = "Cloud Deployment Project"
+short_name = "cloud-deploy"
+description = "Project focused on cloud deployment"
+author_name = "Cloud Engineer"
+author_email = "cloud@engineering.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = true
+include_misc = false
+include_docker = true
+include_cloud_deployment = true
+include_virtualization = false
+include_automation = true
+programming_language = "Python"
+experiment_tracking = "MLflow"
+include_deployment_templates = true
+
+# Test 22: Virtualization Focus
+[output."infra-virtualization"]
+project_name = "VM-Based Development"
+short_name = "vm-dev"
+description = "Project using virtualization for development"
+author_name = "VM Administrator"
+author_email = "vm@sysadmin.org"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = true
+include_misc = false
+include_virtualization = true
+include_docker = false
+include_cloud_deployment = false
+include_automation = false
+programming_language = "Both"
+documentation_format = "Quarto"
+
+# === ACADEMIC WRITING SUBCOMPONENTS ===
+
+# Test 23: Presentations Only
+[output."writeup-presentations"]
+project_name = "Conference Presentations"
+short_name = "conf-present"
+description = "Project focused on presentations"
+author_name = "Presenter"
+author_email = "present@conferences.org"
+project_type = "Custom (choose components manually)"
+include_analysis = false
+include_writeup = true
+include_infrastructure = false
+include_misc = false
+include_manuscript = false
+include_presentations = true
+include_grants = false
+include_abstracts = false
+include_posters = false
+include_reports = false
+include_blog = false
+programming_language = "Python"
+documentation_format = "Quarto"
+
+# Test 24: Grants Focus
+[output."writeup-grants"]
+project_name = "Grant Applications"
+short_name = "grant-apps"
+description = "Project focused on grant writing"
+author_name = "Grant Writer"
+author_email = "grants@funding.org"
+project_type = "Custom (choose components manually)"
+include_analysis = false
+include_writeup = true
+include_infrastructure = false
+include_misc = false
+include_manuscript = false
+include_presentations = false
+include_grants = true
+include_abstracts = true
+include_posters = false
+include_reports = false
+include_blog = false
+programming_language = "R"
+documentation_format = "Quarto"
+
+# Test 25: Posters and Abstracts
+[output."writeup-posters-abstracts"]
+project_name = "Conference Materials"
+short_name = "conf-materials"
+description = "Project for conference posters and abstracts"
+author_name = "Conference Participant"
+author_email = "conference@research.edu"
+project_type = "Custom (choose components manually)"
+include_analysis = false
+include_writeup = true
+include_infrastructure = false
+include_misc = false
+include_manuscript = false
+include_presentations = false
+include_grants = false
+include_abstracts = true
+include_posters = true
+include_reports = false
+include_blog = false
+programming_language = "Python"
+documentation_format = "Quarto"
+
+# Test 26: Reports and Blog
+[output."writeup-reports-blog"]
+project_name = "Technical Communication"
+short_name = "tech-comm"
+description = "Project for technical reports and blogging"
+author_name = "Technical Writer"
+author_email = "techwriter@communications.org"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = true
+include_infrastructure = false
+include_misc = false
+include_manuscript = false
+include_presentations = false
+include_grants = false
+include_abstracts = false
+include_posters = false
+include_reports = true
+include_blog = true
+programming_language = "Both"
+documentation_format = "Quarto"
+
+# === DATA MANAGEMENT VARIATIONS ===
+
+# Test 27: Data Validation Focus
+[output."data-validation"]
+project_name = "Data Quality Project"
+short_name = "data-quality"
+description = "Project focused on data validation"
+author_name = "Data Quality Engineer"
+author_email = "dataquality@engineering.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+data_versioning = false
+data_validation = true
+experiment_tracking = "None"
+include_eda_templates = true
+include_statistical_analysis = true
+documentation_format = "Jupyter Notebooks"
+
+# Test 28: DVC Without Validation
+[output."data-versioning-only"]
+project_name = "Data Versioning Project"
+short_name = "dvc-project"
+description = "Project using DVC for data versioning"
+author_name = "Data Engineer"
+author_email = "dataeng@pipeline.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+data_versioning = true
+data_validation = false
+experiment_tracking = "MLflow"
+include_data_pipeline = true
+documentation_format = "Jupyter Notebooks"
+
+# === PACKAGE DEVELOPMENT SCENARIOS ===
+
+# Test 29: R Package Development
+[output."package-dev-r"]
+project_name = "Statistical R Package"
+short_name = "stats-r-pkg"
+description = "R package for statistical analysis"
+author_name = "R Package Developer"
+author_email = "rpkg@cran.org"
+project_type = "Package Development (software/library)"
+programming_language = "R"
+github_actions = true
+pre_commit_hooks = false
+documentation_format = "RMarkdown"
+include_testing = true
+data_versioning = false
+
+# Test 30: Multi-Language Package
+[output."package-dev-multilang"]
+project_name = "Multi-Language Scientific Package"
+short_name = "multi-sci-pkg"
+description = "Scientific package supporting both Python and R"
+author_name = "Multi-Language Developer"
+author_email = "multilang@science.org"
+project_type = "Package Development (software/library)"
+programming_language = "Both"
+github_actions = true
+pre_commit_hooks = true
+documentation_format = "Quarto"
+include_testing = true
+include_deployment_templates = true
+
+# === CI/CD AND AUTOMATION VARIANTS ===
+
+# Test 31: GitHub Actions Only
+[output."ci-gha-only"]
+project_name = "GitHub Actions Project"
+short_name = "gha-project"
+description = "Project with GitHub Actions CI/CD only"
+author_name = "CI/CD Engineer"
+author_email = "cicd@automation.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+github_actions = true
+pre_commit_hooks = false
+experiment_tracking = "None"
+data_versioning = false
+documentation_format = "Jupyter Notebooks"
+
+# Test 32: Pre-commit Only
+[output."ci-precommit-only"]
+project_name = "Pre-commit Hooks Project"
+short_name = "precommit-proj"
+description = "Project with pre-commit hooks only"
+author_name = "Code Quality Engineer"
+author_email = "quality@code.org"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+github_actions = false
+pre_commit_hooks = true
+experiment_tracking = "None"
+data_versioning = false
+documentation_format = "Jupyter Notebooks"
+
+# === ANALYSIS COMPONENT COMBINATIONS ===
+
+# Test 33: Scripts Without Notebooks
+[output."analysis-scripts-only"]
+project_name = "Production Scripts Project"
+short_name = "prod-scripts"
+description = "Analysis project using scripts instead of notebooks"
+author_name = "Production Engineer"
+author_email = "prod@engineering.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = false
+include_misc = false
+include_notebooks = false
+include_scripts = true
+include_data_pipeline = true
+include_testing = true
+include_packages = false
+programming_language = "Python"
+experiment_tracking = "MLflow"
+data_versioning = true
+
+# Test 34: EDA Templates Focus
+[output."analysis-eda-focus"]
+project_name = "Exploratory Data Analysis"
+short_name = "eda-focus"
+description = "Project focused on exploratory data analysis"
+author_name = "Data Analyst"
+author_email = "analyst@data.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Both"
+include_eda_templates = true
+include_statistical_analysis = true
+include_ml_components = false
+experiment_tracking = "None"
+data_versioning = false
+documentation_format = "Quarto"
+
+# Test 35: ML Components Focus
+[output."analysis-ml-focus"]
+project_name = "Machine Learning Pipeline"
+short_name = "ml-pipeline"
+description = "Project focused on machine learning workflows"
+author_name = "ML Engineer"
+author_email = "mlengineer@ai.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+include_eda_templates = true
+include_statistical_analysis = false
+include_ml_components = true
+experiment_tracking = "Weights & Biases"
+data_versioning = true
+data_validation = true
+documentation_format = "Jupyter Notebooks"
+
+# === EDGE CASES AND MINIMAL COMBINATIONS ===
+
+# Test 36: Absolutely Minimal
+[output."absolutely-minimal"]
+project_name = "Bare Minimum Project"
+short_name = "bare-min"
+description = "Absolutely minimal project configuration"
+author_name = "Minimalist User"
+author_email = "min@example.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = false
+include_misc = false
+include_notebooks = true
+include_scripts = false
+include_data_pipeline = false
+include_testing = false
+include_packages = false
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+documentation_format = "Jupyter Notebooks"
+
+# Test 37: Maximum Everything (Stress Test)
+[output."maximum-everything"]
+project_name = "Maximum Feature Project"
+short_name = "max-features"
+description = "Project with every possible feature enabled"
+author_name = "Feature Maximalist"
+author_email = "max@features.org"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = true
+include_infrastructure = true
+include_misc = true
+# Analysis components
+include_notebooks = true
+include_scripts = true
+include_data_pipeline = true
+include_testing = true
+include_packages = true
+include_eda_templates = true
+include_statistical_analysis = true
+include_ml_components = true
+# Writeup components
+include_manuscript = true
+include_presentations = true
+include_grants = true
+include_abstracts = true
+include_posters = true
+include_reports = true
+include_blog = true
+include_publication_templates = true
+# Infrastructure components
+include_docker = true
+include_cloud_deployment = true
+include_virtualization = true
+include_automation = true
+include_deployment_templates = true
+# Settings
+programming_language = "Both"
+documentation_format = "Quarto"
+experiment_tracking = "Neptune"
+data_versioning = true
+data_validation = true
+github_actions = true
+pre_commit_hooks = true
+include_jujutsu = true
+include_fossil = true
+use_hybrid_vcs = true
+
+# ====== MIGRATION TASK TESTING SCENARIOS ======
+# These scenarios test automatic cleanup during copier update
+# They simulate projects that start with features enabled, then disable them
+
+# === FOLDER REMOVAL TESTS ===
+
+# Test 38: Migration - Remove Analysis Folder
+[output."migration-remove-analysis"]
+project_name = "Remove Analysis Test"
+short_name = "rm-analysis"
+description = "Test removing analysis folder during update"
+author_name = "Migration Tester"
+author_email = "migrate@test.com"
+project_type = "Manuscript Only (writing and publications)"
+programming_language = "R"
+documentation_format = "Quarto"
+include_publication_templates = true
+# This should trigger removal of analysis/ folder since project_type excludes it
+
+# Test 39: Migration - Remove Writeup Folder  
+[output."migration-remove-writeup"]
+project_name = "Remove Writeup Test"
+short_name = "rm-writeup"
+description = "Test removing writeup folder during update"
+author_name = "Migration Tester"
+author_email = "migrate@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "MLflow"
+data_versioning = true
+# This should trigger removal of writeup/ folder since project_type excludes it
+
+# Test 40: Migration - Remove Infrastructure Folder
+[output."migration-remove-infrastructure"]
+project_name = "Remove Infrastructure Test"
+short_name = "rm-infra"
+description = "Test removing infrastructure folder during update"
+author_name = "Migration Tester"
+author_email = "migrate@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+# This should trigger removal of infrastructure/ folder for minimal starter
+
+# Test 41: Migration - Custom Folder Removal
+[output."migration-custom-folders"]
+project_name = "Custom Folder Removal Test"
+short_name = "custom-rm"
+description = "Test removing specific folders in custom configuration"
+author_name = "Custom Tester"
+author_email = "custom@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = false
+include_writeup = true
+include_infrastructure = false
+include_misc = false
+include_manuscript = true
+include_presentations = false
+include_grants = false
+include_abstracts = false
+include_posters = false
+include_reports = false
+include_blog = false
+programming_language = "Python"
+documentation_format = "Quarto"
+# Should remove analysis/, infrastructure/, misc/, and most writeup subdirectories
+
+# === TOOL-SPECIFIC CLEANUP TESTS ===
+
+# Test 42: Migration - Remove Docker Files
+[output."migration-remove-docker"]
+project_name = "Remove Docker Test"
+short_name = "rm-docker"
+description = "Test removing Docker files during update"
+author_name = "Docker Tester"
+author_email = "docker@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+# Docker should be removed since infrastructure is not included in Analysis Only
+
+# Test 43: Migration - Remove DVC Files
+[output."migration-remove-dvc"]
+project_name = "Remove DVC Test"
+short_name = "rm-dvc"
+description = "Test removing DVC files when data versioning disabled"
+author_name = "DVC Tester"
+author_email = "dvc@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "MLflow"
+data_versioning = false
+data_validation = false
+# DVC files should be removed since data_versioning is false
+
+# Test 44: Migration - Remove CI/CD Files
+[output."migration-remove-cicd"]
+project_name = "Remove CI/CD Test"
+short_name = "rm-cicd"
+description = "Test removing CI/CD files during update"
+author_name = "CI/CD Tester"
+author_email = "cicd@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+github_actions = false
+pre_commit_hooks = false
+# Should remove .github/workflows and .pre-commit-config.yaml
+
+# Test 45: Migration - Remove Experiment Tracking
+[output."migration-remove-tracking"]
+project_name = "Remove Tracking Test"
+short_name = "rm-tracking"
+description = "Test removing experiment tracking files"
+author_name = "Tracking Tester"
+author_email = "tracking@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+# Should remove MLflow, W&B, Neptune config files
+
+# === LANGUAGE-SPECIFIC CLEANUP TESTS ===
+
+# Test 46: Migration - Python Only (Remove R)
+[output."migration-python-only"]
+project_name = "Python Only Test"
+short_name = "python-only"
+description = "Test removing R files when switching to Python-only"
+author_name = "Python Tester"
+author_email = "python@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "MLflow"
+data_versioning = true
+# Should remove R-specific files: renv.lock, DESCRIPTION, .Rprofile, *.Rproj
+
+# Test 47: Migration - R Only (Remove Python)
+[output."migration-r-only"]
+project_name = "R Only Test"
+short_name = "r-only"
+description = "Test removing Python files when switching to R-only"
+author_name = "R Tester"
+author_email = "r@test.com"
+project_type = "Analysis Only (data science pipeline)"
+programming_language = "R"
+documentation_format = "RMarkdown"
+experiment_tracking = "None"
+data_versioning = false
+# Should remove Python-specific files: requirements.txt, uv.lock, .python-version
+
+# === VERSION CONTROL CLEANUP TESTS ===
+
+# Test 48: Migration - Remove VCS Files
+[output."migration-remove-vcs"]
+project_name = "Remove VCS Test"
+short_name = "rm-vcs"
+description = "Test removing alternative VCS files"
+author_name = "VCS Tester"
+author_email = "vcs@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+include_jujutsu = false
+include_fossil = false
+# Should remove .jjconfig.toml, _FOSSIL_, .fslckout
+
+# === SUBCOMPONENT CLEANUP TESTS ===
+
+# Test 49: Migration - Analysis Subcomponent Cleanup
+[output."migration-analysis-subcomponents"]
+project_name = "Analysis Subcomponent Test"
+short_name = "analysis-sub"
+description = "Test removing specific analysis subcomponents"
+author_name = "Analysis Tester"
+author_email = "analysis@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = false
+include_misc = false
+# Enable only some analysis components
+include_notebooks = true
+include_scripts = false
+include_data_pipeline = false
+include_testing = false
+include_packages = false
+programming_language = "Python"
+experiment_tracking = "None"
+data_versioning = false
+# Should remove analysis/scripts/, analysis/data/, analysis/tests/, analysis/packages/
+
+# Test 50: Migration - Writeup Subcomponent Cleanup
+[output."migration-writeup-subcomponents"]
+project_name = "Writeup Subcomponent Test"
+short_name = "writeup-sub"
+description = "Test removing specific writeup subcomponents"
+author_name = "Writeup Tester"
+author_email = "writeup@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = false
+include_writeup = true
+include_infrastructure = false
+include_misc = false
+# Enable only manuscript and reports
+include_manuscript = true
+include_presentations = false
+include_grants = false
+include_abstracts = false
+include_posters = false
+include_reports = true
+include_blog = false
+programming_language = "Python"
+documentation_format = "Quarto"
+# Should remove most writeup subdirectories except manuscript/ and reports/
+
+# Test 51: Migration - Infrastructure Subcomponent Cleanup
+[output."migration-infrastructure-subcomponents"]
+project_name = "Infrastructure Subcomponent Test"
+short_name = "infra-sub"
+description = "Test removing specific infrastructure subcomponents"
+author_name = "Infrastructure Tester"
+author_email = "infra@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = true
+include_misc = false
+# Enable only Docker
+include_docker = true
+include_cloud_deployment = false
+include_virtualization = false
+include_automation = false
+programming_language = "Python"
+experiment_tracking = "None"
+# Should remove infrastructure/cloud/, infrastructure/virtualization/, infrastructure/automation/
+
+# === PROGRESSIVE DOWNGRADE TESTS ===
+
+# Test 52: Migration - Downgrade from Full to Minimal
+[output."migration-full-to-minimal"]
+project_name = "Full to Minimal Test"
+short_name = "full-to-min"
+description = "Test downgrading from full academic to minimal starter"
+author_name = "Downgrade Tester"
+author_email = "downgrade@test.com"
+project_type = "Minimal Starter (notebooks + basic writeup)"
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+include_publication_templates = false
+include_jujutsu = false
+include_fossil = false
+# Should remove infrastructure/, most tools, and complex features
+
+# Test 53: Migration - Analysis to Manuscript Only
+[output."migration-analysis-to-manuscript"]
+project_name = "Analysis to Manuscript Test"
+short_name = "analysis-to-ms"
+description = "Test switching from analysis-only to manuscript-only"
+author_name = "Switch Tester"
+author_email = "switch@test.com"
+project_type = "Manuscript Only (writing and publications)"
+programming_language = "R"
+documentation_format = "Quarto"
+include_publication_templates = true
+experiment_tracking = "None"
+data_versioning = false
+# Should remove analysis/ folder and add writeup/ components
+
+# === COMPREHENSIVE CLEANUP TESTS ===
+
+# Test 54: Migration - Comprehensive Cleanup Test
+[output."migration-comprehensive-cleanup"]
+project_name = "Comprehensive Cleanup Test"
+short_name = "comprehensive-cleanup"
+description = "Test comprehensive cleanup from maximum to minimal configuration"
+author_name = "Cleanup Tester"
+author_email = "cleanup@test.com"
+project_type = "Custom (choose components manually)"
+include_analysis = true
+include_writeup = false
+include_infrastructure = false
+include_misc = false
+include_notebooks = true
+include_scripts = false
+include_data_pipeline = false
+include_testing = false
+include_packages = false
+programming_language = "Python"
+documentation_format = "Jupyter Notebooks"
+experiment_tracking = "None"
+data_versioning = false
+data_validation = false
+github_actions = false
+pre_commit_hooks = false
+include_deployment_templates = false
+include_jujutsu = false
+include_fossil = false
+# Should remove: writeup/, infrastructure/, misc/, most analysis subdirs, all tool configs

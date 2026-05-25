@@ -1,0 +1,13 @@
+{:tasks
+ {:requires ([babashka.fs :as fs])
+
+  test {:doc  "Run tests"
+        :task (apply clojure "-M:test" *command-line-args*)}
+
+  nrepl {:doc  "Start REPL"
+         :task (if (fs/windows?)
+                 (clojure "-M:nrepl")
+                 (shell "rlwrap bb clojure -M:nrepl"))}
+
+  uber {:doc  "Build uberjar"
+        :task (clojure "-T:build uber")}}}

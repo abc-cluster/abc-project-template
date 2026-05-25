@@ -1,0 +1,11 @@
+id: "infra:env-setup"
+description: "Java environment setup scripts (cross-platform)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/env-setup/environments.just
+  - infra/env-setup/setup_java.ps1
+  - infra/env-setup/setup_java.sh
+post_grow_hint: |
+  Created infra/env-setup/ with subsystem-specific scaffolding.
+  Inspect the generated files; some require external tools (e.g. terraform, packer).

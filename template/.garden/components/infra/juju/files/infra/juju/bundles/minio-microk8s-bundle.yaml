@@ -1,0 +1,13 @@
+description: Deploy MinIO to MicroK8s for local development.
+series: jammy
+applications:
+  minio:
+    charm: minio
+    channel: stable
+    scale: 1
+    trust: true
+    options:
+      access-key: minioadmin
+      secret-key: minioadmin
+    kubernetes:
+      storage: microk8s-hostpath

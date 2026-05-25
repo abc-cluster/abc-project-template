@@ -1,0 +1,17 @@
+id: "infra:juju"
+description: "Juju bundles for Nomad-Docker, Jupyter+MinIO on MicroK8s"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/juju/.gitkeep
+  - infra/juju/README.md
+  - infra/juju/bundles/jupyter-minio-on-microk8s.yml
+  - infra/juju/bundles/minio-microk8s-bundle.yaml
+  - infra/juju/bundles/nomad-docker.yml
+  - infra/juju/overlays/development.yml
+  - infra/juju/overlays/nomad.yml
+  - infra/juju/overlays/production.yml
+  - infra/juju/setup.sh
+post_grow_hint: |
+  Created infra/juju/ with subsystem-specific scaffolding.
+  Inspect the generated files; some require external tools (e.g. terraform, packer).

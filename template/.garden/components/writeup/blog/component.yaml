@@ -1,0 +1,16 @@
+id: "writeup:blog"
+description: "Quarto blog with research log"
+status: "experimental"
+version: "0.1.0"
+files:
+  - writeup/blog/_quarto.yml
+  - writeup/blog/justfile
+  - writeup/blog/templates/academic/research-benchmarks.md
+  - writeup/blog/templates/data-science/debugging-detective.md
+  - writeup/blog/templates/data-science/lessons.md
+  - writeup/blog/templates/data-science/philosophy.md
+  - writeup/blog/templates/data-science/project-journey.md
+  - writeup/blog/templates/data-science/research-reflections.md
+  - writeup/blog/templates/personal/reflections.md
+post_grow_hint: |
+  Created writeup/blog/ with format-specific scaffolding.

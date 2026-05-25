@@ -1,0 +1,566 @@
+# Hybrid Version Control: Jujutsu + Fossil SCM for Academic Research
+# Combines the strengths of both systems for comprehensive research management
+
+# Set shell for cross-platform compatibility
+set shell := ["bash", "-c"]
+
+# Variables
+manuscript_fossil := "writeup/manuscript/manuscript.fossil"
+analysis_fossil := "analysis/analysis.fossil"
+archive_fossil := "archives/project-archive.fossil"
+jj_main_branch := "main"
+
+# Default recipe
+default:
+    @echo "🔀 Hybrid Version Control (Jujutsu + Fossil) Commands:"
+    @just --list
+
+# === INITIALIZATION ===
+
+# Initialize hybrid version control system
+init-hybrid-vcs:
+    #!/usr/bin/env bash
+    echo "🚀 Initializing hybrid version control system..."
+    
+    # Initialize jj with Git backend (if not already done)
+    if [ ! -d ".jj" ]; then
+        echo "📝 Initializing Jujutsu with Git backend..."
+        jj git init --git-repo .
+    fi
+    
+    # Initialize Fossil repositories
+    just init-fossil-repos
+    
+    # Setup sync configuration
+    just setup-hybrid-sync
+    
+    echo "✅ Hybrid VCS initialized successfully!"
+
+# Initialize Fossil repositories for specific components
+init-fossil-repos:
+    #!/usr/bin/env bash
+    echo "🦴 Initializing Fossil repositories..."
+    
+    # Manuscript repository (self-contained publishing)
+    if [ ! -f "{{manuscript_fossil}}" ]; then
+        cd writeup/manuscript
+        fossil init manuscript.fossil
+        fossil open manuscript.fossil
+        fossil add .
+        fossil commit -m "Initial manuscript repository"
+        fossil ui --localauth --port 8080 &
+        echo "📖 Manuscript Fossil repo: http://localhost:8080"
+        cd ../..
+    fi
+    
+    # Analysis repository (computational provenance)
+    if [ ! -f "{{analysis_fossil}}" ]; then
+        cd analysis
+        fossil init analysis.fossil
+        fossil open analysis.fossil
+        fossil add .
+        fossil commit -m "Initial analysis repository"
+        fossil ui --localauth --port 8081 &
+        echo "🔬 Analysis Fossil repo: http://localhost:8081"
+        cd ..
+    fi
+    
+    # Project archive repository (long-term preservation)
+    mkdir -p archives
+    if [ ! -f "{{archive_fossil}}" ]; then
+        cd archives
+        fossil init project-archive.fossil
+        fossil open project-archive.fossil
+        echo "📦 Archive Fossil repo initialized"
+        cd ..
+    fi
+
+# Setup synchronization configuration
+setup-hybrid-sync:
+    #!/usr/bin/env bash
+    echo "⚙️ Setting up hybrid sync configuration..."
+    
+    # Create sync configuration file
+    cat > .hybrid-vcs-config << EOF
+# Hybrid VCS Configuration
+jj_main_branch={{jj_main_branch}}
+manuscript_fossil={{manuscript_fossil}}
+analysis_fossil={{analysis_fossil}}
+archive_fossil={{archive_fossil}}
+sync_interval=daily
+auto_fossil_sync=true
+EOF
+    
+    echo "✅ Hybrid sync configuration created"
+
+# === DAILY WORKFLOW ===
+
+# Primary development workflow (jj-focused)
+dev-start description="":
+    #!/usr/bin/env bash
+    if [ -z "{{description}}" ]; then
+        read -p "📝 What are you working on today? " desc
+    else
+        desc="{{description}}"
+    fi
+    
+    # Start new jj change
+    jj new -m "Start: ${desc}"
+    echo "🚀 Started development session: ${desc}"
+
+# Save development progress (jj primary, fossil secondary)
+dev-save description="Work in progress":
+    #!/usr/bin/env bash
+    # Save to jj (primary)
+    jj describe -m "{{description}}"
+    
+    # Auto-sync to relevant Fossil repos based on changed files
+    if [ -n "$(jj diff --name-only | grep 'writeup/manuscript')" ]; then
+        just sync-manuscript-to-fossil
+    fi
+    
+    if [ -n "$(jj diff --name-only | grep 'analysis/')" ]; then
+        just sync-analysis-to-fossil
+    fi
+    
+    echo "💾 Development progress saved: {{description}}"
+
+# End development session with comprehensive sync
+dev-end milestone="":
+    #!/usr/bin/env bash
+    if [ -z "{{milestone}}" ]; then
+        read -p "🎯 Milestone description: " desc
+    else
+        desc="{{milestone}}"
+    fi
+    
+    # Create jj milestone
+    jj describe -m "🎯 Milestone: ${desc}"
+    
+    # Comprehensive sync to Fossil
+    just sync-all-to-fossil
+    
+    # Create archive snapshot if significant milestone
+    if [[ "${desc}" =~ (major|publication|submission|defense) ]]; then
+        just create-archive-snapshot "${desc}"
+    fi
+    
+    echo "🏁 Development session ended: ${desc}"
+
+# === MANUSCRIPT-FOCUSED WORKFLOW ===
+
+# Start manuscript writing session
+manuscript-start section="":
+    #!/usr/bin/env bash
+    if [ -z "{{section}}" ]; then
+        read -p "📝 Which section are you working on? " sec
+    else
+        sec="{{section}}"
+    fi
+    
+    # Start jj change for manuscript work
+    jj new -m "📖 Manuscript: working on ${sec}"
+    
+    # Open Fossil UI for manuscript if not running
+    if ! pgrep -f "fossil ui.*8080" > /dev/null; then
+        cd writeup/manuscript && fossil ui --localauth --port 8080 > /dev/null 2>&1 &
+        echo "📖 Manuscript Fossil UI: http://localhost:8080"
+        cd ../..
+    fi
+    
+    echo "📝 Manuscript session started: ${sec}"
+
+# Save manuscript progress with dual versioning
+manuscript-save description="Manuscript update":
+    #!/usr/bin/env bash
+    # Save to jj (primary)
+    jj describe -m "📖 {{description}}"
+    
+    # Sync to Fossil with detailed commit message
+    cd writeup/manuscript
+    fossil add .
+    current_time=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+    jj_commit=$(jj log -r @ --no-graph -T commit_id.short())
+    fossil commit -m "{{description}} | jj:${jj_commit} | ${current_time}"
+    cd ../..
+    
+    echo "📖 Manuscript saved: {{description}}"
+
+# Create manuscript version for submission
+manuscript-version version_name:
+    #!/usr/bin/env bash
+    # Create jj bookmark
+    jj bookmark create "manuscript-{{version_name}}"
+    
+    # Create Fossil tag
+    cd writeup/manuscript
+    fossil tag add "v{{version_name}}" current
+    fossil commit -m "📄 Version {{version_name}} for submission"
+    
+    # Generate standalone bundle
+    fossil bundle export ../manuscript-{{version_name}}.fossil --branch trunk
+    cd ../..
+    
+    echo "📄 Manuscript version {{version_name}} created and bundled"
+
+# === ANALYSIS-FOCUSED WORKFLOW ===
+
+# Start analysis session
+analysis-start experiment="":
+    #!/usr/bin/env bash
+    if [ -z "{{experiment}}" ]; then
+        read -p "🔬 Experiment description: " exp
+    else
+        exp="{{experiment}}"
+    fi
+    
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    jj new -m "🔬 Analysis: ${exp} [${timestamp}]"
+    
+    # Open Analysis Fossil UI if not running
+    if ! pgrep -f "fossil ui.*8081" > /dev/null; then
+        cd analysis && fossil ui --localauth --port 8081 > /dev/null 2>&1 &
+        echo "🔬 Analysis Fossil UI: http://localhost:8081"
+        cd ..
+    fi
+    
+    echo "🔬 Analysis session started: ${exp}"
+
+# Save analysis with computational provenance
+analysis-save description="Analysis update" include_data="false":
+    #!/usr/bin/env bash
+    # Save to jj (primary)
+    jj describe -m "🔬 {{description}}"
+    
+    # Sync to Fossil with computational metadata
+    cd analysis
+    fossil add .
+    
+    # Generate computational metadata
+    current_time=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+    jj_commit=$(jj log -r @ --no-graph -T commit_id.short())
+    python_version=$(python --version 2>&1 || echo "N/A")
+    r_version=$(R --version 2>/dev/null | head -1 || echo "N/A")
+    
+    metadata="{{description}} | jj:${jj_commit} | ${current_time} | Python: ${python_version} | R: ${r_version}"
+    
+    fossil commit -m "${metadata}"
+    cd ..
+    
+    # Optionally include data checksums for reproducibility
+    if [ "{{include_data}}" = "true" ]; then
+        just generate-data-checksums
+    fi
+    
+    echo "🔬 Analysis saved with computational provenance"
+
+# === SYNCHRONIZATION ===
+
+# Sync manuscript changes from jj to Fossil
+sync-manuscript-to-fossil:
+    #!/usr/bin/env bash
+    cd writeup/manuscript
+    fossil add .
+    current_time=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+    jj_commit=$(jj log -r @ --no-graph -T commit_id.short())
+    fossil commit -m "Auto-sync from jj:${jj_commit} | ${current_time}" || true
+    cd ../..
+    echo "📖 Manuscript synced to Fossil"
+
+# Sync analysis changes from jj to Fossil
+sync-analysis-to-fossil:
+    #!/usr/bin/env bash
+    cd analysis
+    fossil add .
+    current_time=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+    jj_commit=$(jj log -r @ --no-graph -T commit_id.short())
+    fossil commit -m "Auto-sync from jj:${jj_commit} | ${current_time}" || true
+    cd ..
+    echo "🔬 Analysis synced to Fossil"
+
+# Comprehensive sync of all components
+sync-all-to-fossil:
+    @echo "🔄 Syncing all components to Fossil..."
+    just sync-manuscript-to-fossil
+    just sync-analysis-to-fossil
+    @echo "✅ All components synced to Fossil"
+
+# Bidirectional sync (advanced - handles conflicts carefully)
+bidirectional-sync:
+    #!/usr/bin/env bash
+    echo "🔄 Performing bidirectional sync..."
+    
+    # Check for uncommitted jj changes
+    if jj diff --quiet; then
+        echo "ℹ️ No uncommitted jj changes"
+    else
+        echo "⚠️ Uncommitted jj changes detected. Commit first."
+        exit 1
+    fi
+    
+    # Sync from jj to Fossil
+    just sync-all-to-fossil
+    
+    # Check for Fossil changes not in jj (rare, but possible)
+    cd writeup/manuscript
+    if ! fossil changes --quiet; then
+        echo "⚠️ Fossil has changes not in jj. Manual review needed."
+    fi
+    cd ../..
+    
+    echo "✅ Bidirectional sync completed"
+
+# === ARCHIVAL AND PRESERVATION ===
+
+# Create comprehensive archive snapshot
+create-archive-snapshot description:
+    #!/usr/bin/env bash
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    archive_name="{{description}}-${timestamp}"
+    
+    cd archives
+    
+    # Export current state from all systems
+    echo "📦 Creating archive: ${archive_name}"
+    
+    # Export jj state
+    cd ..
+    jj git push --branch @ --remote origin || echo "No remote configured"
+    git bundle create "archives/${archive_name}-git.bundle" --all
+    
+    # Export Fossil states
+    cd writeup/manuscript
+    fossil bundle export "../../archives/${archive_name}-manuscript.fossil" --branch trunk
+    cd ../../analysis
+    fossil bundle export "../archives/${archive_name}-analysis.fossil" --branch trunk
+    cd ../archives
+    
+    # Create archive metadata
+    cat > "${archive_name}-metadata.txt" << EOF
+Archive: ${archive_name}
+Created: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+Description: {{description}}
+JJ Commit: $(jj log -r @ --no-graph -T commit_id.hex())
+Git Commit: $(git rev-parse HEAD)
+Manuscript Fossil: ${archive_name}-manuscript.fossil
+Analysis Fossil: ${archive_name}-analysis.fossil
+Git Bundle: ${archive_name}-git.bundle
+EOF
+    
+    # Add to archive repository
+    fossil add .
+    fossil commit -m "Archive snapshot: {{description}}"
+    
+    cd ..
+    echo "📦 Archive snapshot created: ${archive_name}"
+
+# Export publication-ready bundle
+export-publication-bundle version:
+    #!/usr/bin/env bash
+    bundle_dir="publication-bundle-{{version}}"
+    mkdir -p "${bundle_dir}"
+    
+    # Export manuscript
+    cd writeup/manuscript
+    fossil bundle export "../../${bundle_dir}/manuscript.fossil" --branch trunk
+    cd ../..
+    
+    # Export relevant analysis
+    cd analysis
+    fossil bundle export "../${bundle_dir}/analysis.fossil" --branch trunk
+    cd ..
+    
+    # Export Git repository
+    git bundle create "${bundle_dir}/complete-git.bundle" --all
+    
+    # Create publication metadata
+    cat > "${bundle_dir}/PUBLICATION-INFO.txt" << EOF
+Publication Bundle: {{version}}
+Created: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+Manuscript Repository: manuscript.fossil
+Analysis Repository: analysis.fossil
+Complete Git History: complete-git.bundle
+
+To recreate environment:
+1. fossil clone manuscript.fossil manuscript && cd manuscript && fossil open manuscript.fossil
+2. fossil clone analysis.fossil analysis && cd analysis && fossil open analysis.fossil
+3. git clone complete-git.bundle project && cd project
+EOF
+    
+    # Create tarball
+    tar -czf "publication-bundle-{{version}}.tar.gz" "${bundle_dir}"
+    rm -rf "${bundle_dir}"
+    
+    echo "📄 Publication bundle created: publication-bundle-{{version}}.tar.gz"
+
+# === MAINTENANCE AND UTILITIES ===
+
+# Generate data checksums for reproducibility
+generate-data-checksums:
+    #!/usr/bin/env bash
+    echo "🔢 Generating data checksums..."
+    cd analysis
+    find data -type f -name "*.csv" -o -name "*.json" -o -name "*.parquet" | \
+        xargs -I {} sh -c 'echo "$(sha256sum "{}")" >> data-checksums.txt'
+    fossil add data-checksums.txt
+    cd ..
+    echo "✅ Data checksums generated"
+
+# Show hybrid VCS status
+hybrid-status:
+    @echo "🔀 Hybrid Version Control Status"
+    @echo "================================="
+    @echo ""
+    @echo "📝 Jujutsu Status:"
+    @jj status
+    @echo ""
+    @echo "📖 Manuscript Fossil Status:"
+    @cd writeup/manuscript && fossil changes || echo "No Fossil repository"
+    @echo ""
+    @echo "🔬 Analysis Fossil Status:"
+    @cd analysis && fossil changes || echo "No Fossil repository"
+    @echo ""
+    @echo "📊 Recent Activity Summary:"
+    @jj log -r 'date("1 week ago"..)' --template 'commit_id.short() ++ " | " ++ description.first_line() ++ " | " ++ committer.timestamp().ago() ++ "\n"' | head -10
+
+# Open all Fossil UIs
+open-fossil-uis:
+    #!/usr/bin/env bash
+    echo "🌐 Opening Fossil UIs..."
+    
+    # Manuscript UI
+    cd writeup/manuscript
+    if [ -f "manuscript.fossil" ]; then
+        fossil ui --localauth --port 8080 > /dev/null 2>&1 &
+        echo "📖 Manuscript: http://localhost:8080"
+    fi
+    cd ../..
+    
+    # Analysis UI
+    cd analysis
+    if [ -f "analysis.fossil" ]; then
+        fossil ui --localauth --port 8081 > /dev/null 2>&1 &
+        echo "🔬 Analysis: http://localhost:8081"
+    fi
+    cd ..
+    
+    # Archive UI
+    cd archives
+    if [ -f "project-archive.fossil" ]; then
+        fossil ui --localauth --port 8082 > /dev/null 2>&1 &
+        echo "📦 Archive: http://localhost:8082"
+    fi
+    cd ..
+
+# Stop all Fossil UIs
+stop-fossil-uis:
+    #!/usr/bin/env bash
+    echo "🛑 Stopping Fossil UIs..."
+    pkill -f "fossil ui" || echo "No Fossil UI processes found"
+
+# === COLLABORATION ===
+
+# Share with collaborators (jj-focused)
+share-with-collaborators message="":
+    #!/usr/bin/env bash
+    if [ -z "{{message}}" ]; then
+        read -p "📤 Share message: " msg
+    else
+        msg="{{message}}"
+    fi
+    
+    # Push jj changes
+    jj describe -m "Share: ${msg}"
+    jj git push --branch @
+    
+    # Sync Fossil repos
+    just sync-all-to-fossil
+    
+    echo "📤 Shared with collaborators: ${msg}"
+
+# Receive collaborator updates
+receive-updates:
+    #!/usr/bin/env bash
+    echo "📥 Receiving collaborator updates..."
+    
+    # Fetch jj/Git updates
+    jj git fetch --all-remotes
+    
+    # Note: Fossil sync would require network configuration
+    # This is typically handled manually or through shared fossil repos
+    
+    echo "📥 Updates received. Review with: jj log -r 'remote_branches()'"
+
+# === HELP AND DOCUMENTATION ===
+
+# Show workflow recommendations
+show-workflows:
+    @echo "🔀 Hybrid VCS Workflow Recommendations"
+    @echo "====================================="
+    @echo ""
+    @echo "📝 Daily Development:"
+    @echo "  just dev-start \"feature description\""
+    @echo "  just dev-save \"progress update\""
+    @echo "  just dev-end \"milestone reached\""
+    @echo ""
+    @echo "📖 Manuscript Writing:"
+    @echo "  just manuscript-start \"introduction\""
+    @echo "  just manuscript-save \"updated methodology\""
+    @echo "  just manuscript-version \"submission-v1\""
+    @echo ""
+    @echo "🔬 Analysis Work:"
+    @echo "  just analysis-start \"exploratory data analysis\""
+    @echo "  just analysis-save \"completed feature engineering\""
+    @echo ""
+    @echo "📦 Archival:"
+    @echo "  just create-archive-snapshot \"paper-submission\""
+    @echo "  just export-publication-bundle \"nature-submission\""
+
+# Verify hybrid system health
+verify-hybrid-system:
+    #!/usr/bin/env bash
+    echo "🏥 Verifying hybrid VCS system health..."
+    
+    errors=0
+    
+    # Check jj
+    if ! command -v jj &> /dev/null; then
+        echo "❌ Jujutsu not installed"
+        errors=$((errors + 1))
+    else
+        echo "✅ Jujutsu installed"
+    fi
+    
+    # Check Fossil
+    if ! command -v fossil &> /dev/null; then
+        echo "❌ Fossil SCM not installed"
+        errors=$((errors + 1))
+    else
+        echo "✅ Fossil SCM installed"
+    fi
+    
+    # Check repositories
+    if [ -d ".jj" ]; then
+        echo "✅ Jujutsu repository exists"
+    else
+        echo "⚠️ Jujutsu repository not initialized"
+        errors=$((errors + 1))
+    fi
+    
+    if [ -f "{{manuscript_fossil}}" ]; then
+        echo "✅ Manuscript Fossil repository exists"
+    else
+        echo "⚠️ Manuscript Fossil repository not found"
+    fi
+    
+    if [ -f "{{analysis_fossil}}" ]; then
+        echo "✅ Analysis Fossil repository exists"
+    else
+        echo "⚠️ Analysis Fossil repository not found"
+    fi
+    
+    if [ $errors -eq 0 ]; then
+        echo "🎉 Hybrid VCS system is healthy!"
+    else
+        echo "⚠️ Found $errors issues. Run 'just init-hybrid-vcs' to fix."
+    fi

@@ -1,0 +1,10 @@
+description: Overlay for production deployments (fill in secure values!).
+applications:
+  minio:
+    options:
+      access-key: <your-production-access-key>
+      secret-key: <your-production-secret-key>
+  jupyterhub:
+    options:
+      admin-user: <your-admin-user>
+      root-password: <your-strong-password>

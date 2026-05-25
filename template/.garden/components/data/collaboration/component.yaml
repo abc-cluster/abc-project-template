@@ -1,0 +1,10 @@
+id: "data:collaboration"
+description: "Collaboration / shared data area"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/collaboration/141_agreements/.gitkeep
+  - data/collaboration/142_federated/.gitkeep
+  - data/collaboration/143_shared/.gitkeep
+post_grow_hint: |
+  Created data/collaboration/ stage directory.

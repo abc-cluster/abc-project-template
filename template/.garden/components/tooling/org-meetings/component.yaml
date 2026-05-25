@@ -1,0 +1,7 @@
+id: "tooling:org-meetings"
+description: "Org-mode meeting templates and per-project meeting log"
+status: "experimental"
+version: "0.1.0"
+files:
+  - meetings-{{short_name}}.org
+  - meetings.template.org

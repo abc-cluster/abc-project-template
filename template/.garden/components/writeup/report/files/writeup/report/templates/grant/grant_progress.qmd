@@ -1,0 +1,186 @@
+---
+title: "Grant Progress Report"
+subtitle: "Progress and Accomplishments to Date"
+author:
+  - name: Principal Investigator
+    affiliation: Institution/Department
+    email: pi@institution.edu
+date: last-modified
+format:
+  html:
+    toc: true
+    number-sections: true
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    colorlinks: true
+    fontsize: 11pt
+---
+
+# Grant Information
+
+**Grant Title**: [Full Title of Grant]  
+**Grant Number**: [Grant ID/Number]  
+**Funding Agency**: [Name of Funding Agency]  
+**Grant Period**: [Start Date] to [End Date]  
+**Reporting Period**: [Start of Period] to [End of Period]  
+**Principal Investigator(s)**: [Name(s) of PI(s)]  
+**Submission Date**: [Date of Report Submission]
+
+# Executive Summary
+
+[Provide a brief overview of the grant project, its goals, and a summary of progress to date. Highlight key achievements, challenges, and any modifications to the original plan.]
+
+# Project Goals and Objectives
+
+[Restate the primary goals and objectives of the grant as proposed in the original application.]
+
+## Goal 1: [Brief Title]
+
+- Objective 1.1: [Description]
+- Objective 1.2: [Description]
+
+## Goal 2: [Brief Title]
+
+- Objective 2.1: [Description]
+- Objective 2.2: [Description]
+
+# Progress on Objectives
+
+## Goal 1 Progress
+
+### Objective 1.1
+
+**Status**: [Completed/In Progress/Delayed/Modified]
+
+**Activities Conducted**:
+- [Activity 1]
+- [Activity 2]
+
+**Results to Date**:
+[Describe the results and outcomes achieved for this objective]
+
+```{r}
+#| echo: false
+#| fig-cap: "Figure illustrating progress on Objective 1.1"
+# Data visualization code would go here
+```
+
+### Objective 1.2
+
+**Status**: [Completed/In Progress/Delayed/Modified]
+
+**Activities Conducted**:
+- [Activity 1]
+- [Activity 2]
+
+**Results to Date**:
+[Describe the results and outcomes achieved for this objective]
+
+## Goal 2 Progress
+
+[Continue the same pattern for Goal 2 objectives]
+
+# Significant Results and Findings
+
+[Highlight the most important results and findings achieved during the reporting period. Include figures, tables, or data as appropriate.]
+
+```{r}
+#| echo: false
+#| tbl-cap: "Summary of Key Findings"
+# Table of key findings would go here
+```
+
+# Dissemination of Results
+
+## Publications
+
+[List all publications resulting from the grant during this reporting period, using the citation format required by the funding agency.]
+
+1. [Citation 1]
+2. [Citation 2]
+
+## Presentations
+
+[List all presentations, including conferences, workshops, seminars, etc.]
+
+1. [Presentation 1: Title, Conference, Date, Location]
+2. [Presentation 2: Title, Conference, Date, Location]
+
+## Other Dissemination Activities
+
+[Describe any other ways in which results have been shared (e.g., websites, media coverage, community engagement)]
+
+# Personnel and Collaborations
+
+## Project Personnel
+
+[List all personnel who have worked on the project during the reporting period, including their roles and time commitment.]
+
+| Name | Role | Time Commitment | Contribution |
+|------|------|-----------------|--------------|
+| [Name] | [Role] | [Percentage/Hours] | [Brief description of contribution] |
+| [Name] | [Role] | [Percentage/Hours] | [Brief description of contribution] |
+
+## Collaborations
+
+[Describe any collaborations with other researchers, institutions, or organizations that have contributed to the project.]
+
+# Financial Status
+
+[Provide a summary of the financial status of the grant, including expenditures to date and remaining funds.]
+
+| Budget Category | Awarded | Expended | Remaining | % Used |
+|-----------------|---------|----------|-----------|--------|
+| [Category 1] | [Amount] | [Amount] | [Amount] | [Percentage] |
+| [Category 2] | [Amount] | [Amount] | [Amount] | [Percentage] |
+| [Category 3] | [Amount] | [Amount] | [Amount] | [Percentage] |
+| **Total** | [Amount] | [Amount] | [Amount] | [Percentage] |
+
+# Challenges and Modifications
+
+## Challenges Encountered
+
+[Describe any significant challenges or problems encountered during the reporting period and how they were addressed.]
+
+## Modifications to Original Plan
+
+[Describe any changes or modifications made to the original project plan, including the rationale for these changes and their impact on project goals and timelines.]
+
+# Next Steps
+
+## Planned Activities
+
+[Outline the key activities planned for the next reporting period.]
+
+1. [Activity 1]
+2. [Activity 2]
+3. [Activity 3]
+
+## Timeline for Upcoming Period
+
+[Provide a timeline for the activities planned in the next reporting period.]
+
+| Activity | Start Date | End Date | Responsible Personnel |
+|----------|------------|----------|------------------------|
+| [Activity 1] | [Date] | [Date] | [Name(s)] |
+| [Activity 2] | [Date] | [Date] | [Name(s)] |
+| [Activity 3] | [Date] | [Date] | [Name(s)] |
+
+# Impact and Significance
+
+[Discuss the broader impact and significance of the project to date, including its contribution to the field, potential applications, and benefits to society.]
+
+# Appendices
+
+## Appendix A: Supporting Data
+
+[Include any additional data, figures, or tables that support the findings presented in the report.]
+
+## Appendix B: Project Timeline
+
+[Include an updated project timeline showing completed activities and planned future activities.]
+
+## Appendix C: Additional Information
+
+[Include any other information required by the funding agency or relevant to the project's progress.]

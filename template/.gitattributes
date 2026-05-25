@@ -1,0 +1,3 @@
+uv.lock linguist-generated=true
+params.yaml merge=ours
+dvc.lock merge=ours

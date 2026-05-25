@@ -1,0 +1,273 @@
+---
+title: "Private Foundation Grant Proposal Template"
+subtitle: "[Foundation Name] - [Program Name]"
+author: 
+  - name: "Principal Investigator Name"
+    affiliation: "Organization"
+    email: "pi@organization.org"
+format:
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 12pt
+    linestretch: 1.5
+bibliography: references.bib
+---
+
+# Executive Summary
+
+**Organization**: [Your Organization Name]
+
+**Project Title**: [Project Title]
+
+**Request Amount**: $[Amount] over [Time Period]
+
+**Project Period**: [Start Date] - [End Date]
+
+**Brief Description**: [2-3 sentence summary of the project]
+
+## Key Points
+- Problem being addressed
+- Proposed solution
+- Expected impact
+- Total funding requested
+
+# Statement of Need
+
+## Problem Definition
+
+### Background and Context
+
+### Statistics and Evidence
+
+### Target Population
+
+### Geographic Scope
+
+## Why This Matters Now
+
+### Urgency of the Problem
+
+### Consequences of Inaction
+
+### Opportunity for Impact
+
+# Project Description
+
+## Goals and Objectives
+
+### Long-term Goal
+
+### Specific Objectives
+1. **Objective 1**: [Specific, measurable objective]
+2. **Objective 2**: [Specific, measurable objective]
+3. **Objective 3**: [Specific, measurable objective]
+
+## Methods and Approach
+
+### Project Activities
+
+#### Phase 1: [Phase Name] (Months 1-X)
+- Activity 1
+- Activity 2
+- Activity 3
+
+#### Phase 2: [Phase Name] (Months X-Y)
+- Activity 1
+- Activity 2
+- Activity 3
+
+#### Phase 3: [Phase Name] (Months Y-Z)
+- Activity 1
+- Activity 2
+- Activity 3
+
+### Innovation and Uniqueness
+
+### Evidence Base
+
+## Target Population and Beneficiaries
+
+### Primary Beneficiaries
+
+### Secondary Beneficiaries
+
+### Community Engagement
+
+# Expected Outcomes and Impact
+
+## Short-term Outcomes (Year 1)
+
+## Medium-term Outcomes (Years 2-3)
+
+## Long-term Impact (3+ Years)
+
+## Success Metrics
+
+| Outcome | Indicator | Target | Measurement Method |
+|---------|-----------|--------|-------------------|
+|         |           |        |                   |
+
+# Evaluation Plan
+
+## Evaluation Questions
+
+## Data Collection Methods
+
+### Quantitative Measures
+
+### Qualitative Measures
+
+## Evaluation Timeline
+
+## Reporting Plan
+
+# Organizational Capacity
+
+## Organization Overview
+
+### Mission and History
+
+### Current Programs
+
+### Organizational Strengths
+
+## Leadership Team
+
+### Principal Investigator
+
+### Key Staff
+
+### Board of Directors (if applicable)
+
+## Track Record
+
+### Previous Grants
+
+### Relevant Experience
+
+### Success Stories
+
+# Project Team
+
+## Project Director
+
+**Name**: 
+**Title**: 
+**Role**: 
+**Qualifications**: 
+
+## Key Personnel
+
+**Name**: 
+**Title**: 
+**Role**: 
+**Qualifications**: 
+
+## Advisory Board/Consultants
+
+## Collaborative Partners
+
+# Budget and Budget Narrative
+
+## Project Budget Summary
+
+| Category | Year 1 | Year 2 | Year 3 | Total |
+|----------|--------|--------|--------|-------|
+| Personnel |        |        |        |       |
+| Fringe Benefits |   |        |        |       |
+| Equipment |        |        |        |       |
+| Supplies |         |        |        |       |
+| Travel |           |        |        |       |
+| Other Direct Costs | |      |        |       |
+| **Total Direct** |  |        |        |       |
+| Indirect Costs |    |        |        |       |
+| **Total Project** | |        |        |       |
+
+## Budget Narrative
+
+### Personnel
+Detailed justification for each position including roles, qualifications, and effort.
+
+### Equipment
+Justification for any equipment purchases over $X.
+
+### Supplies
+Description of supplies needed and their costs.
+
+### Travel
+Justification for travel expenses.
+
+### Other Direct Costs
+Any other project-related expenses.
+
+### Indirect Costs
+Administrative costs (if allowed).
+
+## Cost-Share/Matching Funds
+
+### Organization Contribution
+
+### In-Kind Contributions
+
+### Other Funding Sources
+
+# Sustainability Plan
+
+## Long-term Viability
+
+## Future Funding Strategy
+
+## Institutional Commitment
+
+## Community Ownership
+
+# Timeline and Milestones
+
+## Project Timeline
+
+| Quarter | Year 1 | Year 2 | Year 3 |
+|---------|--------|--------|--------|
+| Q1      |        |        |        |
+| Q2      |        |        |        |
+| Q3      |        |        |        |
+| Q4      |        |        |        |
+
+## Key Milestones
+
+## Deliverables Schedule
+
+# Risk Management
+
+## Potential Risks
+
+| Risk | Probability | Impact | Mitigation Strategy |
+|------|-------------|--------|-------------------|
+|      |             |        |                   |
+
+## Contingency Plans
+
+# Dissemination Plan
+
+## Target Audiences
+
+## Communication Strategies
+
+## Publications and Presentations
+
+## Media and Outreach
+
+# References
+
+# Appendices
+
+## Appendix A: Letters of Support
+
+## Appendix B: Organizational Documents
+- IRS determination letter
+- Audited financial statements
+- Board list
+
+## Appendix C: Evaluation Instruments
+
+## Appendix D: Additional Supporting Materials

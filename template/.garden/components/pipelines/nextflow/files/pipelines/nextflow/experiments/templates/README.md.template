@@ -1,0 +1,66 @@
+# Experiment: {{EXPERIMENT_ID}}
+
+## Quick Info
+
+- **Type**: {{TYPE}}
+- **Scenario**: {{SCENARIO}}
+- **Created**: {{DATE}} {{TIME}}
+- **Researcher**: {{RESEARCHER}}
+- **Status**: {{STATUS}}
+
+## Purpose
+
+{{PURPOSE}}
+
+## Git State
+
+- **Branch**: {{GIT_BRANCH}}
+- **Commit**: {{GIT_COMMIT}}
+- **Dirty**: {{IS_DIRTY}}
+
+## Tower
+
+- **Run ID**: {{TOWER_RUN_ID}}
+- **Workspace**: {{WORKSPACE}}
+- **URL**: {{TOWER_URL}}
+
+## Key Results
+
+*To be filled after execution*
+
+## Files
+
+- `metadata.yaml` - Experiment metadata
+- `execution.yaml` - Execution details
+- `params.yaml` - Pipeline parameters
+- `experiment-plan.md` - Pre-run planning
+- `execution-log.md` - Post-run notes
+- `results-manifest.yaml` - Result file locations
+- `git-info.yaml` - Git repository state
+- `tower-info.yaml` - Tower metadata
+
+## Directories
+
+- `nextflow-logs/` - Nextflow .nextflow.log files
+- `reports/` - Execution reports (timeline, trace, report)
+- `reports/tower/` - Reports downloaded from Tower
+
+## Quick Commands
+
+```bash
+# View experiment status
+just status {{EXPERIMENT_ID}}
+
+# Fetch Tower metadata
+just fetch-tower {{EXPERIMENT_ID}}
+
+# Sync results
+just sync-results {{EXPERIMENT_ID}}
+
+# View in database
+just query "SELECT * FROM experiments WHERE id='{{EXPERIMENT_ID}}'"
+```
+
+## Notes
+
+*Add your notes here*

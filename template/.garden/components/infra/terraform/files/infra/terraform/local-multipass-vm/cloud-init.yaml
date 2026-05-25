@@ -1,0 +1,10 @@
+#cloud-config
+users:
+  - default
+  - name: myuser
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAA...your-public-key...
+runcmd:
+  - echo "Hello from cloud-init!" > /home/myuser/hello.txt

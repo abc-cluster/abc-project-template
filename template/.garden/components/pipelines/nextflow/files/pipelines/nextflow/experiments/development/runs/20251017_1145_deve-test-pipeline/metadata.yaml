@@ -1,0 +1,24 @@
+# Experiment Metadata
+experiment_id: "20251017_1145_deve-test-pipeline"
+experiment_type: "development"  # development, production, planning
+execution_scenario: "local-local"  # local-local, local-remote, tower, planning-only
+phase: "pipeline-development"  # pipeline-development, production-analysis
+
+created_date: "2025-10-17"
+created_time: "11:45:03"
+created_by: "abhi"
+
+experiment_chain:
+  chain_id: ""
+  run_number: 1
+  is_resume: false
+  parent_run: null
+
+project_context:
+  project_name: ""
+  dataset: ""
+  purpose: "Test experiment creation workflow"
+
+tags:
+  - "development"
+  - "local-local"

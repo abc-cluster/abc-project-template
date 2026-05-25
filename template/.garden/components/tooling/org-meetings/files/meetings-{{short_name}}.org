@@ -1,0 +1,281 @@
+#+TITLE: Meeting Notes
+#+AUTHOR: {{author}}
+#+STARTUP: showall
+#+PROPERTY: MEETING_TYPE all
+#+PROPERTY: PARTICIPANTS all
+#+PROPERTY: STATUS all
+#+PROPERTY: PRIORITY all
+#+PROPERTY: TAGS all
+
+* Meeting Notes
+:PROPERTIES:
+:MEETING_TYPE: template
+:PARTICIPANTS: all
+:STATUS: template
+:PRIORITY: template
+:TAGS: template
+:END:
+
+** Quick Reference
+:PROPERTIES:
+:MEETING_TYPE: reference
+:PARTICIPANTS: all
+:STATUS: active
+:PRIORITY: high
+:TAGS: reference
+:END:
+
+*** Meeting Types
+- [[#internal][Internal]]
+- [[#external][External]]
+- [[#project][Project]]
+- [[#review][Review]]
+- [[#planning][Planning]]
+
+*** Status Tags
+- TODO
+- IN_PROGRESS
+- DONE
+- CANCELLED
+- DEFERRED
+
+*** Priority Levels
+- P0 (Critical)
+- P1 (High)
+- P2 (Medium)
+- P3 (Low)
+
+** Meeting Templates
+:PROPERTIES:
+:MEETING_TYPE: template
+:PARTICIPANTS: all
+:STATUS: template
+:PRIORITY: template
+:TAGS: template
+:END:
+
+*** Internal Meeting
+:PROPERTIES:
+:MEETING_TYPE: internal
+:PARTICIPANTS: team
+:STATUS: TODO
+:PRIORITY: P2
+:TAGS: internal
+:END:
+
+**** Agenda
+- [ ] Item 1
+- [ ] Item 2
+- [ ] Item 3
+
+**** Notes
+-
+
+**** Action Items
+- [ ]
+
+**** Decisions
+-
+
+**** Follow-up
+- [ ]
+
+*** External Meeting
+:PROPERTIES:
+:MEETING_TYPE: external
+:PARTICIPANTS: external
+:STATUS: TODO
+:PRIORITY: P2
+:TAGS: external
+:END:
+
+**** Agenda
+- [ ] Item 1
+- [ ] Item 2
+- [ ] Item 3
+
+**** Notes
+-
+
+**** Action Items
+- [ ]
+
+**** Decisions
+-
+
+**** Follow-up
+- [ ]
+
+*** Project Review
+:PROPERTIES:
+:MEETING_TYPE: review
+:PARTICIPANTS: project
+:STATUS: TODO
+:PRIORITY: P1
+:TAGS: review
+:END:
+
+**** Agenda
+- [ ] Progress Review
+- [ ] Blockers
+- [ ] Next Steps
+
+**** Notes
+-
+
+**** Action Items
+- [ ]
+
+**** Decisions
+-
+
+**** Follow-up
+- [ ]
+
+** Recent Meetings
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+*** TODAY
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+*** YESTERDAY
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+** Meeting Archive
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+*** 2024
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+**** Q1
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+***** January
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+***** February
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+***** March
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+**** Q2
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+***** April
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+***** May
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+***** June
+:PROPERTIES:
+:MEETING_TYPE: all
+:PARTICIPANTS: all
+:STATUS: all
+:PRIORITY: all
+:TAGS: all
+:END:
+
+#+BEGIN_SRC emacs-lisp
+;; Meeting note capture template
+(setq org-capture-templates
+      '(("m" "Meeting" entry
+         (file+headline "meetings-{{short_name}}.org" "TODAY")
+         "* %? :meeting:
+:PROPERTIES:
+:MEETING_TYPE: %^{Meeting Type|internal|external|project|review|planning}
+:PARTICIPANTS: %^{Participants}
+:STATUS: %^{Status|TODO|IN_PROGRESS|DONE|CANCELLED|DEFERRED}
+:PRIORITY: %^{Priority|P0|P1|P2|P3}
+:TAGS: %^{Tags}
+:END:
+%U
+
+**** Agenda
+- [ ]
+
+**** Notes
+-
+
+**** Action Items
+- [ ]
+
+**** Decisions
+-
+
+**** Follow-up
+- [ ] ")))
+#+END_SRC

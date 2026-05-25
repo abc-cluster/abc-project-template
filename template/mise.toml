@@ -1,0 +1,8 @@
+[env]
+_.path = "./node_modules/.bin"
+_.file = '.envrc'
+
+
+[tasks.build]
+description = "Build the CLI"
+run = "cargo build"

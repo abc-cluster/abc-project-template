@@ -1,0 +1,29 @@
+color:
+  palette:
+    brilliant-gold: "#b79962"
+    confident-maroon: "#61223b"
+    faculty-fhms: "#005F61"
+  foreground: white
+  background: white
+  primary: confident-maroon
+  secondary: brilliant-gold
+  tertiary: faculty-fhms
+  success: green
+  info: teal
+  warning: orange
+  danger: burgundy
+  light: white
+  dark: "#404041"
+logo:
+  width: 1in
+  location: right-top
+  padding-right: 0.5in
+  padding-top: 0.25in
+  medium: "_extensions/SU_primary logo/CMYK/Gold and Maroon CMYK/Jpg/SU corporate_horizontal_without_slogan_CMYK-01.jpg"
+
+typography:
+  fonts:
+    - family: Jura
+      source: google
+  base: Jura
+  headings: Jura

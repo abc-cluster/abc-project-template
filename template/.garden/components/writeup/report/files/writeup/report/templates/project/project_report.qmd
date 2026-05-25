@@ -1,0 +1,172 @@
+---
+title: "Project Report Template"
+subtitle: "Progress, Status, and Next Steps"
+author:
+  - name: Project Manager
+    affiliation: Department/Team
+    email: manager@organization.com
+date: last-modified
+format:
+  html:
+    toc: true
+    number-sections: true
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    colorlinks: true
+    fontsize: 11pt
+---
+
+# Project Overview
+
+## Project Information
+
+**Project Name**: [Project Name]  
+**Project ID**: [Project ID/Code]  
+**Start Date**: [Start Date]  
+**Planned End Date**: [Planned End Date]  
+**Status**: [Not Started/In Progress/On Hold/Completed]  
+**Project Sponsor**: [Name of Sponsor]
+
+## Project Description
+
+[Provide a brief description of the project, including its purpose and goals.]
+
+## Project Objectives
+
+1. [Objective 1]
+2. [Objective 2]
+3. [Objective 3]
+
+## Key Stakeholders
+
+| Name | Role | Department | Contact |
+|------|------|------------|---------|
+| [Name] | [Role] | [Department] | [Email/Phone] |
+| [Name] | [Role] | [Department] | [Email/Phone] |
+| [Name] | [Role] | [Department] | [Email/Phone] |
+
+# Project Status
+
+## Executive Summary
+
+[Provide a brief summary of the current project status, highlighting key achievements, challenges, and overall health.]
+
+## Timeline Status
+
+**Current Status**: [On Schedule/Ahead of Schedule/Behind Schedule]  
+**Days Ahead/Behind**: [Number of days]
+
+```{r}
+#| echo: false
+#| fig-cap: "Project Timeline"
+# Insert a Gantt chart or timeline visualization here
+```
+
+## Milestone Status
+
+| Milestone | Planned Date | Actual/Forecast Date | Status | Comments |
+|-----------|--------------|----------------------|--------|----------|
+| [Milestone 1] | [Date] | [Date] | [Complete/In Progress/Not Started] | [Comments] |
+| [Milestone 2] | [Date] | [Date] | [Complete/In Progress/Not Started] | [Comments] |
+| [Milestone 3] | [Date] | [Date] | [Complete/In Progress/Not Started] | [Comments] |
+
+## Budget Status
+
+**Budget Status**: [Within Budget/Over Budget/Under Budget]  
+**Budget Variance**: [Amount] ([Percentage])
+
+| Category | Planned Budget | Actual Spent | Variance | Comments |
+|----------|---------------|--------------|----------|----------|
+| [Category 1] | [Amount] | [Amount] | [Amount] | [Comments] |
+| [Category 2] | [Amount] | [Amount] | [Amount] | [Comments] |
+| [Category 3] | [Amount] | [Amount] | [Amount] | [Comments] |
+| **Total** | [Amount] | [Amount] | [Amount] | |
+
+# Accomplishments
+
+## Key Deliverables Completed
+
+- [Deliverable 1]: [Brief description and impact]
+- [Deliverable 2]: [Brief description and impact]
+- [Deliverable 3]: [Brief description and impact]
+
+## Key Activities Completed
+
+- [Activity 1]: [Brief description]
+- [Activity 2]: [Brief description]
+- [Activity 3]: [Brief description]
+
+# Challenges and Issues
+
+## Current Issues
+
+| Issue | Description | Impact | Status | Resolution Plan | Owner | Due Date |
+|-------|-------------|--------|--------|-----------------|-------|----------|
+| [Issue 1] | [Description] | [Impact] | [Open/Closed] | [Plan] | [Name] | [Date] |
+| [Issue 2] | [Description] | [Impact] | [Open/Closed] | [Plan] | [Name] | [Date] |
+
+## Risks
+
+| Risk | Description | Probability | Impact | Mitigation Plan | Owner |
+|------|-------------|------------|--------|-----------------|-------|
+| [Risk 1] | [Description] | [High/Medium/Low] | [High/Medium/Low] | [Plan] | [Name] |
+| [Risk 2] | [Description] | [High/Medium/Low] | [High/Medium/Low] | [Plan] | [Name] |
+
+# Next Steps
+
+## Upcoming Milestones
+
+| Milestone | Planned Date | Owner | Status | Comments |
+|-----------|--------------|-------|--------|----------|
+| [Milestone 1] | [Date] | [Name] | [On Track/At Risk/Delayed] | [Comments] |
+| [Milestone 2] | [Date] | [Name] | [On Track/At Risk/Delayed] | [Comments] |
+
+## Planned Activities
+
+- [Activity 1]: [Brief description] (Due: [Date])
+- [Activity 2]: [Brief description] (Due: [Date])
+- [Activity 3]: [Brief description] (Due: [Date])
+
+# Resource Utilization
+
+## Team Members
+
+| Name | Role | Allocation | Status |
+|------|------|------------|--------|
+| [Name] | [Role] | [Percentage] | [Active/On Leave/Transitioned] |
+| [Name] | [Role] | [Percentage] | [Active/On Leave/Transitioned] |
+
+## Additional Resource Needs
+
+[Describe any additional resources needed for the project, including people, equipment, or tools.]
+
+# Decisions and Actions
+
+## Decisions Required
+
+| Decision | Description | Options | Recommendation | Due Date | Decision Owner |
+|----------|-------------|---------|----------------|----------|----------------|
+| [Decision 1] | [Description] | [Options] | [Recommendation] | [Date] | [Name] |
+| [Decision 2] | [Description] | [Options] | [Recommendation] | [Date] | [Name] |
+
+## Action Items
+
+| Action | Description | Owner | Due Date | Status |
+|--------|-------------|-------|----------|--------|
+| [Action 1] | [Description] | [Name] | [Date] | [Not Started/In Progress/Complete] |
+| [Action 2] | [Description] | [Name] | [Date] | [Not Started/In Progress/Complete] |
+
+# Appendices
+
+## Appendix A: Detailed Timeline
+
+[Include a detailed project timeline or Gantt chart.]
+
+## Appendix B: Financial Details
+
+[Include detailed financial information, if appropriate.]
+
+## Appendix C: Supporting Documentation
+
+[Include links to or information about relevant supporting documentation.]

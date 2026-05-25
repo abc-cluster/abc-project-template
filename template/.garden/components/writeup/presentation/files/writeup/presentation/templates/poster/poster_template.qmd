@@ -1,0 +1,127 @@
+---
+title: "Academic Poster Template"
+subtitle: "For Research Conferences and Symposiums"
+author:
+  - name: Author Name
+    affiliation: University Department
+    email: author@university.edu
+    orcid: 0000-0000-0000-0000
+  - name: Co-Author Name
+    affiliation: University Department
+    email: coauthor@university.edu
+date: last-modified
+format:
+  poster-typst:
+    size: "36x24"
+    poster-authors: "Author Name, Co-Author Name"
+    departments: "University Department"
+    institution-logo: "../../_extensions/SU_primary logo/RGB/Gold and maroon RGB/Png/SU corporate_horizontal_without_slogan_RGB-01.png"
+    institution-url: "university.edu"
+    footer-text: "Conference Name, Location, Date"
+    footer-color: "#b79962"
+    header-color: "#61223b"
+    sectitle-color: "#61223b"
+    columns: 3
+    font-family: "Montserrat"
+    sectitle-font-family: "Josefin Sans"
+    self-contained: true
+bibliography: ../../refs.bib
+---
+
+# Introduction
+
+Research posters are a common way to present ongoing or completed research at academic conferences. They provide a visual summary of your work and serve as a conversation starter with other researchers.
+
+This template provides a standard layout for academic posters with sections for introduction, methods, results, and conclusion.
+
+# Background
+
+- Summarize relevant literature
+- Identify knowledge gaps
+- State the research question
+- Explain the significance of your work
+
+# Methods
+
+## Study Design
+- Type of study (e.g., experimental, observational)
+- Participant selection
+- Inclusion/exclusion criteria
+
+## Data Collection
+- Measures and instruments
+- Procedures
+- Timeframe
+
+## Analysis
+- Statistical methods
+- Software used
+- Model specifications
+- Validation approaches
+
+# Results
+
+## Primary Findings
+
+```{r}
+#| echo: false
+#| fig-cap: "Key Results Figure 1"
+# Code to generate plot
+plot(1:10, 1:10, type="l", xlab="Variable X", ylab="Outcome Y")
+```
+
+## Secondary Analyses
+
+```{r}
+#| echo: false
+#| tbl-cap: "Summary Statistics"
+# Code to generate table
+data.frame(
+  Variable = c("Age", "Gender (F)", "Education (years)", "Income ($)"),
+  Mean = c(45.2, 0.51, 16.2, 62500),
+  SD = c(12.3, 0.50, 2.3, 15400),
+  Range = c("18-72", "0-1", "12-22", "25k-120k")
+)
+```
+
+# Discussion
+
+## Interpretation of Findings
+- Explain the meaning of key results
+- Connect to existing literature
+- Address unexpected findings
+
+## Limitations
+- Sample limitations
+- Methodological constraints
+- Potential biases
+
+## Implications
+- Theoretical implications
+- Practical applications
+- Clinical relevance
+
+# Conclusion
+
+- Summarize key findings
+- Highlight main contributions
+- Suggest directions for future research
+
+# References
+
+::: {#refs}
+:::
+
+# Acknowledgments
+
+- Funding sources
+- Technical assistance
+- Data access
+- Participant contributions
+
+# Contact Information
+
+**Author Name**  
+University Department  
+email@university.edu  
+Website: author-website.edu  

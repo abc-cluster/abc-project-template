@@ -1,0 +1,47 @@
+# Snakemake configuration for single research project
+# Optimized for academic research workflows
+
+# Cluster configuration
+cluster:
+  mkdir -p logs/{rule} && 
+  sbatch
+    --job-name=smk-{rule}-{wildcards}
+    --cpus-per-task={threads}
+    --mem={resources.mem_mb}
+    --time={resources.runtime}
+    --partition={resources.partition}
+    --output=logs/{rule}/{rule}-{wildcards}-%j.out
+    --error=logs/{rule}/{rule}-{wildcards}-%j.err
+
+# Resource defaults
+default-resources:
+  - mem_mb=4000
+  - disk_mb=10000
+  - runtime=120
+  - partition=standard
+
+# Restart settings
+restart-times: 3
+max-jobs-per-second: 10
+max-status-checks-per-second: 1
+
+# Conda/Mamba settings
+use-conda: true
+use-mamba: true
+conda-frontend: mamba
+
+# Workflow execution
+keep-going: true
+printshellcmds: true
+reason: true
+
+# Resource scopes
+set-threads:
+  - mapping=8
+  - calling=4
+  - annotation=2
+
+set-resources:
+  - mapping:mem_mb=16000
+  - calling:mem_mb=32000
+  - annotation:mem_mb=8000

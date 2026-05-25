@@ -1,0 +1,107 @@
+# Cluster Execution Profile for Snakemake (SLURM)
+# Optimized for running experiments on HPC clusters
+
+# Core execution settings
+jobs: 100                   # Maximum number of cluster jobs
+local-cores: 2              # Local cores for non-cluster jobs
+max-jobs-per-second: 10
+max-status-checks-per-second: 1
+
+# Cluster configuration
+cluster: "sbatch --parsable --account={cluster.account} --partition={cluster.partition} --cpus-per-task={threads} --mem={resources.mem_mb}MB --time={resources.time_min} --job-name={cluster.job_name} --output={cluster.log_dir}/{rule}_{wildcards}_%j.out --error={cluster.log_dir}/{rule}_{wildcards}_%j.err"
+
+cluster-status: "sacct -j {jobid} --format=State --noheader | head -1 | awk '{print $1}'"
+cluster-cancel: "scancel {jobid}"
+
+# Cluster job settings
+cluster-config: "cluster.yaml"
+immediate-submit: false
+notemp: false
+
+# Resource allocation
+default-resources:
+  - mem_mb=8000
+  - time_min=240
+  - disk_mb=10000
+  - tmpdir="/tmp"
+
+# Software environments
+use-conda: true
+conda-prefix: "../envs"
+create-envs-only: false
+
+# Container settings
+use-singularity: true
+singularity-prefix: "../containers"
+singularity-args: "--bind /tmp,/scratch"
+
+# Resume and restart behavior
+rerun-incomplete: true
+rerun-triggers: ["mtime", "params", "input", "software-env", "code"]
+restart-times: 3
+
+# Performance optimization
+latency-wait: 60            # Longer wait for cluster filesystems
+group-components: 3         # Group more jobs for efficiency
+
+# Output and logging
+printshellcmds: true
+reason: true
+show-failed-logs: true
+keep-going: true            # Continue with other jobs if some fail
+
+# Logging configuration
+log-level: "INFO"
+stats: "cluster_stats.json"
+
+# Job monitoring
+cluster-sync: "sacct -j {jobid} --format=State --noheader | head -1"
+
+# Error handling
+retries: 2                  # Retry failed jobs
+retry-delay: 30            # Wait 30 seconds before retry
+
+# Archive and cleanup
+archive: "cluster_results.tar.gz"
+cleanup-metadata: ["never"]  # Keep metadata for debugging
+
+# Shadow rules (for temporary file isolation)
+shadow-prefix: "/scratch/snakemake/shadow"
+
+# Module system integration
+use-envmodules: true
+
+# Batch job optimization
+batch:
+  submit-delay: 1
+  grouping:
+    group-size: 5
+    timeout: 300
+
+# Resource limits
+resources:
+  mem_mb: 256000            # Maximum memory per job
+  time_min: 2880           # Maximum time per job (48 hours)
+
+# Scheduler-specific optimizations
+scheduler-greediness: 0.5   # Balance between speed and resource efficiency
+
+# Lock settings
+lock: true
+unlock: false
+
+# Report generation (run locally after cluster jobs)
+report-stylesheet: "assets/cluster_report.css"
+
+# Debugging and monitoring
+verbose: false
+quiet: false
+debug: false
+debug-dag: false
+
+# Job submission optimization
+cluster-sidecar: null       # No sidecar process needed for SLURM
+
+# Additional SLURM-specific settings
+slurm-account: "research"
+slurm-partition: "compute"

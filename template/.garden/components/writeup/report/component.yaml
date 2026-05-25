@@ -1,0 +1,18 @@
+id: "writeup:report"
+description: "Technical and executive report templates"
+status: "experimental"
+version: "0.1.0"
+files:
+  - writeup/report/.gitkeep
+  - writeup/report/README.md
+  - writeup/report/justfile
+  - writeup/report/reports/sample_technical_report.qmd
+  - writeup/report/styles/executive-summary.css
+  - writeup/report/templates/executive/executive_summary.qmd
+  - writeup/report/templates/grant/grant_progress.qmd
+  - writeup/report/templates/meeting/meeting-progress-report.qmd
+  - writeup/report/templates/project/project_report.qmd
+  - writeup/report/templates/technical/technical_report.qmd
+  - writeup/report/tufte.qmd
+post_grow_hint: |
+  Created writeup/report/ with format-specific scaffolding.

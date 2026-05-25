@@ -1,0 +1,131 @@
+---
+title: "Title of Experiment"
+author: "Your Name"
+date: "2025-05-25"
+format: html
+jupyter: true
+# Add other formats as needed (pdf, docx, etc.)
+# editor: visual
+# bibliography: references.bib
+# csl: your-style.csl
+# Execute code on render
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# 1. Introduction and Objectives
+
+Briefly describe the context, motivation, and objectives of your computational experiment.
+
+- **Background:**
+- **Research Question(s):**
+- **Objectives:**
+
+---
+
+# 2. Experimental Design
+
+Describe your experimental setup and plan.
+
+- **Overview:**
+- **Datasets/Source:**
+- **Diagram/Flowchart:**
+- **Dependencies and Environment:**
+   - R/Python version:
+   - Package versions:
+   - Hardware:
+
+---
+
+# 3. Data Acquisition and Preprocessing
+
+```{r}
+# Download, import, or load your data here
+```
+
+- **Raw data inspection:**
+- **Preprocessing steps:**
+- **Summary statistics:**
+- **Data partitioning (train/test/validation):**
+
+---
+
+# 4. Methods/Modeling
+
+Describe and implement the computational methods or models.
+
+- **Methods/Algorithms:**
+- **Parameter settings:**
+- **Implementation details:**
+- **References:**
+
+```{python}
+# Example: Method implementation or model training
+```
+
+---
+
+# 5. Experiment Execution
+
+Document the actual running of experiments.
+
+```{r}
+# Run experiments, log outputs, record random seeds, etc.
+```
+
+- **Intermediate results:**
+- **Troubleshooting:**
+
+---
+
+# 6. Results
+
+Present and discuss your findings using tables, plots, and text interpretation.
+
+```{python}
+# Visualizations, summary tables, etc.
+```
+
+- **Statistical analysis:**
+- **Comparison to baselines:**
+- **Interpretation:**
+
+---
+
+# 7. Discussion
+
+Discuss insights, limitations, and potential improvements.
+
+- **Key findings:**
+- **Limitations:**
+- **Unexpected observations:**
+- **Alternative approaches:**
+
+---
+
+# 8. Conclusions
+
+Summarize main findings and outline next steps.
+
+---
+
+# 9. Reproducibility Checklist
+
+- Instructions to rerun this notebook
+- Environment/dependencies
+- Random seeds/configuration
+- Data access
+
+---
+
+# 10. References
+
+<!-- List references here or use a .bib file -->
+
+---
+
+# 11. Appendix (Optional)
+
+Additional code, figures, or supplementary information.

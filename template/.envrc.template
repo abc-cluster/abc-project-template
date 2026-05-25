@@ -1,0 +1,2 @@
+export PATH="$PATH:$PWD/pbin"
+export MISE_TASK_DIR=".mise/tasks"

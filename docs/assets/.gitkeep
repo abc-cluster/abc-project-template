@@ -1,0 +1,13 @@
+# Assets Directory
+
+This directory contains supporting assets for the presentation:
+
+- `logo.png` - Organization logo
+- `template.pptx` - PowerPoint template for PPTX output
+- Additional images and graphics as needed
+
+To use the presentation:
+
+1. Add your organization's logo as `logo.png`
+2. Customize the PowerPoint template as needed
+3. Run `quarto render template-presentation.qmd` to generate outputs

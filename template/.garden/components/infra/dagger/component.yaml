@@ -1,0 +1,10 @@
+id: "infra:dagger"
+description: "Dagger CI/CD pipeline definitions"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/dagger/.gitkeep
+  - infra/dagger/pipeline.py
+post_grow_hint: |
+  Created infra/dagger/ with subsystem-specific scaffolding.
+  Inspect the generated files; some require external tools (e.g. terraform, packer).

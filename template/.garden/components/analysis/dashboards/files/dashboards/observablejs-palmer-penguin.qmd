@@ -1,0 +1,17 @@
+---
+title: "Palmer Penguins"
+format: dashboard
+---
+
+```{r}
+#| output: true
+
+data_penguins = read.csv("../data/01_raw/palmer-penguins.csv", stringsAsFactors = F)
+data_penguins
+
+```
+
+```{r}
+ojs_define(data_penguins_ojs = data_penguins)
+data_penguins_ojs
+```

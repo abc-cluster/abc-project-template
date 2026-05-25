@@ -1,0 +1,242 @@
+---
+title: "Workshop Presentation Template"
+subtitle: "Interactive Training and Learning"
+format:
+  clean-revealjs:
+    self-contained: true
+    logo: "../../_extensions/SU_primary logo/RGB/Gold and maroon RGB/Png/SU corporate_horizontal_without_slogan_RGB-01.png"
+    chalkboard: true
+    multiplex: true
+    overview: true
+    touch: true
+html-math-method:
+  method: mathjax
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+author:
+  - name: Instructor Name
+    email: instructor@institution.edu
+    affiliations: Your Institution
+date: last-modified
+brand:
+  color:
+    primary: "#61223b"
+    secondary: "#b79962"
+    tertiary: "#005F61"
+  typography:
+    fonts:
+      - family: Montserrat
+        source: google
+      - family: Josefin Sans
+        source: google
+      - family: Fira Code
+        source: google
+    base: Montserrat
+    headings:
+      family: Josefin Sans
+    monospace:
+      family: Fira Code
+---
+
+# Welcome {background-color="#40666e"}
+
+## Introduction
+
+### Workshop Overview
+
+- Welcome message
+- Learning objectives
+- Schedule and structure
+
+### About the Instructor
+
+- Background and expertise
+- Contact information
+- Resources and materials
+
+## Pre-Workshop Assessment
+
+### Quick Poll
+
+:::: {.columns}
+::: {.column width="70%"}
+What is your experience level with this topic?
+
+1. Beginner - completely new to this area
+2. Intermediate - some familiarity but looking to improve
+3. Advanced - experienced but seeking to expand knowledge
+:::
+
+::: {.column width="30%"}
+Use your device to scan the QR code to participate in the poll
+:::
+::::
+
+# Module 1: Fundamentals {background-color="#40666e"}
+
+## Key Concepts
+
+### Terminology
+
+- Definition 1
+- Definition 2
+- Definition 3
+
+### Framework
+
+- Conceptual overview
+- Practical applications
+- Common challenges
+
+## Demonstration
+
+### Live Example
+
+```{r}
+#| echo: true
+#| eval: false
+# This is a code example
+# It demonstrates a key concept
+# Participants can follow along
+
+example_function <- function(x) {
+  # Process input
+  result <- x * 2
+  return(result)
+}
+
+example_function(5)
+```
+
+### Your Turn!
+
+::: {.callout-note}
+## Exercise 1
+- Try modifying the example code to perform a different operation
+- Share your results with a neighbor
+- We'll discuss in 5 minutes
+:::
+
+# Module 2: Applications {background-color="#40666e"}
+
+## Case Study
+
+### Real-World Example
+
+- Background of the case
+- Challenges faced
+- Approach taken
+
+### Analysis
+
+- Key insights
+- Solutions implemented
+- Results achieved
+
+## Hands-On Activity
+
+### Group Exercise
+
+::: {.callout-important}
+## Breakout Session (20 minutes)
+1. Form groups of 3-4 people
+2. Apply concepts from Module 1 to solve the provided problem
+3. Prepare a brief explanation of your approach
+4. Be ready to share with the larger group
+:::
+
+### Discussion
+
+- What approaches did different groups take?
+- What challenges did you encounter?
+- How might this apply to your own work?
+
+# Module 3: Advanced Topics {background-color="#40666e"}
+
+## Advanced Techniques
+
+### Building on Fundamentals
+
+- Extension of basic concepts
+- When to use advanced approaches
+- Benefits and limitations
+
+### Interactive Example
+
+```{r}
+#| echo: true
+#| eval: false
+# Advanced example code
+# This demonstrates more complex functionality
+
+advanced_function <- function(data, parameter) {
+  # Complex processing
+  result <- analyze(data, parameter)
+  visualize(result)
+  return(result)
+}
+```
+
+## Best Practices
+
+### Do's and Don'ts
+
+:::: {.columns}
+::: {.column width="50%"}
+#### Recommended
+- Best practice 1
+- Best practice 2
+- Best practice 3
+:::
+
+::: {.column width="50%"}
+#### Avoid
+- Common mistake 1
+- Common mistake 2
+- Common mistake 3
+:::
+::::
+
+# Conclusion {background-color="#40666e"}
+
+## Summary
+
+### Key Takeaways
+
+- Recap of main concepts
+- Practical applications
+- Resources for continued learning
+
+### Q&A Session
+
+- Open floor for questions
+- Address specific use cases
+- Clarify any points of confusion
+
+## Next Steps
+
+### Continuing Your Learning
+
+- Additional resources
+- Advanced workshops
+- Community forums and support
+
+### Feedback
+
+- Please complete the workshop evaluation
+- Your input helps improve future sessions
+
+# Appendix {background-color="#40666e"}
+
+## Reference Materials
+
+### Additional Resources
+
+- Books and articles
+- Online courses
+- Tools and software
+
+### Code Repository
+
+- Link to workshop materials
+- Example code files
+- Documentation

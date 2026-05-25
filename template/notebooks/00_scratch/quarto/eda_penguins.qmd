@@ -1,0 +1,18 @@
+---
+title: "Exploratory Data Analysis: Extended Palmer Penguin"
+format:
+  html: default
+---
+
+# Introduction
+
+This notebook performs Exploratory Data Analysis (EDA) on the **extended-palmer-penguin** dataset.
+
+```{python}
+# Install required libraries if necessary
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+```

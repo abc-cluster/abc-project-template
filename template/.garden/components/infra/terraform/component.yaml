@@ -1,0 +1,23 @@
+id: "infra:terraform"
+description: "Terraform configurations (microk8s, multipass, OCI VM, microcloud)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/terraform/.gitkeep
+  - infra/terraform/README.md
+  - infra/terraform/local-microk8s/microk8s.tf
+  - infra/terraform/local-multipass-vm/cloud-init.yaml
+  - infra/terraform/local-multipass-vm/consul_vault.tf
+  - infra/terraform/local-multipass-vm/main.tf
+  - infra/terraform/local-multipass-vm/nomad.tf
+  - infra/terraform/localcloud/.gitkeep
+  - infra/terraform/localcloud/docker-compose.yml
+  - infra/terraform/microcloud/.gitkeep
+  - infra/terraform/microcloud/README.md
+  - infra/terraform/oci-vm/cloud-init.yaml
+  - infra/terraform/oci-vm/main.tf
+  - infra/terraform/oci-vm/outputs.tf
+  - infra/terraform/oci-vm/variables.tf
+post_grow_hint: |
+  Created infra/terraform/ with subsystem-specific scaffolding.
+  Inspect the generated files; some require external tools (e.g. terraform, packer).

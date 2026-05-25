@@ -1,0 +1,13 @@
+id: "data:models"
+description: "Model artifacts — baseline / candidate / ensemble / optimized / production"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/models/.gitkeep
+  - data/models/061_baseline/.gitkeep
+  - data/models/062_candidate/.gitkeep
+  - data/models/063_ensemble/.gitkeep
+  - data/models/064_optimized/.gitkeep
+  - data/models/065_production/.gitkeep
+post_grow_hint: |
+  Created data/models/ stage directory.

@@ -1,0 +1,11 @@
+id: "build:bazel"
+description: "Bazel build system files"
+status: "experimental"
+version: "0.1.0"
+files:
+  - .bazelrc
+  - .bazelversion
+  - MODULE.bazel
+  - WORKSPACE
+post_grow_hint: |
+  Restored WORKSPACE from seed bank.

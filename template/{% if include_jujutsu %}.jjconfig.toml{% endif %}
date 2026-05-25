@@ -1,0 +1,85 @@
+# Jujutsu configuration for academic research projects
+# Documentation: https://github.com/jj-vcs/jj
+
+[user]
+name = "{{author_name}}"
+email = "{{author_email}}"
+
+[ui]
+# Enhanced diff display for research files
+diff.tool = ["code", "--wait", "--diff", "$left", "$right"]
+editor = "code --wait"
+
+# Custom templates for academic workflows
+[templates]
+# Experiment log template
+experiment_log = '''
+commit_id.short() ++ " | " ++ 
+if(description, description.first_line(), "(no description)") ++ " | " ++
+author.name() ++ " | " ++
+commit_id.hex().substr(0, 8) ++ " | " ++
+committer.timestamp().ago()
+'''
+
+# Research milestone template  
+milestone = '''
+"🎯 " ++ description.first_line() ++ "\n" ++
+"📅 " ++ committer.timestamp().format("%Y-%m-%d %H:%M") ++ "\n" ++
+"👤 " ++ author.name() ++ " <" ++ author.email() ++ ">\n" ++
+"🆔 " ++ commit_id.hex() ++ "\n"
+'''
+
+# Publication-ready commit template
+publication = '''
+description ++ "\n\n" ++
+"Commit: " ++ commit_id.hex() ++ "\n" ++
+"Date: " ++ committer.timestamp().format("%Y-%m-%d %H:%M:%S %Z") ++ "\n" ++
+"Author: " ++ author.name() ++ " <" ++ author.email() ++ ">\n"
+'''
+
+[revsets]
+# Predefined revsets for common academic workflows
+"recent-experiments" = 'date("1 week ago"..") & (file("analysis/notebooks") | file("analysis/scripts"))'
+"manuscript-changes" = 'file("writeup/manuscript") & date("1 month ago"..'
+"data-pipeline-changes" = 'file("analysis/data") | file("analysis/pipelines")'
+"publication-ready" = 'tagged() & date("6 months ago"..'
+
+[aliases]
+# Academic workflow aliases
+experiment = ["new", "--no-edit"]
+milestone = ["describe", "--template", "milestone"]
+publish = ["git", "push", "origin", "main"]
+sync = ["git", "fetch", "--all-remotes"]
+
+# Analysis-specific commands
+notebook-log = ["log", "-r", "file('analysis/notebooks')", "--template", "experiment_log"]
+manuscript-log = ["log", "-r", "file('writeup/manuscript')", "--template", "experiment_log"]
+data-log = ["log", "-r", "file('analysis/data')", "--template", "experiment_log"]
+
+# Research collaboration
+share-experiment = ["git", "push", "origin", "@"]
+get-updates = ["git", "fetch", "--all-remotes", "&&", "jj", "rebase", "-d", "main"]
+
+[git]
+# Git backend configuration
+auto-local-branch = true
+private-commits = "description(glob:'WIP:*') | description(glob:'TEMP:*')"
+
+# Push behavior for research workflows
+push-branch-prefix = "research/"
+
+[merge-tools]
+# Configure merge tools for research files
+"*.qmd" = ["code", "--wait", "--merge", "$output", "$base", "$left", "$right"]
+"*.ipynb" = ["nbdime", "mergetool", "$base", "$left", "$right", "$output"]
+"*.R" = ["code", "--wait", "--merge", "$output", "$base", "$left", "$right"]
+"*.py" = ["code", "--wait", "--merge", "$output", "$base", "$left", "$right"]
+
+[colors]
+# Color scheme optimized for research workflows
+commit_id = "bright blue"
+author = "green"  
+timestamp = "cyan"
+description = "white"
+conflict = "red bold"
+working_copy = "yellow bold"

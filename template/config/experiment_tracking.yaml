@@ -1,0 +1,111 @@
+# Experiment Tracking Configuration
+
+# MLflow Configuration
+mlflow:
+  tracking_uri: "file:./mlruns"  # Local filesystem tracking
+  experiment_name: "{{project_name}}"
+  artifact_location: "./artifacts"
+  
+  # Auto-logging settings
+  autolog:
+    sklearn: true
+    pytorch: true
+    tensorflow: true
+    xgboost: true
+    
+  # Custom tags for all experiments
+  default_tags:
+    project: "{{project_name}}"
+    team: "{{author_name}}"
+    environment: "development"
+
+# Weights & Biases Configuration  
+wandb:
+  project: "{{project_name}}"
+  entity: "{{author_name}}"
+  
+  # Default configuration
+  config:
+    architecture: "to_be_defined"
+    dataset: "to_be_defined"
+    epochs: 10
+    learning_rate: 0.001
+    batch_size: 32
+    
+  # Artifact tracking
+  artifacts:
+    log_model: true
+    log_dataset: true
+    log_predictions: false
+
+# Neptune Configuration
+neptune:
+  project: "{{author_name}}/{{project_name}}"
+  
+  # Default tags
+  tags:
+    - "{{project_name}}"
+    - "development"
+    
+  # Monitoring
+  monitor_hardware: true
+  capture_stdout: true
+  capture_stderr: true
+
+# Experiment Organization
+experiment_structure:
+  naming_convention: "{date}_{stage}_{experiment_type}_{version}"
+  
+  stages:
+    - "01_data_exploration"
+    - "02_preprocessing" 
+    - "03_feature_engineering"
+    - "04_baseline_modeling"
+    - "05_advanced_modeling"
+    - "06_hyperparameter_tuning"
+    - "07_model_evaluation"
+    - "08_deployment_prep"
+    
+  experiment_types:
+    - "eda"          # Exploratory Data Analysis
+    - "preprocess"   # Data Preprocessing
+    - "feature"      # Feature Engineering
+    - "model"        # Model Training
+    - "tune"         # Hyperparameter Tuning
+    - "eval"         # Model Evaluation
+    - "compare"      # Model Comparison
+    - "deploy"       # Deployment Testing
+
+# Metadata to track automatically
+auto_track:
+  system_info: true
+  git_info: true
+  environment_info: true
+  data_hash: true
+  code_hash: true
+  
+# Integration with notebooks
+notebook_integration:
+  auto_start_run: true
+  auto_end_run: true
+  log_notebook_path: true
+  save_notebook_html: true
+
+# Model registry settings
+model_registry:
+  staging_threshold: 0.85  # Minimum metric score for staging
+  production_threshold: 0.90  # Minimum metric score for production
+  
+  # Required metrics for promotion
+  required_metrics:
+    - "accuracy"
+    - "precision" 
+    - "recall"
+    - "f1_score"
+    
+  # Model metadata to track
+  model_metadata:
+    - "training_time"
+    - "model_size"
+    - "inference_time"
+    - "memory_usage"

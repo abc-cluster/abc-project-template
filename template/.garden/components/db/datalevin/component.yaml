@@ -1,0 +1,8 @@
+id: "db:datalevin"
+description: "datalevin database scaffolding"
+status: "experimental"
+version: "0.1.0"
+files:
+  - databases/datalevin/.gitkeep
+post_grow_hint: |
+  Restored databases/datalevin/ scaffolding.

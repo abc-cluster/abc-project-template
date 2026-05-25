@@ -1,0 +1,71 @@
+---
+title: "[Conference Abstract Title]"
+subtitle: "[Conference Name and Year]"
+author:
+  - name: "[Your Name]"
+    affiliation: "[Your Institution]"
+    email: "[your.email@institution.edu]"
+  - name: "[Co-author Name]"
+    affiliation: "[Co-author Institution]"
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: false
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 11pt
+---
+
+# Conference Details
+
+**Conference Name:** [Full Conference Name]  
+**Location:** [City, State/Country]  
+**Date:** [Conference Dates]  
+**Submission Deadline:** [Abstract Deadline]  
+**Word Limit:** [e.g., 250 words]  
+**Presentation Type:** [Oral/Poster/Lightning Talk]
+
+---
+
+# Abstract
+
+## Background/Introduction
+[2-3 sentences describing the problem or research question. Include relevant context and motivation for the study.]
+
+## Methods
+[2-3 sentences describing your study design, data sources, analytical approach, and key methodological considerations.]
+
+## Results
+[3-4 sentences presenting your main findings. Include specific numbers, statistics, or key outcomes where appropriate.]
+
+## Conclusions
+[2-3 sentences discussing the implications of your findings, clinical/policy relevance, and future directions.]
+
+---
+
+# Keywords
+[List 3-5 relevant keywords separated by commas]
+
+---
+
+# Submission Information
+
+**Status:** [Draft/Submitted/Under Review/Accepted/Rejected/Presented]  
+**Submission Date:** [Date]  
+**Notification Date:** [Expected or actual date]  
+**Presentation Date:** [If accepted]  
+
+## Notes
+[Any additional notes about the submission, review process, or presentation]
+
+---
+
+# Related Work
+- **Grant:** [Link to related grant application if applicable]
+- **Manuscript:** [Link to related manuscript if applicable]
+- **Previous Presentations:** [Any related previous presentations]
+
+---
+
+*Word Count: [Current word count]*

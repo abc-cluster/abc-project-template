@@ -1,0 +1,25 @@
+Login shell
+- zsh
+
+Project shell
+- fish
+
+Infrastructure automation
+- powershell
+- bash
+- SDKs
+
+
+Data analysis
+- nushell
+- powershell
+- bash
+
+
+
+The ideal choice depends on your primary use case:
+- Complex automation scripts: PowerShell
+- Data processing pipelines: Nushell
+- Daily interactive use: Fish
+- Cross-platform scripting: Python REPL
+- Maximum compatibility: Bash

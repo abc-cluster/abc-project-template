@@ -1,0 +1,29 @@
+id: "writeup:grants"
+description: "NSF / NIH / DOE / ERC grant proposal templates"
+status: "experimental"
+version: "0.1.0"
+files:
+  - writeup/grants/README.md
+  - writeup/grants/applications/active/.gitkeep
+  - writeup/grants/applications/awarded/.gitkeep
+  - writeup/grants/applications/submitted/.gitkeep
+  - writeup/grants/assets/appendices/data_management_plan.qmd
+  - writeup/grants/assets/budgets/budget_template.xlsx
+  - writeup/grants/assets/figures/.gitkeep
+  - writeup/grants/assets/references/.gitkeep
+  - writeup/grants/grants.just
+  - writeup/grants/templates/federal/dod/.gitkeep
+  - writeup/grants/templates/federal/doe/.gitkeep
+  - writeup/grants/templates/federal/nasa/.gitkeep
+  - writeup/grants/templates/federal/nih/nih_r01_template.qmd
+  - writeup/grants/templates/federal/nsf/grant_template.md
+  - writeup/grants/templates/federal/nsf/nsf_full_proposal.qmd
+  - writeup/grants/templates/federal/usda/.gitkeep
+  - writeup/grants/templates/industry/.gitkeep
+  - writeup/grants/templates/international/.gitkeep
+  - writeup/grants/templates/private/foundation_proposal.qmd
+  - writeup/grants/tracking/deadlines/grant_tracker.md
+  - writeup/grants/tracking/reports/.gitkeep
+  - writeup/grants/tracking/reviews/.gitkeep
+post_grow_hint: |
+  Created writeup/grants/ with format-specific scaffolding.

@@ -1,0 +1,33 @@
+** SCRIPTS
+
+** script: <Name>
+  :PROPERTIES:
+  :FILE: <script.py>
+  :LANGUAGE: python
+  :END:
+*** Purpose
+<What does this script do?>
+
+*** Usage
+<How to run it?>
+
+*** Code
+#+BEGIN_SRC python :tangle script.py
+def main():
+    print("Hello from script!")
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+#+RESULTS:
+: None
+
+** Resources
+https://github.com/learnbyexample/learn_perl_oneliners
+https://learnbyexample.github.io/cli-computing/
+https://learnbyexample.github.io/cli_text_processing_coreutils/
+https://learnbyexample.github.io/learn_gnuawk/buy.html
+https://learnbyexample.github.io/learn_gnused/
+https://learnbyexample.github.io/learn_gnugrep_ripgrep/
+https://github.com/janestreet/learn-ocaml-workshop

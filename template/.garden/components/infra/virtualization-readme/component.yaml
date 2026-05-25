@@ -1,0 +1,8 @@
+id: "infra:virtualization-readme"
+description: "Virtualization category README"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/01_virtualization/README.md
+post_grow_hint: |
+  Restored infra/01_virtualization/ scaffolding.

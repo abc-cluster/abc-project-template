@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="abc favicon (dark)">
+  <!-- Dark-mode favicon: gold trio rings on transparent ground for dark browser themes. -->
+  <g fill="none" stroke="#c8a84c" stroke-width="3">
+    <circle cx="14" cy="32" r="10"/>
+    <circle cx="32" cy="32" r="10"/>
+    <circle cx="50" cy="32" r="10"/>
+  </g>
+  <g fill="#c8a84c" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace"
+     font-weight="700" font-size="13" text-anchor="middle" letter-spacing="-0.02em">
+    <text x="14" y="36.5">A</text>
+    <text x="32" y="36.5">B</text>
+    <text x="50" y="36.5">C</text>
+  </g>
+</svg>

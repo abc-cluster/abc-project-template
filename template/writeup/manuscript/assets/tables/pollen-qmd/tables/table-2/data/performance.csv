@@ -1,0 +1,6 @@
+method,runtime,memory,accuracy
+MTB-seq v1.0,45,8.2,94.5
+MTB-seq v2.0,28,6.1,96.2
+Custom Pipeline,67,12.5,93.8
+Reference Method,89,15.3,92.1
+Optimized MTB-seq,22,5.8,97.1

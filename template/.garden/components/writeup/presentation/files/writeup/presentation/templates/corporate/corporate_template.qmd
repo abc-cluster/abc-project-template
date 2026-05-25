@@ -1,0 +1,127 @@
+---
+title: "Corporate Presentation Template"
+subtitle: "For Business Meetings and Pitches"
+format:
+  clean-revealjs:
+    self-contained: true
+    logo: "../../_extensions/SU_primary logo/RGB/Gold and maroon RGB/Png/SU corporate_horizontal_without_slogan_RGB-01.png"
+    countdown: false
+html-math-method:
+  method: katex
+author:
+  - name: Presenter Name
+    email: email@company.com
+    affiliations: Your Company
+date: last-modified
+brand:
+  color:
+    primary: "#61223b"
+    secondary: "#b79962"
+    tertiary: "#005F61"
+  typography:
+    fonts:
+      - family: Arial
+        source: system
+    base: Arial
+    headings:
+      family: Arial
+---
+
+## Welcome {background-color="#40666e"}
+
+### Company Overview
+
+- Brief history and milestones
+- Mission and vision statement
+- Core values and culture
+
+### Leadership Team
+
+- CEO and founder
+- Key executives and their roles
+
+## Market Analysis {background-color="#40666e"}
+
+### Industry Overview
+
+- Current market size
+- Growth trends
+- Competitive landscape
+
+### Target Market
+
+- Customer demographics
+- Needs and preferences
+- Market segmentation strategy
+
+## Product Showcase {background-color="#40666e"}
+
+### Flagship Products
+
+:::: {.columns}
+::: {.column width="50%"}
+- Product 1
+  - Features and benefits
+  - Market position
+:::
+
+::: {.column width="50%"}
+- Product 2
+  - Unique selling proposition
+  - Customer testimonials
+:::
+::::
+
+### Upcoming Releases
+
+- Product roadmap
+- Innovations and enhancements
+
+## Business Strategy {background-color="#40666e"}
+
+### Sales and Marketing
+
+- Key marketing channels
+- Sales strategy and performance
+- Branding and positioning
+
+### Financial Overview
+
+- Revenue streams
+- Profit margins
+- Recent financial performance
+
+## Partnerships and Collaborations {background-color="#40666e"}
+
+### Strategic Partnerships
+
+- Key alliances and collaborations
+- Value to our company
+- Long-term goals
+
+### Community Engagement
+
+- Corporate responsibility initiatives
+- Sustainability efforts
+
+## Conclusion {background-color="#40666e"}
+
+### Recap
+
+- Summary of key points
+- Calls to action
+- Q&A Session
+
+## Contact Us {background-color="#40666e"}
+
+- Address and phone
+- Email contact
+- Social media links
+
+## Appendix {background-color="#40666e"}
+
+### Supporting Data
+
+- Charts and graphs
+- Case studies
+

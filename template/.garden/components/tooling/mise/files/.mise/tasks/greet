@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+#MISE description="Greet a user with a message"
+#USAGE flag "-g --greeting <greeting>" help="The greeting word to use" {
+#USAGE   choices "hi" "hello" "hey"
+#USAGE }
+#USAGE flag "-u --user <user>" help="The user to greet"
+#USAGE flag "--dir <dir>" help="The directory to greet from" default="."
+#USAGE complete "dir" run="find . -maxdepth 1 -type d"
+#USAGE arg "<message>" help="Greeting message"
+
+echo "all available options are in the env with the prefix 'usage_'"
+env | grep usage_
+
+echo "$usage_greeting, $usage_user! Your message is: $usage_message"

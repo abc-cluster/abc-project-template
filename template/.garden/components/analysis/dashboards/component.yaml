@@ -1,0 +1,12 @@
+id: "analysis:dashboards"
+description: "Quarto dashboards (Observable, Shiny)"
+status: "experimental"
+version: "0.1.0"
+files:
+  - dashboards/.gitkeep
+  - dashboards/dashboards.just
+  - dashboards/observablejs-palmer-penguin.qmd
+  - dashboards/shiny-palmer-penguins.qmd
+  - dashboards/templates/research-results-template.qmd
+post_grow_hint: |
+  Restored dashboards/ scaffolding.

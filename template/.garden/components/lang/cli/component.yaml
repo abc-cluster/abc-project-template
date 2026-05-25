@@ -1,0 +1,11 @@
+id: "lang:cli"
+description: "CLI tool scaffolding"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/cli.just
+adds_imports:
+  - tasks/cli.just
+post_grow_hint: |
+  cli recipes added under tasks/cli.just.
+  Note: experimental — recipe bodies are stubs.

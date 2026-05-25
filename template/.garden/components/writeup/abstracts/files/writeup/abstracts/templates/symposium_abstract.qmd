@@ -1,0 +1,109 @@
+---
+title: "[Symposium/Workshop Abstract Title]"
+subtitle: "[Event Name and Year]"
+author:
+  - name: "[Your Name]"
+    affiliation: "[Your Institution]"
+    email: "[your.email@institution.edu]"
+  - name: "[Co-author Name]"
+    affiliation: "[Co-author Institution]"
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: false
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 11pt
+---
+
+# Event Details
+
+**Event Name:** [Full Symposium/Workshop Name]  
+**Event Type:** [Symposium/Workshop/Invited Talk/Panel Discussion]  
+**Location:** [City, State/Country or Virtual]  
+**Date:** [Event Dates]  
+**Submission Deadline:** [Abstract Deadline]  
+**Word Limit:** [e.g., 200 words]  
+**Presentation Format:** [Oral/Poster/Workshop/Demo/Panel]
+
+---
+
+# Abstract
+
+## Background/Rationale
+[1-2 sentences providing context for why this topic is important and relevant to the symposium theme.]
+
+## Objective/Goals
+[1-2 sentences clearly stating what you aim to accomplish or demonstrate in your presentation.]
+
+## Approach/Methods
+[2-3 sentences describing your approach, methodology, or the structure of your presentation/workshop.]
+
+## Key Points/Findings
+[2-3 sentences highlighting the main points you will cover or key findings you will present.]
+
+## Conclusions/Impact
+[1-2 sentences on the expected outcomes, implications, or take-aways for the audience.]
+
+---
+
+# Presentation Details
+
+**Duration:** [e.g., 15 minutes + 5 minutes Q&A]  
+**Target Audience:** [e.g., Researchers, Clinicians, Students, etc.]  
+**Prerequisites:** [Any background knowledge needed]  
+**Interactive Elements:** [Q&A, Polls, Breakout sessions, etc.]
+
+## Materials Needed
+- [List any special equipment, software, or materials needed]
+- [Room setup requirements if applicable]
+
+---
+
+# Keywords
+[List 3-5 relevant keywords]
+
+---
+
+# Submission Information
+
+**Status:** [Draft/Submitted/Under Review/Accepted/Rejected/Presented]  
+**Submission Date:** [Date]  
+**Notification Date:** [Expected or actual date]  
+**Presentation Date:** [If accepted]  
+
+## Special Requirements
+- **Biography Required:** [Yes/No - usually 50-100 words]
+- **Photo Required:** [Yes/No - headshot for program]
+- **Slides Due:** [Date when presentation materials are due]
+- **Handouts:** [Any materials to be distributed]
+
+## Notes
+[Any additional notes about the event, audience, or special considerations]
+
+---
+
+# Biography (50-100 words)
+[Brief professional biography highlighting relevant experience and expertise]
+
+---
+
+# Related Work
+- **Full Study:** [Link to complete research if applicable]
+- **Grant:** [Link to related grant application if applicable]
+- **Previous Presentations:** [Any related previous presentations]
+- **Resources:** [Links to tools, datasets, or resources mentioned]
+
+---
+
+*Word Count: [Current word count]*
+
+---
+
+# Follow-up Actions
+- [ ] Prepare presentation slides
+- [ ] Develop handouts or resources
+- [ ] Plan interactive elements
+- [ ] Prepare for Q&A session
+- [ ] Coordinate with other speakers (if panel/symposium)

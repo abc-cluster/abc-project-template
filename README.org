@@ -1,0 +1,243 @@
+# Copier Template for Data Analysis and Writeup
+
+
+# # Feature/Training/Inference Pipelines
+
+# File Structure based on:
+
+# <https://www.hopsworks.ai/post/mlops-to-ml-systems-with-fti-pipelines>
+
+# ## Folder Structure
+
+# - src: source code
+#     - data: data extraction, data validation, data processing, data transformation, data save and export, etc.
+#     - model: model training, model evaluation, model validation, model save and export, etc.
+#     - inference: model prediction, model serving, model monitoring, etc.
+#     - pipelines:
+#         - feature_pipeline: takes as input raw data that it transforms into features (and labels)
+#         - training_pipeline: takes as input features and labels that it transforms into a model
+#         - inference_pipeline: takes new feature data and a trained model and makes predictions.
+
+# you could have multiple pipelines, for example:
+
+# - 3 feature pipelines that extract raw data from different sources and transform them into features and save it into a feature store.
+# - 2 training pipelines that take the features from the feature store and train different models.
+# - 3 inference pipeline that creates a model serving endpoint for each of the trained models and 1 batch
+#   inference pipeline that takes the features from the feature store and makes predictions in batch mode.
+
+# Finally is recommended to have a script that orchestrates the execution of the pipelines. This script should could be run in a cron job or a workflow orchestrator like Airflow, Prefect, Dagster, etc.
+
+# Resources
+- https://microsoft.github.io/Data-Science-For-Beginners/#/
+- https://microsoft.github.io/ML-For-Beginners/#/
+- https://microsoft.github.io/AI-For-Beginners/
+
+
+data
+inference
+model
+pipelines
+
+
+https://blog.bioconductor.org/posts/2022-10-22-awesome-lists/
+
+https://www.bioconductor.org/packages/release/BiocViews.html
+
+https://www.researchobject.org/overview/
+
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0309210
+
+https://www.nature.com/articles/533452a
+
+
+* PREFERENCES
+- Open-source
+- Hashicorp
+- Ubuntu (Canonical)
+
+
+* Possible enhancements @abhi18av
+** research object
+*** https://www.researchobject.org/ro-crate/background
+*** https://github.com/lucmoreau/ProvToolbox
+*** https://github.com/trungdong/prov?tab=readme-ov-file
+*** https://openprovenance.org
+*** https://github.com/ResearchObject/ro-crate-py
+** TODO Truly integrate DSO https://boehringer-ingelheim.github.io/dso/tutorials/getting_started.html
+** https://pypi.org/project/datasette/
+** TODO https://mlcommons.org/working-groups/data/croissant/
+** Learn from https://github.com/cjolowicz/cookiecutter-hypermodern-python
+** prj tool (projectable) https://github.com/dzfrias/projectable
+** R has comprehensive bioconductor and https://github.com/erikgahner/awesome-ggplot2 + ggbio
+** TODO https://biomejs.dev/blog/biome-v2-0-beta/
+** https://shiny.posit.co/py/
+** git-submodules for various sun templates
+** https://github.com/MarquezProject/marquez
+** mlflow/metaflow etc
+** deon https://deon.drivendata.org/#background-and-perspective
+** Public datasets
+  https://github.com/addypy/datagovindia/
+  https://www.re3data.org/browse/by-country/
+  https://github.com/awesomedata/awesome-public-datasets
+  https://github.com/public-apis/public-apis
+  https://free-apis.github.io/#/
+  https://github.com/datasets/awesome-data?tab=readme-ov-file
+  https://datacatalogs.org
+  https://dados.gov.br/home
+  https://ckan.org/features
+  https://github.com/GetDKAN/dkan
+  https://queridodiario.ok.org.br
+  https://magda.io
+  https://dev.magda.io/search?page=2
+
+** REVIEW Create a utility to prune all folders which are empty, from a given list of folders.
+** Automations (via pixi + just) for installing baseline tools (Python + Java + Babashka + binaries eget, dust, duf)
+** Lineage
+https://github.com/OpenLineage/OpenLineage?tab=readme-ov-file
+https://egeria-project.org/education/
+https://github.com/grai-io/grai-core
+https://www.grai.io
+
+
+* CHECKLISTS
+** Data sharing
+- https://github.com/theodi/data-publish-list
+- https://learn.scds.ca/rdm-best-practices/topics/4-publishing.html
+- https://www.springernature.com/gp/authors/research-data-policy/generalist-repositories/12327166
+- https://ieee-dataport.org/
+** FAIR
+- https://github.com/ScilifelabDataCentre/open-science-checklists
+- https://www.fairdata.fi/en/data-management-checklist/
+- https://github.com/fairdataihub/FAIRshare
+- https://www.go-fair.org/fair-principles/
+- https://au-research.github.io/FAIR-data-101-training/resources/additional
+- https://fair-edna.github.io/next.html
+- https://faircookbook.elixir-europe.org/content/recipes/accessibility/aspera.html
+- https://ena-docs.readthedocs.io/en/latest/retrieval/file-download.html
+  https://programmerall.com/article/8629309388/
+  https://ftp.ncbi.nlm.nih.gov/;9u;9u
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+
+This is a template built with [Copier](https://github.com/copier-org/copier) to generate a data science focused python project.
+
+Get started with the following command:
+
+```shell
+copier copy gh:abhi18av/template-analysis-and-writeup path/to/destination
+```
+
+## Features
+
+### Core ideas
+
+Data and Code
+Analysis and Writeup
+Clojure and Quarto
+Emacs and VSCode
+Users and Engineers
+
+### Tools used in this template
+
+1. Task runner - `just`
+2. Data folders
+   1. data dictionaries
+   2. raw
+   3. processed
+3. Programming languages and libraries
+   1. R
+   2. Python
+   3. Clojure(Script)
+   4. babashka/nbb
+   5. Java(jshell)
+   6. Nushell
+   7. Bash
+   8. Wolfram
+   9. OCaml
+4. Notebooks
+   1. Quarto (R, Python, ObservableJS)
+   2. Mathematica
+   3. Matlab
+5. Dashboards
+   1. Quarto (R, Python, ObservableJS)
+6. Pipeline runner - `nextflow`
+7. Package and environment management
+   1. Pixi
+   2. Renv
+   3. Pip
+   4. Clojure-CLI
+   5. NPM
+8. Code and data version management
+   1. Git
+   2. Fossil
+   3. Data Version Control
+9. Data transfer and backup
+   1. Rclone
+   2. Restic
+   3. ArtiVC
+10. Writeup management (Manuscript, Report, Presentation)
+    1. Quarto
+    2. Typst
+    3. Org-mode
+11. Infrastructure management (MINIO)
+    1. Terraform
+    2. Dagger
+    3. Nomad cluster
+    4. MicroK8s
+    5. Juju
+12. Project-level bin folder, pbin
+13. Utilities for editor, env management config
+    1. .vscode
+    2. .editorconfig
+    3. .envrc
+    4. pre-commit hooks
+14. Project management
+    1. ORG files (meetings, experiments)
+
+### Project structure
+
+It is assumed that most of the work will be done in Jupyter Notebooks.
+However, the template also includes a python project, in which you can put functions and classes shared across notebooks.
+The repository is set up to use [Pytest](https://docs.pytest.org/en/stable/) for unit testing this module code.
+
+The template also includes a `data` directory whose contents will be ignored by git.
+You can use this folder to store data that you do not commit.
+You may also put a readme file in which you can document the source datasets you use and how to acquire them.
+
+### [just](https://github.com/casey/just)
+
+`just` is a command runner that allows you to easily to run project-specific commands.
+In fact, you can use `just` to run all the setup commands listed below:
+
+```shell
+just setup
+```
+
+### [pre-commit](https://github.com/pre-commit/pre-commit)
+
+pre-commit is a tool that runs checks on your files before you commit them with git, thereby helping ensure code quality.
+Enable it with the following command:
+
+```shell
+pre-commit install --install-hooks
+```
+
+The configuration is stored in `.pre-commit-config.yaml`.
+
+### Github Actions
+
+You may optionally add a github workflow file which checks the following:
+
+- uses ruff to check files are formatted and linted
+- Runs unit tests and checks coverage
+- Checks any markdown files are formatted with [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2)
+- Checks that all jupyter notebooks are clean
+
+### [Typos](https://github.com/crate-ci/typos)
+
+Typos checks for common typos in code, aiming for a low false positive rate.
+The repository is configured not to use it for Jupyter notebook files, as it tends to find errors in cell outputs.
+
+Test with [Copier](https://github.com/copier-org/copier) and [copier-template-tester](https://github.com/KyleKing/copier-template-tester).

@@ -1,0 +1,10 @@
+id: "infra:waypoint"
+description: "Waypoint deployment configurations"
+status: "experimental"
+version: "0.1.0"
+files:
+  - infra/waypoint/deploy.sh
+  - infra/waypoint/template.hcl
+post_grow_hint: |
+  Created infra/waypoint/ with subsystem-specific scaffolding.
+  Inspect the generated files; some require external tools (e.g. terraform, packer).

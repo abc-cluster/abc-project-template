@@ -1,0 +1,13 @@
+id: "data:logs"
+description: "Pipeline / training / metadata / lineage / experiment logs"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/logs/.gitkeep
+  - data/logs/091_pipeline/.gitkeep
+  - data/logs/092_training/.gitkeep
+  - data/logs/093_metadata/.gitkeep
+  - data/logs/094_lineage/.gitkeep
+  - data/logs/095_experiment/.gitkeep
+post_grow_hint: |
+  Created data/logs/ stage directory.

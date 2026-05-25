@@ -1,0 +1,11 @@
+id: "lang:validation"
+description: "Cross-language validation utilities"
+status: "experimental"
+version: "0.1.0"
+files:
+  - tasks/validation.just
+adds_imports:
+  - tasks/validation.just
+post_grow_hint: |
+  validation recipes added under tasks/validation.just.
+  Note: experimental — recipe bodies are stubs.

@@ -1,0 +1,11 @@
+id: "data:benchmarks"
+description: "Reference datasets and benchmark comparisons"
+status: "experimental"
+version: "0.1.0"
+files:
+  - data/benchmarks/.gitkeep
+  - data/benchmarks/111_baseline_results/.gitkeep
+  - data/benchmarks/112_comparisons/.gitkeep
+  - data/benchmarks/113_standard/.gitkeep
+post_grow_hint: |
+  Created data/benchmarks/ stage directory.

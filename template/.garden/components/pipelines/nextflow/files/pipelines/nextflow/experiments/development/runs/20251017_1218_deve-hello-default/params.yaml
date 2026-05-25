@@ -1,0 +1,6 @@
+# Hello Pipeline Parameters
+# Experiment: 20251017_1218_deve-hello-default
+
+# Pipeline parameters
+greeting: "Hello"
+name: "World"
