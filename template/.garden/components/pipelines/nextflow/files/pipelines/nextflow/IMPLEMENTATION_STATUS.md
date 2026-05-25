@@ -5,27 +5,27 @@
 ### Directory Structure
 - ✅ Created complete directory scaffold
 - ✅ Added .gitkeep files for empty directories
-- ✅ Organized into experiments/{development,production,planning}
+- ✅ Organized into investigations/{development,production,planning}
 - ✅ Created chains/, comparisons/, storage/, .registry/, docs/, scripts/
 
 ### Nextflow Configurations
-- ✅ `experiments/configs/base.config` - Base configuration with reports, tracing
-- ✅ `experiments/configs/development.config` - Dev-optimized settings
-- ✅ `experiments/configs/production.config` - Production-scale settings
-- ✅ `experiments/configs/profiles/local-local.config` - Local execution profile
-- ✅ `experiments/configs/profiles/local-aws.config` - AWS Batch profile
-- ✅ `experiments/configs/profiles/local-slurm.config` - SLURM cluster profile
-- ✅ `experiments/configs/profiles/tower.config` - Tower-managed execution
+- ✅ `investigations/configs/base.config` - Base configuration with reports, tracing
+- ✅ `investigations/configs/development.config` - Dev-optimized settings
+- ✅ `investigations/configs/production.config` - Production-scale settings
+- ✅ `investigations/configs/profiles/local-local.config` - Local execution profile
+- ✅ `investigations/configs/profiles/local-aws.config` - AWS Batch profile
+- ✅ `investigations/configs/profiles/local-slurm.config` - SLURM cluster profile
+- ✅ `investigations/configs/profiles/tower.config` - Tower-managed execution
 
 ### Parameter Templates
-- ✅ `experiments/configs/params/default-params.yaml` - Standard parameters
-- ✅ `experiments/configs/params/minimal-test.yaml` - Quick smoke test params
-- ✅ `experiments/configs/params/full-dataset.yaml` - Production dataset params
+- ✅ `investigations/configs/params/default-params.yaml` - Standard parameters
+- ✅ `investigations/configs/params/minimal-test.yaml` - Quick smoke test params
+- ✅ `investigations/configs/params/full-dataset.yaml` - Production dataset params
 
-### Experiment Templates
-- ✅ `experiments/templates/metadata.yaml.template` - Experiment metadata structure
-- ✅ `experiments/templates/execution.yaml.template` - Execution details structure
-- 🚧 Need: experiment-plan.md.template, execution-log.md.template
+### Investigation Templates
+- ✅ `investigations/templates/metadata.yaml.template` - Investigation metadata structure
+- ✅ `investigations/templates/execution.yaml.template` - Execution details structure
+- 🚧 Need: investigation-plan.md.template, execution-log.md.template
 - 🚧 Need: results-manifest.yaml.template, git-info.yaml.template
 - 🚧 Need: tower-info.yaml.template, README.md.template
 
@@ -36,8 +36,8 @@
 - 🚧 `.registry/views/*.sql` - Helper views
 
 ### Core Scripts
-- 🚧 `scripts/register-experiment.py` - Database management CLI
-- 🚧 `scripts/init-experiment.sh` - Create new experiments
+- 🚧 `scripts/register-investigation.py` - Database management CLI
+- 🚧 `scripts/init-investigation.sh` - Create new investigations
 - 🚧 `scripts/track-git-commit.sh` - Git state snapshot
 - 🚧 `scripts/tower-integration.sh` - Universal Tower linkage
 
@@ -49,9 +49,9 @@
 ### Additional Scripts
 - ⏳ `scripts/sync-results.sh` - Rclone-based result syncing
 - ⏳ `scripts/generate-lineage.py` - Resume chain tracking
-- ⏳ `scripts/create-comparison.py` - Cross-experiment analysis
-- ⏳ `scripts/check-status.py` - Experiment health check
-- ⏳ `scripts/validate-experiment.py` - Structural validation
+- ⏳ `scripts/create-comparison.py` - Cross-investigation analysis
+- ⏳ `scripts/check-status.py` - Investigation health check
+- ⏳ `scripts/validate-investigation.py` - Structural validation
 - ⏳ `scripts/import-tower-runs.py` - Bulk Tower import
 - ⏳ `scripts/generate-dashboard.py` - Statistics dashboard
 
@@ -68,8 +68,8 @@
 ## Next Immediate Steps
 
 1. **Create SQLite schema** (.registry/schemas/schema.sql)
-2. **Implement register-experiment.py** (basic version)
-3. **Create init-experiment.sh** (experiment creation)
+2. **Implement register-investigation.py** (basic version)
+3. **Create init-investigation.sh** (investigation creation)
 4. **Build pipeline-lifecycle.just** (automation layer)
 5. **Write core documentation** (docs/README.md)
 
@@ -77,16 +77,16 @@
 
 Once core components are ready:
 1. Run `just setup` to initialize database
-2. Create test experiment: `just dev-new test-smoke "sanity check"`
-3. Execute locally: `just run-local <experiment_id>`
-4. Validate structure: `just validate <experiment_id>`
-5. Test Tower integration: `just fetch-tower <experiment_id>`
+2. Create test investigation: `just dev-new test-smoke "sanity check"`
+3. Execute locally: `just run-local <investigation_id>`
+4. Validate structure: `just validate <investigation_id>`
+5. Test Tower integration: `just fetch-tower <investigation_id>`
 
 ## File Locations
 
 ```
 template/analysis/pipelines/nextflow/
-├── experiments/
+├── investigations/
 │   ├── configs/           ✅ DONE
 │   ├── templates/         ✅ Partial (2/8 files)
 │   ├── development/       ✅ Structure ready
@@ -127,7 +127,7 @@ template/analysis/pipelines/nextflow/
 
 Focusing on getting a minimal working system that supports:
 - ✅ Scenario (i): Local head + local tasks
-- 🚧 Experiment creation and tracking
+- 🚧 Investigation creation and tracking
 - 🚧 Tower integration
 - ⏳ Basic result management
 

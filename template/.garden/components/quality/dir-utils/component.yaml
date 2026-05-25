@@ -1,6 +1,5 @@
 id: "quality:dir-utils"
 description: "Directory hygiene utilities (dirkeeper, dirpruner)"
-status: "experimental"
 version: "0.1.0"
 files:
   - dirkeeper.py

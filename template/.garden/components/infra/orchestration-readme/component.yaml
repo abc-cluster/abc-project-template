@@ -1,6 +1,5 @@
 id: "infra:orchestration-readme"
 description: "Orchestration category README"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/02_orchestration/README.md

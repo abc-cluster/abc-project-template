@@ -1,0 +1,31 @@
+# Full Dataset Parameters
+# For production runs with complete datasets
+
+# Input/Output
+input: "../data/01_raw/**/*.csv"
+outdir: "./full_results"
+
+# Pipeline Options
+resume: true
+help: false
+
+# Resource Limits (production scale)
+max_cpus: 32
+max_memory: "256.GB"
+max_time: "168.h"  # 7 days
+
+# Processing Options
+publish_mode: "copy"
+enable_validation: true
+enable_qc: true
+enable_advanced_qc: true
+
+# Production-specific
+sample_size: null  # Use full dataset
+strict_mode: true
+enable_cost_tracking: true
+
+# Investigation Tracking
+investigation_id: null
+researcher: "production-team"
+project: "production-analysis"

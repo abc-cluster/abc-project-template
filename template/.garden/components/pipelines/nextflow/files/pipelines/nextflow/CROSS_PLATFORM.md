@@ -12,7 +12,7 @@ The Nextflow Pipeline Lifecycle Management system now supports both **Bash** (Li
 ### On Linux/macOS (Bash - Default)
 ```bash
 # Just works out of the box
-just n "my-experiment" "Testing pipeline"
+just n "my-investigation" "Testing pipeline"
 just l
 just s
 ```
@@ -21,7 +21,7 @@ just s
 ```powershell
 # Set shell type for the session
 $env:SHELL_TYPE = "pwsh"
-just n "my-experiment" "Testing pipeline"
+just n "my-investigation" "Testing pipeline"
 just l
 just s
 ```
@@ -29,7 +29,7 @@ just s
 ### One-Time PowerShell Command
 ```bash
 # Override shell for single command
-just SHELL_TYPE=pwsh n "my-experiment" "Testing"
+just SHELL_TYPE=pwsh n "my-investigation" "Testing"
 ```
 
 ## Shell Selection
@@ -63,20 +63,20 @@ just
 
 ### Bash Scripts (`.sh`)
 Located in `scripts/`:
-- `init-experiment.sh` - Experiment creation
+- `init-investigation.sh` - Investigation creation
 - `track-git-commit.sh` - Git state tracking
 - `tower-integration.sh` - Tower metadata fetching
 
 ### PowerShell Scripts (`.ps1`)
 Located in `scripts/`:
-- `init-experiment.ps1` - Experiment creation
+- `init-investigation.ps1` - Investigation creation
 - `track-git-commit.ps1` - Git state tracking
 - `tower-integration.ps1` - Tower metadata fetching (coming soon)
 
 ### Python Scripts (Cross-Platform)
 All Python scripts work on any platform:
-- `register-experiment.py`
-- `compare-experiments.py`
+- `register-investigation.py`
+- `compare-investigations.py`
 - `track-chains.py`
 - `generate-dashboard.py`
 - `batch-operations.py`
@@ -126,16 +126,16 @@ To allow symlink creation without admin privileges:
 
 ## Command Examples
 
-### Experiment Management
+### Investigation Management
 ```bash
 # Bash
-just n "experiment-1" "Testing parameters"
+just n "investigation-1" "Testing parameters"
 
 # PowerShell
-just SHELL_TYPE=pwsh n "experiment-1" "Testing parameters"
+just SHELL_TYPE=pwsh n "investigation-1" "Testing parameters"
 ```
 
-### Viewing Experiments
+### Viewing Investigations
 ```bash
 # Both work the same (Python-based)
 just l
@@ -154,12 +154,12 @@ just dashboard
 
 ### Unix Paths
 ```bash
-/Users/abhi/projects/nextflow/experiments
+/Users/abhi/projects/nextflow/investigations
 ```
 
 ### Windows Paths
 ```powershell
-C:\Users\abhi\projects\nextflow\experiments
+C:\Users\abhi\projects\nextflow\investigations
 ```
 
 Just and Python scripts handle path conversion automatically.
@@ -168,8 +168,8 @@ Just and Python scripts handle path conversion automatically.
 
 ### Windows Symlinks
 - Requires elevated privileges OR Developer Mode
-- If symlinks fail, experiments still work (just navigate by full path)
-- Fallback: Use full paths in `experiments/{type}/runs/`
+- If symlinks fail, investigations still work (just navigate by full path)
+- Fallback: Use full paths in `investigations/{type}/runs/`
 
 ### Git Bash on Windows
 - Not recommended (use PowerShell instead)
@@ -184,10 +184,10 @@ Just and Python scripts handle path conversion automatically.
 ### Test Script Execution
 ```bash
 # Bash
-./scripts/init-experiment.sh --help
+./scripts/init-investigation.sh --help
 
 # PowerShell
-pwsh scripts/init-experiment.ps1 -Help
+pwsh scripts/init-investigation.ps1 -Help
 ```
 
 ### Test Just Commands
@@ -195,7 +195,7 @@ pwsh scripts/init-experiment.ps1 -Help
 # Check platform detection
 just
 
-# Test experiment creation
+# Test investigation creation
 just SHELL_TYPE=bash n "test-bash" "Testing bash"
 just SHELL_TYPE=pwsh n "test-pwsh" "Testing PowerShell"
 
@@ -206,7 +206,7 @@ just l
 ### Test Python Scripts Directly
 ```bash
 # Works on all platforms
-python3 scripts/register-experiment.py list
+python3 scripts/register-investigation.py list
 python3 scripts/generate-dashboard.py
 ```
 
@@ -252,7 +252,7 @@ just n "test" "Testing"
 ## Best Practices
 
 ### For Team Collaboration
-1. **Document your platform:** Add to experiment README
+1. **Document your platform:** Add to investigation README
 2. **Use Python scripts:** They're fully cross-platform
 3. **Test on target platform:** Verify before sharing
 4. **Avoid hardcoded paths:** Use relative paths
@@ -315,7 +315,7 @@ echo "SHELL_TYPE=pwsh" >> .env
 
 | Feature | Bash | PowerShell | Python | Notes |
 |---------|------|------------|--------|-------|
-| Experiment creation | ✅ | ✅ | - | Full parity |
+| Investigation creation | ✅ | ✅ | - | Full parity |
 | Git tracking | ✅ | ✅ | - | Full parity |
 | Tower integration | ✅ | 🔄 | - | Coming soon for PS |
 | Database operations | - | - | ✅ | Cross-platform |
@@ -335,7 +335,7 @@ Based on testing:
 
 | Operation | Bash (macOS) | PowerShell (macOS) | PowerShell (Windows) |
 |-----------|--------------|---------------------|----------------------|
-| Experiment creation | ~100ms | ~150ms | ~200ms |
+| Investigation creation | ~100ms | ~150ms | ~200ms |
 | Git tracking | ~50ms | ~75ms | ~100ms |
 | Database query | <10ms | <10ms | <10ms |
 | Dashboard generation | <500ms | <500ms | <600ms |

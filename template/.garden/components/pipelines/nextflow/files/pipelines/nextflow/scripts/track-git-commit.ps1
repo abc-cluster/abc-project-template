@@ -1,25 +1,25 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-    Track git repository state for experiment reproducibility
+    Track git repository state for investigation reproducibility
 
 .DESCRIPTION
     Captures current git commit, branch, and diff to yaml file
 
-.PARAMETER ExperimentDir
-    Path to experiment directory
+.PARAMETER InvestigationDir
+    Path to investigation directory
 
 .PARAMETER UpdateDatabase
     Whether to update database with git info
 
 .EXAMPLE
-    ./track-git-commit.ps1 -ExperimentDir "experiments/development/runs/exp_001"
+    ./track-git-commit.ps1 -InvestigationDir "investigations/development/runs/exp_001"
 #>
 
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true)]
-    [string]$ExperimentDir,
+    [string]$InvestigationDir,
     
     [Parameter(Mandatory=$false)]
     [switch]$UpdateDatabase
@@ -27,7 +27,7 @@ param(
 
 $SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
 $BASE_DIR = Split-Path -Parent $SCRIPT_DIR
-$GIT_INFO_FILE = Join-Path $ExperimentDir "git-info.yaml"
+$GIT_INFO_FILE = Join-Path $InvestigationDir "git-info.yaml"
 
 # Check if in git repository
 $IsGitRepo = $false
@@ -92,8 +92,8 @@ Write-Host "✅ Git info saved to: $GIT_INFO_FILE" -ForegroundColor Green
 
 # Update database if requested
 if ($UpdateDatabase) {
-    $ExpId = Split-Path -Leaf $ExperimentDir
-    $RegisterScript = Join-Path $SCRIPT_DIR "register-experiment.py"
+    $ExpId = Split-Path -Leaf $InvestigationDir
+    $RegisterScript = Join-Path $SCRIPT_DIR "register-investigation.py"
     
     & python3 $RegisterScript update-git-info `
         --id $ExpId `

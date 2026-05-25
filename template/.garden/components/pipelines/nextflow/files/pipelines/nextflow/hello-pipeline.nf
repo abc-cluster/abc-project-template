@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 
 /*
- * Simple hello world pipeline for testing experiment management
+ * Simple hello world pipeline for testing investigation management
  * Based on nextflow-io/hello
  */
 

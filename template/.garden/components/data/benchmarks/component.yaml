@@ -1,6 +1,5 @@
 id: "data:benchmarks"
 description: "Reference datasets and benchmark comparisons"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/benchmarks/.gitkeep

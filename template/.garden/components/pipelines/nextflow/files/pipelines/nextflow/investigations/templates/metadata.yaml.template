@@ -1,0 +1,24 @@
+# Investigation Metadata
+investigation_id: "{{INVESTIGATION_ID}}"
+investigation_type: "{{TYPE}}"  # development, production, planning
+execution_scenario: "{{SCENARIO}}"  # local-local, local-remote, tower, planning-only
+phase: "{{PHASE}}"  # pipeline-development, production-analysis
+
+created_date: "{{DATE}}"
+created_time: "{{TIME}}"
+created_by: "{{RESEARCHER}}"
+
+investigation_chain:
+  chain_id: "{{CHAIN_ID}}"
+  run_number: {{RUN_NUMBER}}
+  is_resume: {{IS_RESUME}}
+  parent_run: {{PARENT_RUN}}
+
+project_context:
+  project_name: "{{PROJECT_NAME}}"
+  dataset: "{{DATASET}}"
+  purpose: "{{PURPOSE}}"
+
+tags:
+  - "{{TYPE}}"
+  - "{{SCENARIO}}"

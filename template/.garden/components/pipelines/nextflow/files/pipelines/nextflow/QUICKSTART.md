@@ -8,75 +8,75 @@
 # Initialize system (first time only)
 just setup
 
-# Create new experiment
-just n "experiment-name" "What you're testing"
+# Create new investigation
+just n "investigation-name" "What you're testing"
 
-# List experiments
+# List investigations
 just l
 
-# View experiment details
-just v <experiment_id>
+# View investigation details
+just v <investigation_id>
 
 # Show statistics
 just s
 ```
 
-### Experiment Execution
+### Investigation Execution
 
 ```bash
 # Run locally
-just run-local <experiment_id>
+just run-local <investigation_id>
 
 # Run on AWS Batch
-just run-aws <experiment_id>
+just run-aws <investigation_id>
 
 # Launch via Tower
-just run-tower <experiment_id>
+just run-tower <investigation_id>
 
 # Resume failed run
-just resume <experiment_id>
+just resume <investigation_id>
 ```
 
 ### Monitoring
 
 ```bash
 # Check status
-just status <experiment_id>
+just status <investigation_id>
 
 # View summary
-just summary <experiment_id>
+just summary <investigation_id>
 
 # Show results
-just show-results <experiment_id>
+just show-results <investigation_id>
 
-# Open experiment folder
-just open <experiment_id>
+# Open investigation folder
+just open <investigation_id>
 ```
 
 ### Tower Integration
 
 ```bash
 # Fetch Tower metadata
-just fetch-tower <experiment_id>
+just fetch-tower <investigation_id>
 
 # Monitor Tower run
 just monitor-tower <tower_run_id>
 
 # Link Tower run manually
-just tower-link <experiment_id> <tower_run_id>
+just tower-link <investigation_id> <tower_run_id>
 ```
 
 ### Organization
 
 ```bash
-# Archive completed experiment
-just archive <experiment_id>
+# Archive completed investigation
+just archive <investigation_id>
 
 # Search by tag
 just search-tag <tag_name>
 
 # Direct database query
-just query "SELECT * FROM experiments"
+just query "SELECT * FROM investigations"
 ```
 
 ## 📋 Workflow Examples
@@ -84,74 +84,74 @@ just query "SELECT * FROM experiments"
 ### Development Workflow
 
 ```bash
-# 1. Create development experiment
+# 1. Create development investigation
 just n "test-new-params" "Testing parameter set A vs B"
 
 # 2. Edit configuration
-cd experiments/development/active/test-new-params
+cd investigations/development/active/test-new-params
 vim params.yaml
 
 # 3. Run
 cd ../../../..  # back to root
-just run-local <experiment_id>
+just run-local <investigation_id>
 
 # 4. Check results
-just show-results <experiment_id>
+just show-results <investigation_id>
 ```
 
 ### Production Workflow
 
 ```bash
-# 1. Create production experiment
+# 1. Create production investigation
 just prod-new "full-analysis" "dataset-v2.0" "Complete genome analysis"
 
 # 2. Configure
-cd experiments/production/runs/<experiment_id>
+cd investigations/production/runs/<investigation_id>
 vim params.yaml
 vim samplesheet.csv
 
 # 3. Run on AWS
 cd ../../../../..
-just run-aws <experiment_id>
+just run-aws <investigation_id>
 
 # 4. Monitor via Tower
 just monitor-tower <tower_run_id>
 
 # 5. Archive when complete
-just archive <experiment_id>
+just archive <investigation_id>
 ```
 
 ### Tower-First Workflow
 
 ```bash
-# 1. Create experiment
+# 1. Create investigation
 just n "tower-run" "Running via Tower platform"
 
 # 2. Launch via Tower
-just run-tower <experiment_id>
+just run-tower <investigation_id>
 
 # 3. Fetch results later
-just fetch-tower <experiment_id>
+just fetch-tower <investigation_id>
 ```
 
 ## 🎯 Aliases
 
 | Alias | Full Command | Description |
 |-------|--------------|-------------|
-| `just n` | `just dev-new` | Create new development experiment |
-| `just r` | `just run-local` | Run experiment locally |
-| `just l` | `just list-all` | List all experiments |
+| `just n` | `just dev-new` | Create new development investigation |
+| `just r` | `just run-local` | Run investigation locally |
+| `just l` | `just list-all` | List all investigations |
 | `just s` | `just stats` | Show statistics |
-| `just v` | `just view` | View experiment details |
+| `just v` | `just view` | View investigation details |
 
 ## 📁 Directory Structure
 
 ```
-experiments/
+investigations/
 ├── development/
-│   ├── runs/                  # Timestamped experiment directories
-│   ├── active/                # Symlinks to current experiments
-│   └── archive/               # Archived experiments
+│   ├── runs/                  # Timestamped investigation directories
+│   ├── active/                # Symlinks to current investigations
+│   └── archive/               # Archived investigations
 ├── production/
 │   ├── runs/
 │   ├── active/
@@ -169,47 +169,47 @@ experiments/
 
 ## 🔧 Configuration Files
 
-### Experiment Files
-- `metadata.yaml` - Core experiment metadata
+### Investigation Files
+- `metadata.yaml` - Core investigation metadata
 - `params.yaml` - Pipeline parameters
 - `execution.yaml` - Execution configuration
 - `samplesheet.csv` - Sample configuration
-- `experiment-plan.md` - Planning document
+- `investigation-plan.md` - Planning document
 - `execution-log.md` - Execution notes
 
 ### System Files
-- `.registry/experiments.db` - SQLite database
+- `.registry/investigations.db` - SQLite database
 - `.registry/schemas/schema.sql` - Database schema
 - `scripts/` - Management scripts
 - `justfile` - Command definitions
 
 ## 💡 Tips
 
-### Finding Experiments
+### Finding Investigations
 ```bash
-# Use short experiment names for easy typing
+# Use short investigation names for easy typing
 just n "exp1" "..."
 just n "exp2" "..."
 
 # Active symlinks make navigation easier
-cd experiments/development/active/exp1
+cd investigations/development/active/exp1
 
-# List recent experiments
+# List recent investigations
 just l | tail -5
 ```
 
 ### Parameter Management
 ```bash
 # Use templates for common configs
-experiments/configs/params-templates/
+investigations/configs/params-templates/
 ├── default-params.yaml
 ├── full-dataset.yaml
 ├── quick-test.yaml
 └── production.yaml
 
 # Copy and modify
-cp experiments/configs/params-templates/production.yaml \
-   experiments/production/runs/<exp_id>/params.yaml
+cp investigations/configs/params-templates/production.yaml \
+   investigations/production/runs/<exp_id>/params.yaml
 ```
 
 ### Tower Integration
@@ -225,14 +225,14 @@ tw login                          # Authenticate
 
 ### Database Queries
 ```bash
-# Find failed experiments
+# Find failed investigations
 just query "SELECT * FROM failed_runs"
 
-# Recent completed experiments
-just query "SELECT id, status, created_at FROM experiments WHERE status='completed' ORDER BY created_at DESC LIMIT 5"
+# Recent completed investigations
+just query "SELECT id, status, created_at FROM investigations WHERE status='completed' ORDER BY created_at DESC LIMIT 5"
 
-# Experiments by researcher
-just query "SELECT id, purpose, created_at FROM experiments WHERE researcher='abhi'"
+# Investigations by researcher
+just query "SELECT id, purpose, created_at FROM investigations WHERE researcher='abhi'"
 ```
 
 ## 🐛 Troubleshooting
@@ -241,7 +241,7 @@ just query "SELECT id, purpose, created_at FROM experiments WHERE researcher='ab
 |-------|----------|
 | "No justfile found" | `cd` to nextflow directory |
 | "Database not initialized" | Run `just setup` |
-| "Experiment not found" | Check ID with `just l` |
+| "Investigation not found" | Check ID with `just l` |
 | "Tower CLI not found" | `pipx install tower-cli` |
 | "Git tracking failed" | Non-blocking, safe to ignore |
 | S3 errors | Update bucket paths in justfile |

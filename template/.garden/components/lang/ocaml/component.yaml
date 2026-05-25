@@ -1,6 +1,5 @@
 id: "lang:ocaml"
 description: "OCaml package development (with dune)"
-status: "experimental"
 version: "0.1.0"
 files:
   - dune-project

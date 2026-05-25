@@ -1,6 +1,5 @@
 id: "infra:_just-orchestrator"
 description: "Top-level infra justfile orchestrator (jinja)"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/infrastructure.just.jinja/infrastructure.just.jinja

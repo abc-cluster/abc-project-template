@@ -1,6 +1,5 @@
 id: "editor:emacs"
 description: "Emacs project setup (.emacs.proj/, .dir-locals.el)"
-status: "experimental"
 version: "0.1.0"
 files:
   - .dir-locals.el

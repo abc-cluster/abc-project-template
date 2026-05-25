@@ -1,0 +1,33 @@
+project:
+  type: default
+  output-dir: _output
+
+# Override project.title in your project's own _quarto.yml
+title: "{{project_name}}"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    code-fold: true
+    code-tools: true
+    embed-resources: false
+
+  pdf:
+    documentclass: article
+    toc: false
+    number-sections: true
+
+# Execution defaults
+execute:
+  cache: true
+  freeze: auto
+  warning: false
+
+# Cross-references
+crossref:
+  fig-prefix: "Figure"
+  tbl-prefix: "Table"
+  eq-prefix: "Equation"

@@ -1,5 +1,5 @@
 # Nextflow Pipeline Lifecycle Management
-# Comprehensive experiment tracking across development and production
+# Comprehensive investigation tracking across development and production
 # Cross-platform support: Bash (Linux/macOS) and PowerShell (Windows)
 
 # Use bash for all commands by default (fish-compatible via Just)
@@ -11,10 +11,10 @@ SHELL_TYPE := env_var_or_default("SHELL_TYPE", "bash")
 # Global variables
 NF_FILE := "hello-pipeline.nf"
 BASE_DIR := justfile_directory()
-EXPTS_DIR := BASE_DIR + "/experiments"
+EXPTS_DIR := BASE_DIR + "/investigations"
 SCRIPTS_DIR := BASE_DIR + "/scripts"
-CONFIGS_DIR := BASE_DIR + "/experiments/configs"
-REGISTRY_DB := BASE_DIR + "/.registry/experiments.db"
+CONFIGS_DIR := BASE_DIR + "/investigations/configs"
+REGISTRY_DB := BASE_DIR + "/.registry/investigations.db"
 DEFAULT_WORKSPACE := env_var_or_default("TOWER_WORKSPACE", "default")
 PLATFORM := os()
 
@@ -51,14 +51,14 @@ setup:
     mkdir -p "{{BASE_DIR}}"/{chains,comparisons,storage/manifests,docs}
     
     # Initialize database
-    python3 "{{SCRIPTS_DIR}}/register-experiment.py" init-db
+    python3 "{{SCRIPTS_DIR}}/register-investigation.py" init-db
     
     echo ""
     echo "✅ Setup complete!"
     echo ""
     echo "Next steps:"
     echo "  1. Configure Tower CLI: tw login"
-    echo "  2. Create your first experiment: just dev-new \"my-experiment\" \"Purpose\""
+    echo "  2. Create your first investigation: just dev-new \"my-investigation\" \"Purpose\""
 
 # Clean up work directories older than specified days
 clean-work days="30":
@@ -68,21 +68,21 @@ clean-work days="30":
     echo "✅ Cleanup complete"
 
 # ═══════════════════════════════════════════════════════════
-# EXPERIMENT CREATION
+# INVESTIGATION CREATION
 # ═══════════════════════════════════════════════════════════
 
-# Create new development experiment
+# Create new development investigation
 dev-new name purpose="" params="default-params":
-    @bash "{{SCRIPTS_DIR}}/init-experiment{{SCRIPT_EXT}}" \
+    @bash "{{SCRIPTS_DIR}}/init-investigation{{SCRIPT_EXT}}" \
         --type development \
         --name "{{name}}" \
         --purpose "{{purpose}}" \
         --scenario local-local \
         --params-template "{{params}}"
 
-# Create new production experiment
+# Create new production investigation
 prod-new name dataset="" purpose="" params="full-dataset":
-    @bash "{{SCRIPTS_DIR}}/init-experiment.sh" \
+    @bash "{{SCRIPTS_DIR}}/init-investigation.sh" \
         --type production \
         --name "{{name}}" \
         --purpose "{{purpose}}" \
@@ -90,17 +90,17 @@ prod-new name dataset="" purpose="" params="full-dataset":
         --scenario local-local \
         --params-template "{{params}}"
 
-# Create planning-only experiment (no execution)
+# Create planning-only investigation (no execution)
 plan-new name purpose="":
-    @bash "{{SCRIPTS_DIR}}/init-experiment.sh" \
+    @bash "{{SCRIPTS_DIR}}/init-investigation.sh" \
         --type planning \
         --name "{{name}}" \
         --purpose "{{purpose}}" \
         --scenario planning-only
 
-# Create experiment for AWS execution
+# Create investigation for AWS execution
 dev-new-aws name purpose="" params="default-params":
-    @bash "{{SCRIPTS_DIR}}/init-experiment.sh" \
+    @bash "{{SCRIPTS_DIR}}/init-investigation.sh" \
         --type development \
         --name "{{name}}" \
         --purpose "{{purpose}}" \
@@ -108,27 +108,27 @@ dev-new-aws name purpose="" params="default-params":
         --params-template "{{params}}"
 
 # ═══════════════════════════════════════════════════════════
-# EXPERIMENT EXECUTION
+# INVESTIGATION EXECUTION
 # ═══════════════════════════════════════════════════════════
 
-# Run experiment locally (local head + local tasks)
-run-local experiment_id:
+# Run investigation locally (local head + local tasks)
+run-local investigation_id:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
-    echo "🚀 Running experiment locally: {{experiment_id}}"
+    echo "🚀 Running investigation locally: {{investigation_id}}"
     echo "📁 Directory: $EXP_DIR"
     
     cd "$EXP_DIR"
     
     # Update status to running
-    python3 "{{SCRIPTS_DIR}}/register-experiment.py" update-status \
-        --id "{{experiment_id}}" \
+    python3 "{{SCRIPTS_DIR}}/register-investigation.py" update-status \
+        --id "{{investigation_id}}" \
         --status running
     
     # Run Nextflow with Tower monitoring
@@ -146,15 +146,15 @@ run-local experiment_id:
     
     # Update status based on exit code
     if [[ $EXIT_CODE -eq 0 ]]; then
-        python3 "{{SCRIPTS_DIR}}/register-experiment.py" update-status \
-            --id "{{experiment_id}}" \
+        python3 "{{SCRIPTS_DIR}}/register-investigation.py" update-status \
+            --id "{{investigation_id}}" \
             --status completed
-        echo "✅ Experiment completed successfully"
+        echo "✅ Investigation completed successfully"
     else
-        python3 "{{SCRIPTS_DIR}}/register-experiment.py" update-status \
-            --id "{{experiment_id}}" \
+        python3 "{{SCRIPTS_DIR}}/register-investigation.py" update-status \
+            --id "{{investigation_id}}" \
             --status failed
-        echo "❌ Experiment failed with exit code: $EXIT_CODE"
+        echo "❌ Investigation failed with exit code: $EXIT_CODE"
     fi
     
     # Fetch Tower metadata if available
@@ -163,29 +163,29 @@ run-local experiment_id:
         bash "{{SCRIPTS_DIR}}/tower-integration.sh" "$EXP_DIR" || true
     fi
 
-# Run experiment with AWS Batch (local head + remote tasks)
-run-aws experiment_id:
+# Run investigation with AWS Batch (local head + remote tasks)
+run-aws investigation_id:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
-    echo "🚀 Running experiment on AWS Batch: {{experiment_id}}"
+    echo "🚀 Running investigation on AWS Batch: {{investigation_id}}"
     
     cd "$EXP_DIR"
     
-    python3 "{{SCRIPTS_DIR}}/register-experiment.py" update-status \
-        --id "{{experiment_id}}" \
+    python3 "{{SCRIPTS_DIR}}/register-investigation.py" update-status \
+        --id "{{investigation_id}}" \
         --status running
     
     nextflow run "{{BASE_DIR}}/{{NF_FILE}}" \
         -profile local-aws \
         -params-file params.yaml \
         -with-tower \
-        -work-dir "s3://your-bucket/work/{{experiment_id}}" \
+        -work-dir "s3://your-bucket/work/{{investigation_id}}" \
         -bucket-dir "s3://your-bucket/scratch" \
         -with-report "reports/report.html" \
         -with-timeline "reports/timeline.html" \
@@ -195,59 +195,59 @@ run-aws experiment_id:
     EXIT_CODE=${PIPESTATUS[0]}
     
     if [[ $EXIT_CODE -eq 0 ]]; then
-        python3 "{{SCRIPTS_DIR}}/register-experiment.py" update-status \
-            --id "{{experiment_id}}" \
+        python3 "{{SCRIPTS_DIR}}/register-investigation.py" update-status \
+            --id "{{investigation_id}}" \
             --status completed
     else
-        python3 "{{SCRIPTS_DIR}}/register-experiment.py" update-status \
-            --id "{{experiment_id}}" \
+        python3 "{{SCRIPTS_DIR}}/register-investigation.py" update-status \
+            --id "{{investigation_id}}" \
             --status failed
     fi
 
-# Launch experiment via Tower
-run-tower experiment_id workspace=DEFAULT_WORKSPACE:
+# Launch investigation via Tower
+run-tower investigation_id workspace=DEFAULT_WORKSPACE:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
-    echo "🚀 Launching experiment via Tower: {{experiment_id}}"
+    echo "🚀 Launching investigation via Tower: {{investigation_id}}"
     echo "🗂️  Workspace: {{workspace}}"
     
     cd "$EXP_DIR"
     
-    python3 "{{SCRIPTS_DIR}}/register-experiment.py" update-status \
-        --id "{{experiment_id}}" \
+    python3 "{{SCRIPTS_DIR}}/register-investigation.py" update-status \
+        --id "{{investigation_id}}" \
         --status running
     
     # Launch via Tower CLI
     tw launch "{{BASE_DIR}}/{{NF_FILE}}" \
         --workspace="{{workspace}}" \
         --params-file="params.yaml" \
-        --name="{{experiment_id}}" \
+        --name="{{investigation_id}}" \
         --config="{{CONFIGS_DIR}}/profiles/tower.config" \
-        --work-dir="s3://your-bucket/work/{{experiment_id}}" \
-        --outdir="s3://your-bucket/results/{{experiment_id}}" \
+        --work-dir="s3://your-bucket/work/{{investigation_id}}" \
+        --outdir="s3://your-bucket/results/{{investigation_id}}" \
         | tee tower-launch.log
     
     echo ""
     echo "📊 Monitor at: https://tower.nf"
-    echo "📥 Fetch metadata later with: just fetch-tower {{experiment_id}}"
+    echo "📥 Fetch metadata later with: just fetch-tower {{investigation_id}}"
 
-# Resume failed experiment with -resume flag
-resume experiment_id:
+# Resume failed investigation with -resume flag
+resume investigation_id:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
-    echo "🔄 Resuming experiment: {{experiment_id}}"
+    echo "🔄 Resuming investigation: {{investigation_id}}"
     
     cd "$EXP_DIR"
     
@@ -262,59 +262,59 @@ resume experiment_id:
         -with-trace "reports/trace-resume-$(date +%Y%m%d_%H%M%S).txt"
 
 # ═══════════════════════════════════════════════════════════
-# EXPERIMENT QUERIES
+# INVESTIGATION QUERIES
 # ═══════════════════════════════════════════════════════════
 
-# List all experiments
+# List all investigations
 list-all:
-    @python3 "{{SCRIPTS_DIR}}/register-experiment.py" list
+    @python3 "{{SCRIPTS_DIR}}/register-investigation.py" list
 
-# List active (non-archived) experiments
+# List active (non-archived) investigations
 list-active:
-    @python3 "{{SCRIPTS_DIR}}/register-experiment.py" list --status planned,running,completed,failed
+    @python3 "{{SCRIPTS_DIR}}/register-investigation.py" list --status planned,running,completed,failed
 
-# List failed experiments
+# List failed investigations
 list-failed:
-    @python3 "{{SCRIPTS_DIR}}/register-experiment.py" list --status failed
+    @python3 "{{SCRIPTS_DIR}}/register-investigation.py" list --status failed
 
-# List experiments by type
+# List investigations by type
 list-dev:
-    @python3 "{{SCRIPTS_DIR}}/register-experiment.py" list --type development
+    @python3 "{{SCRIPTS_DIR}}/register-investigation.py" list --type development
 
-# List experiments by type
+# List investigations by type
 list-prod:
-    @python3 "{{SCRIPTS_DIR}}/register-experiment.py" list --type production
+    @python3 "{{SCRIPTS_DIR}}/register-investigation.py" list --type production
 
-# Search experiments by tag
+# Search investigations by tag
 search-tag tag:
-    @python3 "{{SCRIPTS_DIR}}/register-experiment.py" search-tag --tag "{{tag}}"
+    @python3 "{{SCRIPTS_DIR}}/register-investigation.py" search-tag --tag "{{tag}}"
 
-# View detailed experiment information
-view experiment_id:
-    @python3 "{{SCRIPTS_DIR}}/register-experiment.py" view --id "{{experiment_id}}"
+# View detailed investigation information
+view investigation_id:
+    @python3 "{{SCRIPTS_DIR}}/register-investigation.py" view --id "{{investigation_id}}"
 
 # ═══════════════════════════════════════════════════════════
 # MONITORING & STATUS
 # ═══════════════════════════════════════════════════════════
 
-# Check experiment status
-status experiment_id:
+# Check investigation status
+status investigation_id:
     #!/usr/bin/env bash
-    echo "📊 Experiment Status"
+    echo "📊 Investigation Status"
     echo "===================="
-    python3 "{{SCRIPTS_DIR}}/register-experiment.py" view --id "{{experiment_id}}" | head -20
+    python3 "{{SCRIPTS_DIR}}/register-investigation.py" view --id "{{investigation_id}}" | head -20
 
-# Show experiment summary
-summary experiment_id:
+# Show investigation summary
+summary investigation_id:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
-    echo "📊 Experiment Summary: {{experiment_id}}"
+    echo "📊 Investigation Summary: {{investigation_id}}"
     echo "=========================================="
     echo ""
     
@@ -328,17 +328,17 @@ summary experiment_id:
 # TOWER INTEGRATION
 # ═══════════════════════════════════════════════════════════
 
-# Fetch Tower metadata for completed experiment
-fetch-tower experiment_id workspace=DEFAULT_WORKSPACE:
+# Fetch Tower metadata for completed investigation
+fetch-tower investigation_id workspace=DEFAULT_WORKSPACE:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
-    echo "📡 Fetching Tower metadata for: {{experiment_id}}"
+    echo "📡 Fetching Tower metadata for: {{investigation_id}}"
     
     if command -v tw &> /dev/null; then
         bash "{{SCRIPTS_DIR}}/tower-integration.sh" "$EXP_DIR" "{{workspace}}"
@@ -361,10 +361,10 @@ tower-list workspace=DEFAULT_WORKSPACE:
     @echo "📋 Tower runs in workspace: {{workspace}}"
     @tw runs list --workspace="{{workspace}}"
 
-# Link Tower run to experiment (retrospective)
-tower-link experiment_id tower_run_id workspace=DEFAULT_WORKSPACE:
-    @python3 "{{SCRIPTS_DIR}}/register-experiment.py" link-tower \
-        --id "{{experiment_id}}" \
+# Link Tower run to investigation (retrospective)
+tower-link investigation_id tower_run_id workspace=DEFAULT_WORKSPACE:
+    @python3 "{{SCRIPTS_DIR}}/register-investigation.py" link-tower \
+        --id "{{investigation_id}}" \
         --tower-run-id "{{tower_run_id}}" \
         --workspace "{{workspace}}"
 
@@ -372,13 +372,13 @@ tower-link experiment_id tower_run_id workspace=DEFAULT_WORKSPACE:
 # RESULTS MANAGEMENT
 # ═══════════════════════════════════════════════════════════
 
-# Show results manifest for experiment
-show-results experiment_id:
+# Show results manifest for investigation
+show-results investigation_id:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
@@ -388,13 +388,13 @@ show-results experiment_id:
         echo "No results manifest found"
     fi
 
-# Open experiment directory
-open experiment_id:
+# Open investigation directory
+open investigation_id:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
@@ -404,48 +404,48 @@ open experiment_id:
 # UTILITIES
 # ═══════════════════════════════════════════════════════════
 
-# Archive completed experiment
-archive experiment_id:
+# Archive completed investigation
+archive investigation_id:
     #!/usr/bin/env bash
-    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{experiment_id}}" -type d | head -1)
+    EXP_DIR=$(find "{{EXPTS_DIR}}/*/runs" -name "{{investigation_id}}" -type d | head -1)
     
     if [[ -z "$EXP_DIR" ]]; then
-        echo "❌ Experiment not found: {{experiment_id}}"
+        echo "❌ Investigation not found: {{investigation_id}}"
         exit 1
     fi
     
     EXP_TYPE=$(basename "$(dirname "$(dirname "$EXP_DIR")")")
     ARCHIVE_DIR="{{EXPTS_DIR}}/${EXP_TYPE}/archive"
     
-    echo "📦 Archiving experiment: {{experiment_id}}"
+    echo "📦 Archiving investigation: {{investigation_id}}"
     mkdir -p "$ARCHIVE_DIR"
     mv "$EXP_DIR" "$ARCHIVE_DIR/"
     
-    python3 "{{SCRIPTS_DIR}}/register-experiment.py" update-status \
-        --id "{{experiment_id}}" \
+    python3 "{{SCRIPTS_DIR}}/register-investigation.py" update-status \
+        --id "{{investigation_id}}" \
         --status archived
     
-    echo "✅ Archived to: ${ARCHIVE_DIR}/{{experiment_id}}"
+    echo "✅ Archived to: ${ARCHIVE_DIR}/{{investigation_id}}"
 
 # Run database query
 query sql:
     @sqlite3 "{{REGISTRY_DB}}" "{{sql}}"
 
-# Show experiment statistics
+# Show investigation statistics
 stats:
     #!/usr/bin/env bash
-    echo "📊 Experiment Statistics"
+    echo "📊 Investigation Statistics"
     echo "========================"
     echo ""
     
-    TOTAL=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM experiments")
-    DEV=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM experiments WHERE type='development'")
-    PROD=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM experiments WHERE type='production'")
-    FAILED=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM experiments WHERE status='failed'")
-    COMPLETED=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM experiments WHERE status='completed'")
-    RUNNING=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM experiments WHERE status='running'")
+    TOTAL=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM investigations")
+    DEV=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM investigations WHERE type='development'")
+    PROD=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM investigations WHERE type='production'")
+    FAILED=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM investigations WHERE status='failed'")
+    COMPLETED=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM investigations WHERE status='completed'")
+    RUNNING=$(sqlite3 "{{REGISTRY_DB}}" "SELECT COUNT(*) FROM investigations WHERE status='running'")
     
-    echo "Total experiments:     $TOTAL"
+    echo "Total investigations:     $TOTAL"
     echo "Development:           $DEV"
     echo "Production:            $PROD"
     echo "Running:               $RUNNING"
@@ -453,8 +453,8 @@ stats:
     echo "Failed:                $FAILED"
     echo ""
     
-    echo "Recent experiments (last 5):"
-    sqlite3 "{{REGISTRY_DB}}" "SELECT id, status, created_at FROM experiments ORDER BY created_at DESC LIMIT 5" | \
+    echo "Recent investigations (last 5):"
+    sqlite3 "{{REGISTRY_DB}}" "SELECT id, status, created_at FROM investigations ORDER BY created_at DESC LIMIT 5" | \
         while IFS='|' read -r id status created; do
             echo "  $id | $status | $created"
         done
@@ -482,17 +482,17 @@ version:
 # COMPARISON & ANALYSIS
 # ═══════════════════════════════════════════════════════════
 
-# Compare multiple experiments
+# Compare multiple investigations
 compare output_name="" *exp_ids:
-    @python3 "{{SCRIPTS_DIR}}/compare-experiments.py" compare {{exp_ids}} {{if output_name != "" { "--output " + output_name } else { "" } }}
+    @python3 "{{SCRIPTS_DIR}}/compare-investigations.py" compare {{exp_ids}} {{if output_name != "" { "--output " + output_name } else { "" } }}
 
 # List saved comparisons
 list-comparisons:
-    @python3 "{{SCRIPTS_DIR}}/compare-experiments.py" list
+    @python3 "{{SCRIPTS_DIR}}/compare-investigations.py" list
 
 # View comparison report
 view-comparison name:
-    @python3 "{{SCRIPTS_DIR}}/compare-experiments.py" view "{{name}}"
+    @python3 "{{SCRIPTS_DIR}}/compare-investigations.py" view "{{name}}"
 
 # ═══════════════════════════════════════════════════════════
 # CHAIN TRACKING
@@ -502,9 +502,9 @@ view-comparison name:
 chain-create original resumed run_number="2":
     @python3 "{{SCRIPTS_DIR}}/track-chains.py" create "{{original}}" "{{resumed}}" --run-number {{run_number}}
 
-# Show experiment's chain
-chain-show experiment_id:
-    @python3 "{{SCRIPTS_DIR}}/track-chains.py" show "{{experiment_id}}"
+# Show investigation's chain
+chain-show investigation_id:
+    @python3 "{{SCRIPTS_DIR}}/track-chains.py" show "{{investigation_id}}"
 
 # List all chains
 chain-list:
@@ -526,7 +526,7 @@ chain-analyze chain_id:
 # DASHBOARD & REPORTING
 # ═══════════════════════════════════════════════════════════
 
-# Generate experiment dashboard
+# Generate investigation dashboard
 dashboard format="markdown":
     @python3 "{{SCRIPTS_DIR}}/generate-dashboard.py" --format "{{format}}"
 
@@ -550,6 +550,6 @@ batch-add-tags tags *exp_ids:
 batch-archive *exp_ids:
     @python3 "{{SCRIPTS_DIR}}/batch-operations.py" archive {{exp_ids}}
 
-# Find experiments by criteria
+# Find investigations by criteria
 batch-find status="" exp_type="" tag="":
     @python3 "{{SCRIPTS_DIR}}/batch-operations.py" find {{if status != "" { "--status " + status } else { "" } }} {{if exp_type != "" { "--type " + exp_type } else { "" } }} {{if tag != "" { "--tag " + tag } else { "" } }}

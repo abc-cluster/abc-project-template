@@ -1,6 +1,5 @@
 id: "lang:c"
 description: "C/C++ package development (build, test)"
-status: "experimental"
 version: "0.1.0"
 files:
   - tasks/c.just

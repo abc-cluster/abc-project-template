@@ -1,6 +1,5 @@
 id: "data:external-validation"
 description: "External validation datasets"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/external-validation/131_cross_domain/.gitkeep

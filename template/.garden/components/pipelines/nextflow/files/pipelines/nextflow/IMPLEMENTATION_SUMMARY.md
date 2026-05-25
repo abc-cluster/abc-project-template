@@ -8,7 +8,7 @@
 
 Successfully implemented a comprehensive **Nextflow Pipeline Lifecycle Management System** with two complete phases:
 
-- **Phase 1:** Core experiment tracking, execution management, and Tower integration
+- **Phase 1:** Core investigation tracking, execution management, and Tower integration
 - **Phase 2:** Advanced comparison, chain tracking, dashboards, and batch operations
 
 **Total Implementation:** 9 Python scripts, 1 bash script, 3 template systems, 1 SQLite database with 6 tables and 3 views, comprehensive Just automation, and complete documentation.
@@ -17,19 +17,19 @@ Successfully implemented a comprehensive **Nextflow Pipeline Lifecycle Managemen
 
 ### Database & Schema
 - **File:** `.registry/schemas/schema.sql`
-- **Tables:** 6 (experiments, tags, experiment_tags, executions, results, analysis_cache)
-- **Views:** 3 (resume_chains, active_experiments, failed_runs)
+- **Tables:** 6 (investigations, tags, investigation_tags, executions, results, analysis_cache)
+- **Views:** 3 (resume_chains, active_investigations, failed_runs)
 - **Features:** Foreign keys, indexes, timestamps, JSON support
 
 ### Core Scripts
 
-1. **register-experiment.py** (495 lines)
+1. **register-investigation.py** (495 lines)
    - Full CLI for database operations
    - Commands: init-db, create, update-status, list, view, search-tag, link-tower
    - JSON/table output formats
 
-2. **init-experiment.sh** (280 lines)
-   - Creates experiment directory structure
+2. **init-investigation.sh** (280 lines)
+   - Creates investigation directory structure
    - Copies and populates templates
    - Registers in database
    - Creates symlinks
@@ -72,8 +72,8 @@ Successfully implemented a comprehensive **Nextflow Pipeline Lifecycle Managemen
 
 ### Comparison & Analysis
 
-7. **compare-experiments.py** (399 lines)
-   - Compare 2+ experiments side-by-side
+7. **compare-investigations.py** (399 lines)
+   - Compare 2+ investigations side-by-side
    - Metrics: timeline, task stats, parameters, resources
    - Output: Markdown reports + JSON data
    - Commands: compare, list, view
@@ -108,9 +108,9 @@ just chain-show exp2
 ### Dashboard & Reporting
 
 9. **generate-dashboard.py** (158 lines)
-   - Generate experiment overview dashboards
+   - Generate investigation overview dashboards
    - Statistics: total, by type, by status, chains
-   - Recent experiments table
+   - Recent investigations table
    - Output: Markdown + JSON formats
 
 **Test Results:**
@@ -145,10 +145,10 @@ just dashboard
 
 ## Complete Feature List
 
-### Experiment Management
-- ✅ Create experiments (development/production/planning)
+### Investigation Management
+- ✅ Create investigations (development/production/planning)
 - ✅ Track git state automatically
-- ✅ Manage experiment lifecycle (planned → running → completed/failed → archived)
+- ✅ Manage investigation lifecycle (planned → running → completed/failed → archived)
 - ✅ Tag-based organization
 - ✅ Symlink-based quick access
 - ✅ Multi-scenario support (local-local, local-remote, Tower, planning-only)
@@ -168,7 +168,7 @@ just dashboard
 - ✅ Integration reports
 
 ### Analysis & Comparison
-- ✅ Multi-experiment comparison
+- ✅ Multi-investigation comparison
 - ✅ Parameter diff analysis
 - ✅ Metrics comparison
 - ✅ Timeline analysis
@@ -182,7 +182,7 @@ just dashboard
 - ✅ Chain reports
 
 ### Reporting & Dashboards
-- ✅ Experiment statistics
+- ✅ Investigation statistics
 - ✅ Status distribution
 - ✅ Recent activity tracking
 - ✅ Markdown dashboards
@@ -204,7 +204,7 @@ just dashboard
 
 ### Phase 1 Testing ✅
 - Database initialization
-- Experiment creation (3 test experiments)
+- Investigation creation (3 test investigations)
 - Listing and viewing
 - Statistics generation
 - Quick aliases
@@ -212,8 +212,8 @@ just dashboard
 - Symlink creation
 
 ### Phase 2 Testing ✅
-- Comparison: 2 experiments compared successfully
-- Chain tracking: Chain created with 2 experiments
+- Comparison: 2 investigations compared successfully
+- Chain tracking: Chain created with 2 investigations
 - Dashboard: Generated with accurate statistics
 - Batch operations: Find and tag operations verified
 
@@ -243,10 +243,10 @@ just dashboard
 ```
 nextflow/
 ├── .registry/              # SQLite database
-│   ├── experiments.db
+│   ├── investigations.db
 │   └── schemas/
 ├── scripts/                # 10 executable scripts
-├── experiments/            # Experiment storage
+├── investigations/            # Investigation storage
 │   ├── development/
 │   ├── production/
 │   ├── planning/
@@ -261,10 +261,10 @@ nextflow/
 
 ## Performance Metrics
 
-- **Experiment creation:** ~100ms
+- **Investigation creation:** ~100ms
 - **Database queries:** <10ms
 - **Dashboard generation:** <500ms
-- **Comparison (2-5 experiments):** <1s
+- **Comparison (2-5 investigations):** <1s
 - **Chain tracking:** <100ms per operation
 
 ## Dependencies
@@ -289,7 +289,7 @@ nextflow/
 # Setup
 just setup
 
-# Create experiment
+# Create investigation
 just n "my-analysis" "Testing new parameters"
 
 # List & view
@@ -305,7 +305,7 @@ just s
 
 ### Advanced Workflow
 ```bash
-# Compare experiments
+# Compare investigations
 just compare "params-test" exp1 exp2 exp3
 
 # Create chain
@@ -335,7 +335,7 @@ just batch-add-tags "priority urgent" exp1 exp2
 Potential enhancements:
 - Quarto-based interactive HTML dashboards
 - Real-time monitoring web interface
-- Experiment recommendation engine
+- Investigation recommendation engine
 - Automated parameter optimization
 - Cost analysis and reporting
 - Multi-user access control
@@ -344,7 +344,7 @@ Potential enhancements:
 
 ## Conclusion
 
-Successfully delivered a **production-ready Nextflow Pipeline Lifecycle Management System** with comprehensive experiment tracking, execution management, Tower integration, comparison tools, chain tracking, dashboards, and batch operations.
+Successfully delivered a **production-ready Nextflow Pipeline Lifecycle Management System** with comprehensive investigation tracking, execution management, Tower integration, comparison tools, chain tracking, dashboards, and batch operations.
 
 **System Status:** ✅ Ready for real-world use  
 **Code Quality:** ✅ Modular, documented, tested  

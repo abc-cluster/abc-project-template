@@ -1,6 +1,5 @@
 id: "data:backups"
 description: "Versioned and timestamped data backups"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/backups/.gitkeep

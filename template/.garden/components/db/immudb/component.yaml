@@ -1,6 +1,5 @@
 id: "db:immudb"
 description: "immudb database scaffolding"
-status: "experimental"
 version: "0.1.0"
 files:
   - databases/immudb/README.md

@@ -1,6 +1,5 @@
 id: "data:features"
 description: "Feature engineering stage (transforms, scaling, encoding, dimensionality reduction)"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/features/.gitkeep

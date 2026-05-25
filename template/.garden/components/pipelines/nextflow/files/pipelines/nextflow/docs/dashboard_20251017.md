@@ -1,24 +1,24 @@
-# Nextflow Experiment Dashboard
+# Nextflow Investigation Dashboard
 
 **Generated:** 2025-10-17 12:22:15
 
 ## Overview
 
-- **Total Experiments:** 6
+- **Total Investigations:** 6
 - **Resume Chains:** 2
 
-### Experiments by Type
+### Investigations by Type
 
 - **development:** 6
 
-### Experiments by Status
+### Investigations by Status
 
 - **completed** ✅: 3
 - **planned** 📋: 3
 
-### Recent Experiments
+### Recent Investigations
 
-| Experiment ID | Status | Created |
+| Investigation ID | Status | Created |
 |---------------|--------|---------|
 | 20251017_1220_deve-hello-french | completed | 2025-10-17 10:20:32 |
 | 20251017_1219_deve-hello-spanish | completed | 2025-10-17 10:19:55 |

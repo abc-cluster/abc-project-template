@@ -1,0 +1,31 @@
+id: "infra:workbench"
+description: "ABC-cluster workbench integration — cloud IDE session management"
+version: "0.1.0"
+depends:
+  - writeup:quarto
+files:
+  - .abc-workbench.yaml
+  - .workbench.code-workspace
+  - tasks/workbench.just
+adds_imports:
+  - tasks/workbench.just
+post_grow_hint: |
+  Created workbench integration files:
+    .abc-workbench.yaml        — session config (edit cores/memory to match your cluster)
+    .workbench.code-workspace  — VS Code workspace definition
+    tasks/workbench.just       — workbench task shortcuts
+
+  Also planted writeup:quarto (dependency).
+
+  To start a workbench session:
+    just workbench-start
+
+  Requires:
+    abc CLI installed and authenticated: abc auth login
+    Access to an ABC-cluster instance (abc-seed or abc-grove tier)
+
+  Environment variables (injected by `abc workbench start`, also settable manually):
+    ABC_HOST        — cluster hostname
+    ABC_TOKEN       — bearer token
+    ABC_PROJECT     — project ID (set in .abc-workbench.yaml)
+    ABC_MINIO_ENDPOINT — MinIO endpoint for DVC remote

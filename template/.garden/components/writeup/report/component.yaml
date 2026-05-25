@@ -1,6 +1,5 @@
 id: "writeup:report"
 description: "Technical and executive report templates"
-status: "experimental"
 version: "0.1.0"
 files:
   - writeup/report/.gitkeep

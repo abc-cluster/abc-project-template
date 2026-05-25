@@ -1,6 +1,5 @@
 id: "core:base"
 description: "Minimal project base — README + .editorconfig + .gitignore"
-status: "stable"
 version: "1.0.0"
 files:
   - README.md

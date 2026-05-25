@@ -1,6 +1,5 @@
 id: "writeup:presentation"
 description: "Beamer / Reveal.js / Quarto presentation templates (academic, corporate, workshop)"
-status: "experimental"
 version: "0.1.0"
 files:
   - writeup/presentation/.gitignore

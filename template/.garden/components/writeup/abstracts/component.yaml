@@ -1,6 +1,5 @@
 id: "writeup:abstracts"
 description: "Conference and journal abstract templates"
-status: "experimental"
 version: "0.1.0"
 files:
   - writeup/abstracts/README.md

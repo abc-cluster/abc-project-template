@@ -1,6 +1,6 @@
 {
   "timestamp": "20251017_122106",
-  "experiments": [
+  "investigations": [
     {
       "id": "20251017_1218_deve-hello-default",
       "type": "development",

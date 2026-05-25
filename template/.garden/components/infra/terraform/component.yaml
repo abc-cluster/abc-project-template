@@ -1,6 +1,5 @@
 id: "infra:terraform"
 description: "Terraform configurations (microk8s, multipass, OCI VM, microcloud)"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/terraform/.gitkeep

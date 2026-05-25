@@ -1,6 +1,5 @@
 id: "db:xtdb"
 description: "xtdb database scaffolding"
-status: "experimental"
 version: "0.1.0"
 files:
   - databases/xtdb/.gitkeep

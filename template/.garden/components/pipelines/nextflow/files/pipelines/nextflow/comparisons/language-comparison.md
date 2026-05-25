@@ -1,26 +1,26 @@
-# Experiment Comparison: language-comparison
+# Investigation Comparison: language-comparison
 
 **Generated:** 2025-10-17 12:21:06
 
-**Experiments Compared:** 3
+**Investigations Compared:** 3
 
-## Experiment Overview
+## Investigation Overview
 
-### Experiment 1: 20251017_1218_deve-hello-default
+### Investigation 1: 20251017_1218_deve-hello-default
 
 - **Type:** development
 - **Status:** completed
 - **Purpose:** Testing default Hello World parameters
 - **Created:** 2025-10-17 10:18:19
 
-### Experiment 2: 20251017_1219_deve-hello-spanish
+### Investigation 2: 20251017_1219_deve-hello-spanish
 
 - **Type:** development
 - **Status:** completed
 - **Purpose:** Testing Spanish greeting
 - **Created:** 2025-10-17 10:19:55
 
-### Experiment 3: 20251017_1220_deve-hello-french
+### Investigation 3: 20251017_1220_deve-hello-french
 
 - **Type:** development
 - **Status:** completed
@@ -65,4 +65,4 @@
 ## Key Differences
 
 ### Status Comparison
-- All experiments have status: completed
+- All investigations have status: completed

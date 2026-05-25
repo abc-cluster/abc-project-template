@@ -1,6 +1,5 @@
 id: "build:bazel"
 description: "Bazel build system files"
-status: "experimental"
 version: "0.1.0"
 files:
   - .bazelrc

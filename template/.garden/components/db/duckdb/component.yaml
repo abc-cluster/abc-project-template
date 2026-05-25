@@ -1,6 +1,5 @@
 id: "db:duckdb"
 description: "duckdb database scaffolding"
-status: "experimental"
 version: "0.1.0"
 files:
   - databases/duckdb/.gitkeep

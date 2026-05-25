@@ -1,6 +1,5 @@
 id: "writeup:book"
 description: "Book-length manuscript scaffolding"
-status: "experimental"
 version: "0.1.0"
 files:
   - writeup/book/_quarto.yml

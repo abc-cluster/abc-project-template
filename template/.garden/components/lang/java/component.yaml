@@ -1,6 +1,5 @@
 id: "lang:java"
 description: "Java (with Maven/Gradle) package development"
-status: "experimental"
 version: "0.1.0"
 files:
   - jreleaser.yml

@@ -1,6 +1,5 @@
 id: "infra:lxd"
 description: "LXD container-based development environments"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/lxd/macos-multipass-lxd.sh

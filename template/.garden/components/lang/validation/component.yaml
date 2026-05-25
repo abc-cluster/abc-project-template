@@ -1,6 +1,5 @@
 id: "lang:validation"
 description: "Cross-language validation utilities"
-status: "experimental"
 version: "0.1.0"
 files:
   - tasks/validation.just

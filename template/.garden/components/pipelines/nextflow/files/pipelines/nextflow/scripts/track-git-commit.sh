@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Git State Tracking Script
-# Captures current git repository state for experiment tracking
+# Captures current git repository state for investigation tracking
 
 EXP_DIR="${1:-.}"
 EXP_ID="${2:-unknown}"
@@ -15,7 +15,7 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
     echo "⚠️  Not in a git repository, creating minimal git-info.yaml"
     cat > "$GIT_INFO_FILE" << EOF
 # Git Repository Information
-experiment_id: "${EXP_ID}"
+investigation_id: "${EXP_ID}"
 captured_at: "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 repository:
@@ -75,9 +75,9 @@ to_yaml_array() {
 # Write git-info.yaml
 cat > "$GIT_INFO_FILE" << EOF
 # Git Repository Information
-# Snapshot of repository state at experiment creation/execution
+# Snapshot of repository state at investigation creation/execution
 
-experiment_id: "${EXP_ID}"
+investigation_id: "${EXP_ID}"
 captured_at: "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 # Repository Details
@@ -114,8 +114,8 @@ EOF
 
 # Update database with git info
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [[ -f "${SCRIPT_DIR}/register-experiment.py" ]]; then
-    python3 "${SCRIPT_DIR}/register-experiment.py" update-git-info \
+if [[ -f "${SCRIPT_DIR}/register-investigation.py" ]]; then
+    python3 "${SCRIPT_DIR}/register-investigation.py" update-git-info \
         --id "${EXP_ID}" \
         --commit "${COMMIT}" \
         --branch "${BRANCH}" \

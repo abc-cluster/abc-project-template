@@ -1,0 +1,68 @@
+# Results Manifest
+# Tracks locations of all result files across local and remote storage
+
+investigation_id: "{{INVESTIGATION_ID}}"
+execution_id: "{{EXECUTION_ID}}"
+
+# Primary Storage Locations
+storage:
+  primary_location: "{{PRIMARY_STORAGE}}"
+  local_copy: "{{LOCAL_PATH}}"
+  backup_locations: []
+
+# Result Categories
+results:
+  qc_reports:
+    multiqc:
+      remote: ""
+      local: "results/{{INVESTIGATION_ID}}/qc/multiqc_report.html"
+      synced: false
+      size_mb: 0
+    
+  summary_stats:
+    metrics:
+      remote: ""
+      local: "results/{{INVESTIGATION_ID}}/summary/metrics.csv"
+      synced: false
+      size_kb: 0
+    
+  figures:
+    plots:
+      remote: ""
+      local: "results/{{INVESTIGATION_ID}}/figures/"
+      synced: false
+      size_mb: 0
+
+# Nextflow Reports
+nextflow_reports:
+  timeline:
+    remote: ""
+    local: "reports/timeline.html"
+    synced: false
+  trace:
+    remote: ""
+    local: "reports/trace.txt"
+    synced: false
+  report:
+    remote: ""
+    local: "reports/report.html"
+    synced: false
+
+# Key Outputs for Comparison
+key_outputs:
+  - name: "metric_1"
+    value: null
+    unit: ""
+    file: ""
+  - name: "metric_2"
+    value: null
+    unit: ""
+    file: ""
+
+# Sync History
+sync_history: []
+# Example:
+# - timestamp: "2025-10-17T08:30:00Z"
+#   direction: "pull"
+#   category: "qc"
+#   status: "success"

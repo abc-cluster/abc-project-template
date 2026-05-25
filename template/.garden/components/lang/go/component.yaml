@@ -1,6 +1,5 @@
 id: "lang:go"
 description: "Go module development (build, test)"
-status: "experimental"
 version: "0.1.0"
 files:
   - tasks/go.just

@@ -1,6 +1,5 @@
 id: "db:dolt"
 description: "dolt database scaffolding"
-status: "experimental"
 version: "0.1.0"
 files:
   - databases/dolt/.gitkeep

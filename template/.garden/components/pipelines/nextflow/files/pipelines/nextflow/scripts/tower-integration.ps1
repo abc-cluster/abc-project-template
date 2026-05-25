@@ -1,22 +1,22 @@
 #Requires -Version 7.0
 <#
 .SYNOPSIS
-    Tower Integration Script for Nextflow experiments
+    Tower Integration Script for Nextflow investigations
 
 .DESCRIPTION
-    Fetches Tower metadata and links it to local experiments
+    Fetches Tower metadata and links it to local investigations
 
-.PARAMETER ExperimentDir
-    Path to experiment directory
+.PARAMETER InvestigationDir
+    Path to investigation directory
 
 .PARAMETER Workspace
     Tower workspace (default: value from TOWER_WORKSPACE env var or 'default')
 
 .EXAMPLE
-    .\tower-integration.ps1 experiments/development/runs/exp_20250117_1000
+    .\tower-integration.ps1 investigations/development/runs/exp_20250117_1000
 
 .EXAMPLE
-    .\tower-integration.ps1 experiments/production/runs/exp_20250117_1500 my-workspace
+    .\tower-integration.ps1 investigations/production/runs/exp_20250117_1500 my-workspace
 
 .NOTES
     Requires:
@@ -28,7 +28,7 @@
 param(
     [Parameter(Mandatory=$true, Position=0)]
     [ValidateNotNullOrEmpty()]
-    [string]$ExperimentDir,
+    [string]$InvestigationDir,
     
     [Parameter(Position=1)]
     [string]$Workspace = $env:TOWER_WORKSPACE ?? "default"
@@ -297,17 +297,17 @@ function Update-Database {
     
     Write-Info "Updating database..."
     
-    # Extract experiment ID from directory name
+    # Extract investigation ID from directory name
     $expId = Split-Path $ExpDir -Leaf
     
     # Call Python script to update database
-    $registerScript = Join-Path $ScriptDir "register-experiment.py"
+    $registerScript = Join-Path $ScriptDir "register-investigation.py"
     try {
         python3 $registerScript link-tower --id $expId --tower-run-id $RunId --workspace $Workspace 2>&1 | Out-Null
         Write-Success "Updated database"
         return $true
     } catch {
-        Write-Warning "Failed to update database (experiment may not be registered)"
+        Write-Warning "Failed to update database (investigation may not be registered)"
         return $false
     }
 }
@@ -406,19 +406,19 @@ $containerInfo
 
 # Main execution
 try {
-    # Validate experiment directory
-    if (-not (Test-Path $ExperimentDir)) {
-        Write-ErrorMsg "Experiment directory not found: $ExperimentDir"
+    # Validate investigation directory
+    if (-not (Test-Path $InvestigationDir)) {
+        Write-ErrorMsg "Investigation directory not found: $InvestigationDir"
         exit 1
     }
     
     # Make path absolute
-    $ExperimentDir = (Resolve-Path $ExperimentDir).Path
+    $InvestigationDir = (Resolve-Path $InvestigationDir).Path
     
     Write-Host "🔗 Tower Integration" -ForegroundColor Cyan
     Write-Host "====================" -ForegroundColor Cyan
     Write-Host ""
-    Write-Host "Experiment: $(Split-Path $ExperimentDir -Leaf)"
+    Write-Host "Investigation: $(Split-Path $InvestigationDir -Leaf)"
     Write-Host "Workspace:  $Workspace"
     Write-Host ""
     
@@ -426,11 +426,11 @@ try {
     Test-Prerequisites
     
     # Detect Tower run ID
-    $runId = Get-TowerRunId -ExpDir $ExperimentDir
+    $runId = Get-TowerRunId -ExpDir $InvestigationDir
     
     if (-not $runId) {
         Write-ErrorMsg "Could not detect Tower run ID"
-        Write-ErrorMsg "Ensure the experiment was run with -with-tower flag"
+        Write-ErrorMsg "Ensure the investigation was run with -with-tower flag"
         Write-ErrorMsg "Or manually link with: just tower-link <exp_id> <tower_run_id>"
         exit 1
     }
@@ -440,23 +440,23 @@ try {
     Write-Host ""
     
     # Fetch metadata
-    $metadataFile = Join-Path $ExperimentDir "tower-metadata.json"
+    $metadataFile = Join-Path $InvestigationDir "tower-metadata.json"
     if (-not (Get-TowerMetadata -RunId $runId -Workspace $Workspace -OutputFile $metadataFile)) {
         exit 1
     }
     
     # Extract summary
-    $summaryFile = Join-Path $ExperimentDir "tower-summary.json"
+    $summaryFile = Join-Path $InvestigationDir "tower-summary.json"
     $null = Export-TowerSummary -MetadataFile $metadataFile -SummaryFile $summaryFile
     
     # Update metadata.yaml
-    $null = Update-MetadataYaml -ExpDir $ExperimentDir -RunId $runId -Workspace $Workspace -MetadataJsonFile $metadataFile
+    $null = Update-MetadataYaml -ExpDir $InvestigationDir -RunId $runId -Workspace $Workspace -MetadataJsonFile $metadataFile
     
     # Update database
-    $null = Update-Database -ExpDir $ExperimentDir -RunId $runId -Workspace $Workspace
+    $null = Update-Database -ExpDir $InvestigationDir -RunId $runId -Workspace $Workspace
     
     # Create report
-    New-IntegrationReport -ExpDir $ExperimentDir -RunId $runId -Workspace $Workspace
+    New-IntegrationReport -ExpDir $InvestigationDir -RunId $runId -Workspace $Workspace
     
     Write-Host ""
     Write-Success "Tower integration complete!"

@@ -1,6 +1,5 @@
 id: "lang:groovy"
 description: "Groovy (with Gradle) package development"
-status: "experimental"
 version: "0.1.0"
 files:
   - tasks/groovy.just

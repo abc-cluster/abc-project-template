@@ -1,6 +1,5 @@
 id: "tooling:mise"
 description: "mise task runner configuration (.mise/tasks/)"
-status: "experimental"
 version: "0.1.0"
 files:
   - .mise/tasks/build

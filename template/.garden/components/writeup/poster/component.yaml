@@ -1,6 +1,5 @@
 id: "writeup:poster"
 description: "Academic and professional poster templates"
-status: "experimental"
 version: "0.1.0"
 files:
   - writeup/poster/.gitkeep

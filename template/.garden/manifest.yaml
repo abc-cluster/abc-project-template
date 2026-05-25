@@ -28,10 +28,12 @@ defaults_for_project_type:
     - data:logs
     - data:benchmarks
     - data:publications
+    - writeup:quarto
     - writeup:presentation
     - writeup:abstracts
     - writeup:poster
     - infra:env-setup
+    - infra:workbench
     - pipelines:nextflow
 
   "Analysis Only (data science pipeline)":
@@ -45,6 +47,7 @@ defaults_for_project_type:
 
   "Manuscript Only (writing and publications)":
     - core:base
+    - writeup:quarto
     - writeup:presentation
     - writeup:abstracts
     - writeup:poster
@@ -64,15 +67,15 @@ defaults_for_project_type:
 # (Phase 3+ will add this support to garden.py)
 presets:
   bioinformatics:
-    description: "Pixi + R + Nextflow + Nomad workbench"
+    description: "Nextflow pipelines + Quarto + ABC-cluster workbench for genomics research"
     components:
       - core:base
-      - lang:r           # placeholder — r is currently in active root
       - data:features
       - data:benchmarks
       - data:publications
       - pipelines:nextflow
-      - infra:env-setup
+      - writeup:quarto
+      - infra:workbench   # also plants writeup:quarto via depends
       - writeup:presentation
       - writeup:abstracts
 

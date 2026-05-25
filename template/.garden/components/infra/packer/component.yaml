@@ -1,6 +1,5 @@
 id: "infra:packer"
 description: "Packer image build configurations"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/packer/image.json

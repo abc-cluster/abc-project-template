@@ -1,6 +1,5 @@
 id: "data:collaboration"
 description: "Collaboration / shared data area"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/collaboration/141_agreements/.gitkeep

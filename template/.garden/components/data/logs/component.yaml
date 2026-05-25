@@ -1,6 +1,5 @@
 id: "data:logs"
 description: "Pipeline / training / metadata / lineage / experiment logs"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/logs/.gitkeep

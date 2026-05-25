@@ -1,0 +1,37 @@
+{
+    "folders": [
+        {
+            "path": ".",
+            "name": "{{project_name}}"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/__pycache__": true,
+            "**/.git": false,
+            "**/.garden": true,
+            "**/_output": true,
+            "**/work": true,
+            "**/.pixi": true
+        },
+        "editor.formatOnSave": true,
+        "editor.rulers": [88],
+        "python.defaultInterpreterPath": "${workspaceFolder}/.pixi/envs/default/bin/python",
+        "quarto.path": "/usr/local/bin/quarto",
+        "terminal.integrated.defaultProfile.linux": "bash"
+    },
+    "extensions": {
+        "recommendations": [
+            "quarto.quarto",
+            "ms-python.python",
+            "ms-python.black-formatter",
+            "eamodio.gitlens",
+            "iterative.dvc",
+            "ms-toolsai.jupyter"
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": []
+    }
+}

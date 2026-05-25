@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Track Experiment Resume Chains
-Visualize experiment lineage and manage resume history
+Track Investigation Resume Chains
+Visualize investigation lineage and manage resume history
 """
 
 import argparse
@@ -14,12 +14,12 @@ from typing import Dict, List, Optional, Any
 
 SCRIPT_DIR = Path(__file__).parent
 BASE_DIR = SCRIPT_DIR.parent
-DB_PATH = BASE_DIR / ".registry" / "experiments.db"
+DB_PATH = BASE_DIR / ".registry" / "investigations.db"
 CHAINS_DIR = BASE_DIR / "chains"
 
 
 class ChainTracker:
-    """Track and visualize experiment resume chains"""
+    """Track and visualize investigation resume chains"""
     
     def __init__(self, db_path: Path = DB_PATH):
         self.db_path = db_path
@@ -31,9 +31,9 @@ class ChainTracker:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        # Check if chain exists for original experiment
+        # Check if chain exists for original investigation
         cursor.execute("""
-            SELECT chain_id FROM experiments WHERE id = ?
+            SELECT chain_id FROM investigations WHERE id = ?
         """, (original_exp_id,))
         result = cursor.fetchone()
         
@@ -43,17 +43,17 @@ class ChainTracker:
         else:
             # Create new chain
             chain_id = f"chain_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-            # Update original experiment
+            # Update original investigation
             cursor.execute("""
-                UPDATE experiments 
+                UPDATE investigations 
                 SET chain_id = ?, run_number = 1 
                 WHERE id = ?
             """, (chain_id, original_exp_id))
         
-        # Update resumed experiment
+        # Update resumed investigation
         cursor.execute("""
-            UPDATE experiments 
-            SET chain_id = ?, run_number = ?, parent_experiment_id = ? 
+            UPDATE investigations 
+            SET chain_id = ?, run_number = ?, parent_investigation_id = ? 
             WHERE id = ?
         """, (chain_id, run_number, original_exp_id, resumed_exp_id))
         
@@ -65,31 +65,31 @@ class ChainTracker:
         print(f"   Resumed:  {resumed_exp_id} (run {run_number})")
     
     def get_chain(self, chain_id: str) -> List[Dict[str, Any]]:
-        """Get all experiments in a chain"""
+        """Get all investigations in a chain"""
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         
         cursor.execute("""
-            SELECT * FROM experiments 
+            SELECT * FROM investigations 
             WHERE chain_id = ?
             ORDER BY run_number
         """, (chain_id,))
         
-        experiments = [dict(row) for row in cursor.fetchall()]
+        investigations = [dict(row) for row in cursor.fetchall()]
         conn.close()
         
-        return experiments
+        return investigations
     
-    def get_experiment_chain(self, exp_id: str) -> Optional[List[Dict[str, Any]]]:
-        """Get the chain containing a specific experiment"""
+    def get_investigation_chain(self, exp_id: str) -> Optional[List[Dict[str, Any]]]:
+        """Get the chain containing a specific investigation"""
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         
-        # Get chain_id for this experiment
+        # Get chain_id for this investigation
         cursor.execute("""
-            SELECT chain_id FROM experiments WHERE id = ?
+            SELECT chain_id FROM investigations WHERE id = ?
         """, (exp_id,))
         result = cursor.fetchone()
         
@@ -99,17 +99,17 @@ class ChainTracker:
         
         chain_id = result['chain_id']
         
-        # Get all experiments in chain
+        # Get all investigations in chain
         cursor.execute("""
-            SELECT * FROM experiments 
+            SELECT * FROM investigations 
             WHERE chain_id = ?
             ORDER BY run_number
         """, (chain_id,))
         
-        experiments = [dict(row) for row in cursor.fetchall()]
+        investigations = [dict(row) for row in cursor.fetchall()]
         conn.close()
         
-        return experiments
+        return investigations
     
     def list_all_chains(self) -> List[Dict[str, Any]]:
         """List all chains"""
@@ -120,11 +120,11 @@ class ChainTracker:
         cursor.execute("""
             SELECT 
                 chain_id,
-                COUNT(*) as experiment_count,
+                COUNT(*) as investigation_count,
                 MIN(created_at) as first_run,
                 MAX(created_at) as last_run,
                 GROUP_CONCAT(status) as statuses
-            FROM experiments
+            FROM investigations
             WHERE chain_id IS NOT NULL
             GROUP BY chain_id
             ORDER BY last_run DESC
@@ -137,21 +137,21 @@ class ChainTracker:
     
     def generate_chain_diagram(self, chain_id: str, output_format: str = "dot") -> str:
         """Generate chain visualization in Graphviz DOT format"""
-        experiments = self.get_chain(chain_id)
+        investigations = self.get_chain(chain_id)
         
-        if not experiments:
+        if not investigations:
             return ""
         
         # Generate DOT file
         dot_lines = [
-            "digraph ExperimentChain {",
+            "digraph InvestigationChain {",
             "    rankdir=TB;",
             "    node [shape=box, style=rounded];",
             ""
         ]
         
         # Define nodes
-        for exp in experiments:
+        for exp in investigations:
             status_color = {
                 "planned": "lightgray",
                 "running": "yellow",
@@ -168,9 +168,9 @@ class ChainTracker:
         dot_lines.append("")
         
         # Define edges
-        for i in range(len(experiments) - 1):
+        for i in range(len(investigations) - 1):
             dot_lines.append(
-                f'    "{experiments[i]["id"]}" -> "{experiments[i+1]["id"]}" [label="resume"];'
+                f'    "{investigations[i]["id"]}" -> "{investigations[i+1]["id"]}" [label="resume"];'
             )
         
         dot_lines.append("}")
@@ -200,22 +200,22 @@ class ChainTracker:
     
     def generate_chain_report(self, chain_id: str) -> str:
         """Generate detailed chain report"""
-        experiments = self.get_chain(chain_id)
+        investigations = self.get_chain(chain_id)
         
-        if not experiments:
+        if not investigations:
             return ""
         
         report = []
         report.append(f"# Resume Chain Report: {chain_id}\n")
         report.append(f"**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        report.append(f"**Total Runs:** {len(experiments)}\n")
+        report.append(f"**Total Runs:** {len(investigations)}\n")
         
         # Overview
         report.append("## Chain Overview\n")
-        report.append("| Run | Experiment ID | Status | Created | Duration |")
+        report.append("| Run | Investigation ID | Status | Created | Duration |")
         report.append("|-----|---------------|--------|---------|----------|")
         
-        for exp in experiments:
+        for exp in investigations:
             run_num = exp['run_number'] or "?"
             exp_id = exp['id'][:30]
             status = exp['status']
@@ -227,7 +227,7 @@ class ChainTracker:
         
         # Detailed sections
         report.append("## Detailed Run Information\n")
-        for exp in experiments:
+        for exp in investigations:
             report.append(f"### Run {exp['run_number']}: {exp['id']}\n")
             report.append(f"- **Status:** {exp['status']}")
             report.append(f"- **Created:** {exp['created_at']}")
@@ -243,13 +243,13 @@ class ChainTracker:
         
         # Summary
         report.append("## Chain Summary\n")
-        statuses = [exp['status'] for exp in experiments]
-        report.append(f"- **Total Runs:** {len(experiments)}")
+        statuses = [exp['status'] for exp in investigations]
+        report.append(f"- **Total Runs:** {len(investigations)}")
         report.append(f"- **Completed:** {statuses.count('completed')}")
         report.append(f"- **Failed:** {statuses.count('failed')}")
         report.append(f"- **Running:** {statuses.count('running')}")
-        report.append(f"- **First Run:** {experiments[0]['created_at']}")
-        report.append(f"- **Last Run:** {experiments[-1]['created_at']}")
+        report.append(f"- **First Run:** {investigations[0]['created_at']}")
+        report.append(f"- **Last Run:** {investigations[-1]['created_at']}")
         report.append("")
         
         # Save report
@@ -261,28 +261,28 @@ class ChainTracker:
     
     def analyze_chain(self, chain_id: str) -> Dict[str, Any]:
         """Analyze chain performance and patterns"""
-        experiments = self.get_chain(chain_id)
+        investigations = self.get_chain(chain_id)
         
-        if not experiments:
+        if not investigations:
             return {}
         
         analysis = {
             "chain_id": chain_id,
-            "total_runs": len(experiments),
+            "total_runs": len(investigations),
             "status_distribution": {},
-            "first_run": experiments[0]['created_at'],
-            "last_run": experiments[-1]['created_at'],
-            "experiments": []
+            "first_run": investigations[0]['created_at'],
+            "last_run": investigations[-1]['created_at'],
+            "investigations": []
         }
         
         # Count statuses
-        for exp in experiments:
+        for exp in investigations:
             status = exp['status']
             analysis['status_distribution'][status] = analysis['status_distribution'].get(status, 0) + 1
         
-        # Experiment details
-        for exp in experiments:
-            analysis['experiments'].append({
+        # Investigation details
+        for exp in investigations:
+            analysis['investigations'].append({
                 "id": exp['id'],
                 "run_number": exp['run_number'],
                 "status": exp['status'],
@@ -296,7 +296,7 @@ class ChainTracker:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Track experiment resume chains",
+        description="Track investigation resume chains",
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     
@@ -304,13 +304,13 @@ def main():
     
     # Create chain
     create_parser = subparsers.add_parser("create", help="Create/update resume chain")
-    create_parser.add_argument("original", help="Original experiment ID")
-    create_parser.add_argument("resumed", help="Resumed experiment ID")
+    create_parser.add_argument("original", help="Original investigation ID")
+    create_parser.add_argument("resumed", help="Resumed investigation ID")
     create_parser.add_argument("--run-number", type=int, default=2, help="Run number")
     
     # Show chain
-    show_parser = subparsers.add_parser("show", help="Show experiment's chain")
-    show_parser.add_argument("experiment_id", help="Experiment ID")
+    show_parser = subparsers.add_parser("show", help="Show investigation's chain")
+    show_parser.add_argument("investigation_id", help="Investigation ID")
     
     # List chains
     list_parser = subparsers.add_parser("list", help="List all chains")
@@ -335,9 +335,9 @@ def main():
         tracker.create_chain(args.original, args.resumed, args.run_number)
     
     elif args.command == "show":
-        chain = tracker.get_experiment_chain(args.experiment_id)
+        chain = tracker.get_investigation_chain(args.investigation_id)
         if not chain:
-            print(f"No chain found for experiment: {args.experiment_id}")
+            print(f"No chain found for investigation: {args.investigation_id}")
             sys.exit(1)
         
         print(f"\n🔗 Chain: {chain[0]['chain_id']}\n")
@@ -364,7 +364,7 @@ def main():
             print(f"\n🔗 Found {len(chains)} chain(s):\n")
             for chain in chains:
                 print(f"  {chain['chain_id']}")
-                print(f"    Experiments: {chain['experiment_count']}")
+                print(f"    Investigations: {chain['investigation_count']}")
                 print(f"    First run: {chain['first_run']}")
                 print(f"    Last run: {chain['last_run']}")
                 print()

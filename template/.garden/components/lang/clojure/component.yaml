@@ -1,6 +1,5 @@
 id: "lang:clojure"
 description: "Clojure / ClojureScript package development"
-status: "experimental"
 version: "0.1.0"
 files:
   - bb.edn

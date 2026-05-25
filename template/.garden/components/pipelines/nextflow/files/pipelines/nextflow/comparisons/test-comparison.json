@@ -1,6 +1,6 @@
 {
   "timestamp": "20251017_120016",
-  "experiments": [
+  "investigations": [
     {
       "id": "20251017_1151_deve-test-workflow",
       "type": "development",
@@ -17,7 +17,7 @@
         "publish_mode": "copy",
         "enable_validation": true,
         "enable_qc": true,
-        "experiment_id": null,
+        "investigation_id": null,
         "researcher": "unknown",
         "project": "data-analysis"
       },
@@ -42,7 +42,7 @@
         "sample_size": 10,
         "skip_intensive_processes": true,
         "dev_mode": true,
-        "experiment_id": null,
+        "investigation_id": null,
         "researcher": "test-user",
         "project": "smoke-test"
       },

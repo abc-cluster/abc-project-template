@@ -9,7 +9,7 @@ You now have a **solid foundation** for the Nextflow Pipeline Lifecycle Manageme
 #### 1. **Complete Directory Structure**
 ```
 template/analysis/pipelines/nextflow/
-├── experiments/
+├── investigations/
 │   ├── configs/               ✅ All configs created
 │   │   ├── base.config
 │   │   ├── development.config
@@ -37,7 +37,7 @@ template/analysis/pipelines/nextflow/
 │   ├── schemas/
 │   │   └── schema.sql         ✅ Complete schema
 │   └── views/
-│       ├── active-experiments.sql  ✅
+│       ├── active-investigations.sql  ✅
 │       ├── failed-runs.sql         ✅
 │       └── resume-chains.sql       ✅
 ├── docs/                      ⏳ Empty (needs documentation)
@@ -61,19 +61,19 @@ template/analysis/pipelines/nextflow/
 
 #### 4. **Database Infrastructure**
 - ✅ Complete SQLite schema with 8 tables:
-  - `experiments` - Main experiment tracking
+  - `investigations` - Main investigation tracking
   - `executions` - Run execution details
   - `chains` - Resume chain management
   - `chain_members` - Chain lineage
   - `results` - Metrics and outputs
-  - `experiment_tags` - Tagging system
+  - `investigation_tags` - Tagging system
   - `storage_locations` - Multi-remote tracking
 - ✅ 3 helpful views for common queries
 - ✅ Indexes for performance
 - ✅ Triggers for automatic timestamp updates
 
-#### 5. **Experiment Templates (Partial)**
-- ✅ `metadata.yaml.template` - Experiment metadata structure
+#### 5. **Investigation Templates (Partial)**
+- ✅ `metadata.yaml.template` - Investigation metadata structure
 - ✅ `execution.yaml.template` - Execution tracking structure
 
 ---
@@ -82,35 +82,35 @@ template/analysis/pipelines/nextflow/
 
 To make the system functional, implement these scripts next:
 
-### 1. **scripts/register-experiment.py** (Highest Priority)
+### 1. **scripts/register-investigation.py** (Highest Priority)
 **Purpose**: Python CLI for database management
 
 **Required Commands**:
 ```python
 # Database initialization
-register-experiment init-db
+register-investigation init-db
 
-# Experiment management
-register-experiment create --id <exp_id> --type development --scenario local-local
-register-experiment update --id <exp_id> --status running
-register-experiment list
-register-experiment search --tag "optimization"
+# Investigation management
+register-investigation create --id <exp_id> --type development --scenario local-local
+register-investigation update --id <exp_id> --status running
+register-investigation list
+register-investigation search --tag "optimization"
 
 # Execution tracking
-register-experiment add-execution --exp-id <exp_id> --exec-id <exec_id>
-register-experiment update-execution --exec-id <exec_id> --status completed
+register-investigation add-execution --exp-id <exp_id> --exec-id <exec_id>
+register-investigation update-execution --exec-id <exec_id> --status completed
 
 # Tower linkage
-register-experiment link-tower --exp-id <exp_id> --tower-run-id <run_id>
+register-investigation link-tower --exp-id <exp_id> --tower-run-id <run_id>
 
 # Results tracking
-register-experiment add-result --exp-id <exp_id> --name "alignment_rate" --value "95.7"
+register-investigation add-result --exp-id <exp_id> --name "alignment_rate" --value "95.7"
 ```
 
 **Implementation Template**:
 ```python
 #!/usr/bin/env python3
-"""Experiment registry management CLI"""
+"""Investigation registry management CLI"""
 import sqlite3
 import sys
 from pathlib import Path
@@ -118,7 +118,7 @@ from datetime import datetime
 import yaml
 import json
 
-DB_PATH = Path(__file__).parent.parent / ".registry/experiments.db"
+DB_PATH = Path(__file__).parent.parent / ".registry/investigations.db"
 SCHEMA_PATH = Path(__file__).parent.parent / ".registry/schemas/schema.sql"
 
 def init_db():
@@ -134,24 +134,24 @@ def init_db():
     conn.close()
     print(f"✅ Database initialized: {DB_PATH}")
 
-def create_experiment(exp_id, exp_type, scenario, **kwargs):
-    """Register new experiment"""
+def create_investigation(exp_id, exp_type, scenario, **kwargs):
+    """Register new investigation"""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT INTO experiments (id, type, phase, scenario, status, created_at)
+        INSERT INTO investigations (id, type, phase, scenario, status, created_at)
         VALUES (?, ?, ?, ?, 'planned', CURRENT_TIMESTAMP)
     """, (exp_id, exp_type, kwargs.get('phase', 'pipeline-development'), scenario))
     conn.commit()
     conn.close()
-    print(f"✅ Experiment registered: {exp_id}")
+    print(f"✅ Investigation registered: {exp_id}")
 
 # Add more commands here...
 
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
-        print("Usage: register-experiment.py <command> [args]")
+        print("Usage: register-investigation.py <command> [args]")
         sys.exit(1)
     
     command = sys.argv[1]
@@ -160,15 +160,15 @@ if __name__ == "__main__":
     # Add command dispatch...
 ```
 
-### 2. **scripts/init-experiment.sh** (High Priority)
-**Purpose**: Create new experiment directories and initialize files
+### 2. **scripts/init-investigation.sh** (High Priority)
+**Purpose**: Create new investigation directories and initialize files
 
 **Key Features**:
-- Generate experiment ID: `YYYYMMDD_HHMM_<type>-<name>`
-- Create experiment directory structure
+- Generate investigation ID: `YYYYMMDD_HHMM_<type>-<name>`
+- Create investigation directory structure
 - Copy and populate templates
 - Call `track-git-commit.sh` to capture git state
-- Register in database via `register-experiment.py`
+- Register in database via `register-investigation.py`
 - Create symlink in `active/` directory
 
 **Skeleton**:
@@ -194,36 +194,36 @@ if [[ -z "$TYPE" ]] || [[ -z "$NAME" ]]; then
     exit 1
 fi
 
-# Generate experiment ID
+# Generate investigation ID
 TIMESTAMP=$(date +%Y%m%d_%H%M)
 EXP_ID="${TIMESTAMP}_${TYPE}-${NAME}"
 
-# Create experiment directory
+# Create investigation directory
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-EXP_DIR="${BASE_DIR}/experiments/${TYPE}/runs/${EXP_ID}"
+EXP_DIR="${BASE_DIR}/investigations/${TYPE}/runs/${EXP_ID}"
 mkdir -p "${EXP_DIR}"/{nextflow-logs,reports/tower}
 
 # Copy templates and substitute placeholders
-cp "${BASE_DIR}/experiments/templates/metadata.yaml.template" "${EXP_DIR}/metadata.yaml"
-sed -i "s/{{EXPERIMENT_ID}}/${EXP_ID}/g" "${EXP_DIR}/metadata.yaml"
+cp "${BASE_DIR}/investigations/templates/metadata.yaml.template" "${EXP_DIR}/metadata.yaml"
+sed -i "s/{{INVESTIGATION_ID}}/${EXP_ID}/g" "${EXP_DIR}/metadata.yaml"
 # ... more substitutions ...
 
 # Copy parameter template
-cp "${BASE_DIR}/experiments/configs/params/${PARAMS}.yaml" "${EXP_DIR}/params.yaml"
+cp "${BASE_DIR}/investigations/configs/params/${PARAMS}.yaml" "${EXP_DIR}/params.yaml"
 
 # Track git commit
 "${BASE_DIR}/scripts/track-git-commit.sh" "${EXP_DIR}"
 
 # Register in database
-python3 "${BASE_DIR}/scripts/register-experiment.py" create \
+python3 "${BASE_DIR}/scripts/register-investigation.py" create \
     --id "${EXP_ID}" \
     --type "${TYPE}" \
     --scenario "${SCENARIO}"
 
 # Create symlink
-ln -sf "${EXP_DIR}" "${BASE_DIR}/experiments/${TYPE}/active/${NAME}"
+ln -sf "${EXP_DIR}" "${BASE_DIR}/investigations/${TYPE}/active/${NAME}"
 
-echo "✅ Experiment created: ${EXP_ID}"
+echo "✅ Investigation created: ${EXP_ID}"
 echo "📁 Location: ${EXP_DIR}"
 ```
 
@@ -257,17 +257,17 @@ Create the main automation layer with these essential commands:
 ```just
 # Setup and initialization
 setup:
-    @mkdir -p experiments/{development,production,planning}/{runs,active,archive}
-    @python3 scripts/register-experiment.py init-db
+    @mkdir -p investigations/{development,production,planning}/{runs,active,archive}
+    @python3 scripts/register-investigation.py init-db
 
-# Experiment creation
+# Investigation creation
 dev-new name purpose="testing":
-    @scripts/init-experiment.sh --type development --name "{{name}}" --scenario local-local
+    @scripts/init-investigation.sh --type development --name "{{name}}" --scenario local-local
 
-# Experiment execution
-run-local experiment_id:
+# Investigation execution
+run-local investigation_id:
     #!/usr/bin/env bash
-    exp_dir="experiments/*/runs/{{experiment_id}}"
+    exp_dir="investigations/*/runs/{{investigation_id}}"
     cd "$exp_dir"
     nextflow run ../../data-pipeline.nf \
         -profile local-local \
@@ -281,16 +281,16 @@ run-local experiment_id:
     # Fetch Tower metadata
     ../../scripts/tower-integration.sh "$exp_dir"
 
-# Experiment queries
+# Investigation queries
 list-all:
-    @sqlite3 .registry/experiments.db "SELECT id, type, status FROM experiments ORDER BY created_at DESC;"
+    @sqlite3 .registry/investigations.db "SELECT id, type, status FROM investigations ORDER BY created_at DESC;"
 
 list-active:
-    @sqlite3 .registry/experiments.db "SELECT * FROM active_experiments;"
+    @sqlite3 .registry/investigations.db "SELECT * FROM active_investigations;"
 
 # Status check
-status experiment_id:
-    @python3 scripts/register-experiment.py view --id "{{experiment_id}}"
+status investigation_id:
+    @python3 scripts/register-investigation.py view --id "{{investigation_id}}"
 ```
 
 ### 2. **docs/README.md**
@@ -305,10 +305,10 @@ Quick start documentation with:
 
 ## 🔧 Complete Template Files (Remaining 6)
 
-Create these template files in `experiments/templates/`:
+Create these template files in `investigations/templates/`:
 
-### 1. `experiment-plan.md.template`
-Markdown template for experiment planning
+### 1. `investigation-plan.md.template`
+Markdown template for investigation planning
 
 ### 2. `execution-log.md.template`
 Markdown template for logging run details
@@ -323,7 +323,7 @@ YAML template for git state
 YAML template for Tower metadata
 
 ### 6. `README.md.template`
-Per-experiment README with quick summary
+Per-investigation README with quick summary
 
 ---
 
@@ -331,15 +331,15 @@ Per-experiment README with quick summary
 
 1. **Week 1** (Core functionality):
    - [ ] Create remaining 6 template files
-   - [ ] Implement `register-experiment.py` (init-db, create, list commands)
-   - [ ] Implement `init-experiment.sh` (basic version)
+   - [ ] Implement `register-investigation.py` (init-db, create, list commands)
+   - [ ] Implement `init-investigation.sh` (basic version)
    - [ ] Create `pipeline-lifecycle.just` (setup, dev-new, list commands)
-   - [ ] Test: Create experiment, verify DB registration
+   - [ ] Test: Create investigation, verify DB registration
 
 2. **Week 2** (Execution):
    - [ ] Implement `track-git-commit.sh`
    - [ ] Add `run-local` recipe to justfile
-   - [ ] Test: Run local experiment, verify all metadata captured
+   - [ ] Test: Run local investigation, verify all metadata captured
    - [ ] Implement `tower-integration.sh` (basic version)
    - [ ] Test: Fetch Tower metadata after run
 
@@ -365,17 +365,17 @@ To continue implementation, start with:
 cd /Users/abhi/projects/abc-project-template/template/analysis/pipelines/nextflow
 
 # 1. Create remaining templates
-# 2. Create scripts/register-experiment.py with init-db command
+# 2. Create scripts/register-investigation.py with init-db command
 # 3. Test database initialization:
-python3 scripts/register-experiment.py init-db
+python3 scripts/register-investigation.py init-db
 
-# 4. Create basic scripts/init-experiment.sh
+# 4. Create basic scripts/init-investigation.sh
 # 5. Create pipeline-lifecycle.just with setup and dev-new recipes
-# 6. Test experiment creation:
+# 6. Test investigation creation:
 just setup
 just dev-new test-first "initial test"
 
-# 7. Verify experiment was created and registered:
+# 7. Verify investigation was created and registered:
 just list-all
 ```
 
@@ -384,15 +384,15 @@ just list-all
 ## 📚 Reference
 
 ### Key File Locations
-- **Database**: `.registry/experiments.db`
+- **Database**: `.registry/investigations.db`
 - **Schema**: `.registry/schemas/schema.sql`
-- **Templates**: `experiments/templates/*.template`
-- **Configs**: `experiments/configs/`
+- **Templates**: `investigations/templates/*.template`
+- **Configs**: `investigations/configs/`
 - **Scripts**: `scripts/`
 - **Justfile**: `pipeline-lifecycle.just`
 
 ### Important Concepts
-- **Experiment ID Format**: `YYYYMMDD_HHMM_<type>-<name>`
+- **Investigation ID Format**: `YYYYMMDD_HHMM_<type>-<name>`
 - **Four Scenarios**: local-local, local-remote, tower, planning-only
 - **Three Phases**: development, production, planning
 - **Tower Integration**: Always enabled via `-with-tower` for executed runs
@@ -403,11 +403,11 @@ just list-all
 
 You'll know the system is working when:
 1. ✅ Database initializes successfully
-2. ✅ New experiments can be created with one command
-3. ✅ Experiments are registered in database
+2. ✅ New investigations can be created with one command
+3. ✅ Investigations are registered in database
 4. ✅ Git state is captured automatically
 5. ✅ Nextflow runs complete with all metadata
 6. ✅ Tower data is fetched and stored locally
-7. ✅ All experiments can be queried via SQL/justfile
+7. ✅ All investigations can be queried via SQL/justfile
 
 Good luck with the implementation! 🎉

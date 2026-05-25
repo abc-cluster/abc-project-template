@@ -1,6 +1,5 @@
 id: "infra:cloud-scripts"
 description: "Cloud automation scripts (bash + powershell + python)"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/cloud-scripts/.gitkeep

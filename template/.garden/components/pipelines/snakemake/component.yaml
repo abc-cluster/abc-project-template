@@ -1,6 +1,5 @@
 id: "pipelines:snakemake"
 description: "Snakemake pipeline scaffolding (with cluster profiles)"
-status: "experimental"
 version: "0.1.0"
 files:
   - pipelines/snakemake/Snakefile

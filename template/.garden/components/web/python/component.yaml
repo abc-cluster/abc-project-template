@@ -1,6 +1,5 @@
 id: "web:python"
 description: "Python web framework templates (Flask/FastAPI)"
-status: "experimental"
 version: "0.1.0"
 files:
   - web/python/main.py

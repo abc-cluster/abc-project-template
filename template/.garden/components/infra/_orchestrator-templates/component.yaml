@@ -1,6 +1,5 @@
 id: "infra:_orchestrator-templates"
 description: "Infrastructure justfile orchestrator templates"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/_templates/991_infrastructure.just.jinja

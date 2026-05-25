@@ -1,6 +1,5 @@
 id: "data:pipelines-stage"
 description: "Pipeline-internal data stage (work directories, intermediate pipeline outputs)"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/pipelines-stage/.gitkeep

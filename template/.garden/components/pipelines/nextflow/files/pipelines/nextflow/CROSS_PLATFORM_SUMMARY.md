@@ -10,8 +10,8 @@
 
 Created PowerShell (`.ps1`) versions of critical bash scripts for Windows compatibility:
 
-1. **`init-experiment.ps1`** (176 lines)
-   - Full PowerShell implementation of experiment creation
+1. **`init-investigation.ps1`** (176 lines)
+   - Full PowerShell implementation of investigation creation
    - Parameter validation and help documentation
    - Cross-platform path handling
    - Symlink creation (with Windows admin privilege handling)
@@ -52,7 +52,7 @@ Modified `pipeline-lifecycle.just` for cross-platform support:
 ### Default Behavior (No Changes Required)
 ```bash
 # On Linux/macOS - works as before
-just n "my-experiment" "Testing"
+just n "my-investigation" "Testing"
 just l
 just s
 ```
@@ -63,7 +63,7 @@ just s
 $env:SHELL_TYPE = "pwsh"
 
 # Now commands use PowerShell scripts
-just n "my-experiment" "Testing"
+just n "my-investigation" "Testing"
 ```
 
 ### Script Selection Logic
@@ -74,14 +74,14 @@ SCRIPT_EXT := if SHELL_TYPE == "pwsh" { ".ps1" } else { ".sh" }
 
 # Recipes automatically use correct script
 dev-new name purpose="":
-    @bash "{{SCRIPTS_DIR}}/init-experiment{{SCRIPT_EXT}}" ...
+    @bash "{{SCRIPTS_DIR}}/init-investigation{{SCRIPT_EXT}}" ...
 ```
 
 ## Feature Parity
 
 | Feature | Bash | PowerShell | Status |
 |---------|------|------------|--------|
-| Experiment creation | ✅ | ✅ | Complete |
+| Investigation creation | ✅ | ✅ | Complete |
 | Git tracking | ✅ | ✅ | Complete |
 | Directory setup | ✅ | ✅ | Complete |
 | Database integration | ✅ | ✅ | Complete (via Python) |
@@ -96,8 +96,8 @@ Legend:
 ## Python Scripts (Always Cross-Platform)
 
 These work identically on all platforms:
-- `register-experiment.py` - Database operations
-- `compare-experiments.py` - Experiment comparison
+- `register-investigation.py` - Database operations
+- `compare-investigations.py` - Investigation comparison
 - `track-chains.py` - Chain tracking
 - `generate-dashboard.py` - Dashboard generation
 - `batch-operations.py` - Batch operations
@@ -105,7 +105,7 @@ These work identically on all platforms:
 ## Files Created/Modified
 
 ### New Files
-1. `scripts/init-experiment.ps1` - PowerShell experiment init
+1. `scripts/init-investigation.ps1` - PowerShell investigation init
 2. `scripts/track-git-commit.ps1` - PowerShell git tracking
 3. `CROSS_PLATFORM.md` - Usage guide
 4. `CROSS_PLATFORM_SUMMARY.md` - This summary
@@ -143,8 +143,8 @@ just n "linux-exp" "Linux development"
 $env:SHELL_TYPE = "pwsh"
 just n "windows-exp" "Windows development"
 
-# Both experiments tracked in same database!
-just l  # Shows both experiments
+# Both investigations tracked in same database!
+just l  # Shows both investigations
 ```
 
 ## Testing Performed
@@ -164,8 +164,8 @@ just l  # Shows both experiments
 
 ### Windows Symlinks
 - Requires Administrator privileges OR Developer Mode
-- If symlinks fail, experiments still work via full paths
-- Navigate to: `experiments/{type}/runs/{experiment_id}`
+- If symlinks fail, investigations still work via full paths
+- Navigate to: `investigations/{type}/runs/{investigation_id}`
 
 ### Tower Integration
 - PowerShell version of `tower-integration.ps1` not yet implemented
@@ -264,7 +264,7 @@ Based on macOS testing:
 
 | Operation | Bash | PowerShell | Difference |
 |-----------|------|------------|------------|
-| Experiment creation | ~100ms | ~150ms | +50% |
+| Investigation creation | ~100ms | ~150ms | +50% |
 | Git tracking | ~50ms | ~75ms | +50% |
 | Python operations | <10ms | <10ms | Same |
 

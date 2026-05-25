@@ -1,6 +1,5 @@
 id: "infra:juju"
 description: "Juju bundles for Nomad-Docker, Jupyter+MinIO on MicroK8s"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/juju/.gitkeep

@@ -1,0 +1,17 @@
+id: "writeup:quarto"
+description: "Quarto project configuration — reproducible documents, notebooks, and reports"
+version: "0.1.0"
+files:
+  - _quarto.yml
+  - tasks/quarto.just
+post_grow_hint: |
+  Created _quarto.yml (Quarto project config) and tasks/quarto.just.
+
+  Render the project:
+    quarto render
+
+  Preview in browser:
+    quarto preview
+
+  Requires: quarto (https://quarto.org/docs/get-started/)
+  Install: brew install quarto   OR   pixi add quarto

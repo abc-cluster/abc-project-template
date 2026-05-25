@@ -1,6 +1,5 @@
 id: "lang:distribution"
 description: "Multi-language package distribution"
-status: "experimental"
 version: "0.1.0"
 files:
   - tasks/distribution.just

@@ -1,6 +1,0 @@
-# Hello Pipeline Parameters
-# Experiment: 20251017_1219_deve-hello-spanish
-
-# Pipeline parameters
-greeting: "Hola"
-name: "Mundo"

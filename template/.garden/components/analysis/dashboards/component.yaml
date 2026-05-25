@@ -1,6 +1,5 @@
 id: "analysis:dashboards"
 description: "Quarto dashboards (Observable, Shiny)"
-status: "experimental"
 version: "0.1.0"
 files:
   - dashboards/.gitkeep

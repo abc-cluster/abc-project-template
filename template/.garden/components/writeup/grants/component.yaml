@@ -1,6 +1,5 @@
 id: "writeup:grants"
 description: "NSF / NIH / DOE / ERC grant proposal templates"
-status: "experimental"
 version: "0.1.0"
 files:
   - writeup/grants/README.md

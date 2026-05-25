@@ -1,6 +1,5 @@
 id: "data:publications"
 description: "Publication-ready figures and tables"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/publications/.gitkeep

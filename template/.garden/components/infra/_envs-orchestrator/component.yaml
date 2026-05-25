@@ -1,6 +1,5 @@
 id: "infra:_envs-orchestrator"
 description: "Environments justfile orchestrator"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/environments.just/environments.just

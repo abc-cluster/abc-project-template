@@ -1,23 +1,23 @@
-# Experiment Comparison: test-comparison
+# Investigation Comparison: test-comparison
 
 **Generated:** 2025-10-17 12:00:16
 
-**Experiments Compared:** 2
+**Investigations Compared:** 2
 
-## Experiment Overview
+## Investigation Overview
 
-### Experiment 1: 20251017_1151_deve-test-workflow
+### Investigation 1: 20251017_1151_deve-test-workflow
 
 - **Type:** development
 - **Status:** planned
-- **Purpose:** Testing the complete experiment lifecycle
+- **Purpose:** Testing the complete investigation lifecycle
 - **Created:** 2025-10-17 09:51:51
 
-### Experiment 2: 20251017_1145_deve-test-pipeline
+### Investigation 2: 20251017_1145_deve-test-pipeline
 
 - **Type:** development
 - **Status:** planned
-- **Purpose:** Test experiment creation workflow
+- **Purpose:** Test investigation creation workflow
 - **Created:** 2025-10-17 09:45:03
 
 ## Timeline Comparison
@@ -47,7 +47,7 @@
 | dev_mode | N/A | True |
 | enable_qc | True | False |
 | enable_validation | True | True |
-| experiment_id | None | None |
+| investigation_id | None | None |
 | help | False | False |
 | input | ../data/01_raw/*.csv | ../data/01_raw/test_sample.csv |
 | max_cpus | 16 | 2 |
@@ -72,4 +72,4 @@
 ## Key Differences
 
 ### Status Comparison
-- All experiments have status: planned
+- All investigations have status: planned

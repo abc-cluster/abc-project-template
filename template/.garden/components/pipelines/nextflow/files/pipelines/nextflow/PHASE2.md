@@ -1,21 +1,21 @@
-# Phase 2 Features - Advanced Experiment Management
+# Phase 2 Features - Advanced Investigation Management
 
 **Version:** 2.0.0  
 **Status:** ✅ Fully Implemented and Tested
 
 ## Overview
 
-Phase 2 adds advanced features for experiment comparison, chain tracking, dashboard generation, and batch operations.
+Phase 2 adds advanced features for investigation comparison, chain tracking, dashboard generation, and batch operations.
 
 ## New Features
 
-### 1. 📊 Experiment Comparison
+### 1. 📊 Investigation Comparison
 
-Compare multiple experiments side-by-side with detailed metrics, parameters, and resource usage.
+Compare multiple investigations side-by-side with detailed metrics, parameters, and resource usage.
 
 **Commands:**
 ```bash
-# Compare experiments
+# Compare investigations
 just compare "report-name" exp1 exp2 exp3
 
 # List saved comparisons
@@ -47,14 +47,14 @@ cat comparisons/param-test.md
 
 ### 2. 🔗 Chain Tracking & Lineage
 
-Track resume chains and visualize experiment ancestry with automatic lineage management.
+Track resume chains and visualize investigation ancestry with automatic lineage management.
 
 **Commands:**
 ```bash
-# Create/update chain (links resumed experiment to original)
+# Create/update chain (links resumed investigation to original)
 just chain-create original_exp_id resumed_exp_id
 
-# Show experiment's chain
+# Show investigation's chain
 just chain-show exp_id
 
 # List all chains
@@ -99,7 +99,7 @@ just chain-visualize chain_20251017_110000
 
 ### 3. 📈 Interactive Dashboards
 
-Generate experiment overview dashboards with statistics and recent activity.
+Generate investigation overview dashboards with statistics and recent activity.
 
 **Commands:**
 ```bash
@@ -117,11 +117,11 @@ just view-dashboard
 ```
 
 **Dashboard includes:**
-- Total experiment count
+- Total investigation count
 - Resume chain count
-- Experiments by type (development/production/planning)
-- Experiments by status (planned/running/completed/failed/archived)
-- Recent experiments table (last 10)
+- Investigations by type (development/production/planning)
+- Investigations by status (planned/running/completed/failed/archived)
+- Recent investigations table (last 10)
 
 **Output files:**
 - `docs/dashboard_YYYYMMDD.md` - Daily snapshot
@@ -140,7 +140,7 @@ cat docs/dashboard_latest.md
 
 ### 4. 🔄 Batch Operations
 
-Perform bulk operations on multiple experiments efficiently.
+Perform bulk operations on multiple investigations efficiently.
 
 **Commands:**
 ```bash
@@ -161,15 +161,15 @@ just batch-find --tag=urgent
 
 **Use cases:**
 ```bash
-# Mark all failed experiments as archived
+# Mark all failed investigations as archived
 FAILED=$(just batch-find --status=failed | tail -n +3)
 just batch-archive $FAILED
 
-# Tag all development experiments
+# Tag all development investigations
 DEV=$(just batch-find --type=development | tail -n +3)
 just batch-add-tags "dev priority" $DEV
 
-# Find and rerun failed urgent experiments
+# Find and rerun failed urgent investigations
 just batch-find --status=failed --tag=urgent
 ```
 
@@ -177,7 +177,7 @@ just batch-find --status=failed --tag=urgent
 
 All Phase 2 features integrate seamlessly with Phase 1:
 
-- **Comparison** uses experiment metadata, parameters, and Tower data
+- **Comparison** uses investigation metadata, parameters, and Tower data
 - **Chains** automatically update database with lineage information
 - **Dashboard** queries the same SQLite database
 - **Batch operations** leverage existing tag and status system
@@ -187,21 +187,21 @@ All Phase 2 features integrate seamlessly with Phase 1:
 ### ✅ Tested Features
 
 **Comparison:**
-- ✅ Compare 2 experiments successfully
+- ✅ Compare 2 investigations successfully
 - ✅ Generated markdown report with all sections
 - ✅ Generated JSON data file
 - ✅ List comparisons command works
 
 **Chain Tracking:**
-- ✅ Created chain with 2 experiments
+- ✅ Created chain with 2 investigations
 - ✅ Chain visualization (DOT file generated)
 - ✅ Chain show command displays lineage
 - ✅ Run numbering works correctly
 
 **Dashboard:**
 - ✅ Generated markdown dashboard
-- ✅ Statistics accurate (3 experiments, 0 chains initially, then 1)
-- ✅ Recent experiments table populated
+- ✅ Statistics accurate (3 investigations, 0 chains initially, then 1)
+- ✅ Recent investigations table populated
 - ✅ JSON format generation works
 
 **Batch Operations:**
@@ -216,7 +216,7 @@ All Phase 2 features integrate seamlessly with Phase 1:
 just dashboard
 # ✅ Created docs/dashboard_20251017.md
 
-# 2. Compare two experiments
+# 2. Compare two investigations
 just compare "test-comparison" exp1 exp2
 # ✅ Created comparisons/test-comparison.md
 
@@ -234,10 +234,10 @@ just chain-show exp2
 
 ## Performance
 
-- **Comparison:** <1s for 2-5 experiments
+- **Comparison:** <1s for 2-5 investigations
 - **Chain tracking:** <100ms per operation
 - **Dashboard:** <500ms generation
-- **Batch operations:** Linear with experiment count
+- **Batch operations:** Linear with investigation count
 
 ## Dependencies
 
@@ -267,7 +267,7 @@ nextflow/
 │   ├── dashboard_*.md    # Daily dashboards
 │   └── dashboard_latest.* # Current dashboard
 └── scripts/              # Phase 2 scripts
-    ├── compare-experiments.py
+    ├── compare-investigations.py
     ├── track-chains.py
     ├── generate-dashboard.py
     └── batch-operations.py
@@ -276,9 +276,9 @@ nextflow/
 ## Best Practices
 
 ### Comparison
-- Compare experiments with similar configurations
+- Compare investigations with similar configurations
 - Use descriptive output names
-- Generate comparisons after experiments complete for full metrics
+- Generate comparisons after investigations complete for full metrics
 
 ### Chain Tracking
 - Create chains immediately after resuming
@@ -292,15 +292,15 @@ nextflow/
 
 ### Batch Operations
 - Use `batch-find` to preview operations
-- Tag experiments consistently
-- Archive completed experiments regularly
+- Tag investigations consistently
+- Archive completed investigations regularly
 
 ## Future Enhancements
 
 Potential Phase 3 features:
 - Quarto-based interactive HTML dashboards
 - Real-time monitoring via web interface
-- Experiment recommendation system
+- Investigation recommendation system
 - Automated parameter optimization
 - Cost analysis and reporting
 - Multi-user access control
@@ -310,7 +310,7 @@ Potential Phase 3 features:
 ### Comparison Commands
 | Command | Description |
 |---------|-------------|
-| `compare "name" exp1 exp2 ...` | Compare multiple experiments |
+| `compare "name" exp1 exp2 ...` | Compare multiple investigations |
 | `list-comparisons` | List saved comparisons |
 | `view-comparison "name"` | View comparison report |
 
@@ -318,7 +318,7 @@ Potential Phase 3 features:
 | Command | Description |
 |---------|-------------|
 | `chain-create orig resumed` | Create resume chain |
-| `chain-show exp_id` | Show experiment's chain |
+| `chain-show exp_id` | Show investigation's chain |
 | `chain-list` | List all chains |
 | `chain-visualize chain_id` | Generate diagram |
 | `chain-report chain_id` | Generate chain report |
@@ -347,7 +347,7 @@ brew install graphviz
 ```
 
 ### Comparison missing Tower data
-Ensure experiments have been run with `-with-tower` and metadata fetched:
+Ensure investigations have been run with `-with-tower` and metadata fetched:
 ```bash
 just fetch-tower exp_id
 ```

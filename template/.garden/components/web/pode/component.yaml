@@ -1,6 +1,5 @@
 id: "web:pode"
 description: "Pode (PowerShell) web framework"
-status: "experimental"
 version: "0.1.0"
 files:
   - web/pode/backend/file.ps1

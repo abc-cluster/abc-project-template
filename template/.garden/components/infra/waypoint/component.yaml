@@ -1,6 +1,5 @@
 id: "infra:waypoint"
 description: "Waypoint deployment configurations"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/waypoint/deploy.sh

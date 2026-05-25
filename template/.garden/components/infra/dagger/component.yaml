@@ -1,6 +1,5 @@
 id: "infra:dagger"
 description: "Dagger CI/CD pipeline definitions"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/dagger/.gitkeep

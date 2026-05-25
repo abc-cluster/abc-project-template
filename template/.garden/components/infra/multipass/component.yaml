@@ -1,6 +1,5 @@
 id: "infra:multipass"
 description: "Multipass-based VM development environments (cloud-init)"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/multipass/.gitkeep

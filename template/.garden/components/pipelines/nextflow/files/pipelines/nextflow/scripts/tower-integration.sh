@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Tower Integration Script
-# Fetches Tower metadata and links it to local experiments
+# Fetches Tower metadata and links it to local investigations
 
 set -euo pipefail
 
@@ -21,12 +21,12 @@ DEFAULT_WORKSPACE="${TOWER_WORKSPACE:-default}"
 # Usage information
 usage() {
     cat << EOF
-Usage: $0 <experiment_dir> [workspace]
+Usage: $0 <investigation_dir> [workspace]
 
-Fetch Tower metadata for a Nextflow experiment and link it locally.
+Fetch Tower metadata for a Nextflow investigation and link it locally.
 
 Arguments:
-    experiment_dir    Path to experiment directory
+    investigation_dir    Path to investigation directory
     workspace         Tower workspace (default: $DEFAULT_WORKSPACE)
 
 Environment Variables:
@@ -34,8 +34,8 @@ Environment Variables:
     TOWER_ACCESS_TOKEN Tower API token (required for tw CLI)
 
 Examples:
-    $0 experiments/development/runs/exp_20250117_1000
-    $0 experiments/production/runs/exp_20250117_1500 my-workspace
+    $0 investigations/development/runs/exp_20250117_1000
+    $0 investigations/production/runs/exp_20250117_1500 my-workspace
 
 Requirements:
     - Tower CLI (tw) must be installed: pipx install tower-cli
@@ -273,18 +273,18 @@ update_database() {
     
     log_info "Updating database..."
     
-    # Extract experiment ID from directory name
+    # Extract investigation ID from directory name
     local exp_id=$(basename "$exp_dir")
     
     # Call Python script to update database
-    if python3 "$SCRIPT_DIR/register-experiment.py" link-tower \
+    if python3 "$SCRIPT_DIR/register-investigation.py" link-tower \
         --id "$exp_id" \
         --tower-run-id "$run_id" \
         --workspace "$workspace" 2>/dev/null; then
         log_success "Updated database"
         return 0
     else
-        log_warning "Failed to update database (experiment may not be registered)"
+        log_warning "Failed to update database (investigation may not be registered)"
         return 1
     fi
 }
@@ -370,7 +370,7 @@ main() {
     fi
     
     if [[ ! -d "$exp_dir" ]]; then
-        log_error "Experiment directory not found: $exp_dir"
+        log_error "Investigation directory not found: $exp_dir"
         exit 1
     fi
     
@@ -380,7 +380,7 @@ main() {
     echo "🔗 Tower Integration"
     echo "===================="
     echo ""
-    echo "Experiment: $(basename "$exp_dir")"
+    echo "Investigation: $(basename "$exp_dir")"
     echo "Workspace:  $workspace"
     echo ""
     
@@ -392,7 +392,7 @@ main() {
     
     if [[ -z "$run_id" ]]; then
         log_error "Could not detect Tower run ID"
-        log_error "Ensure the experiment was run with -with-tower flag"
+        log_error "Ensure the investigation was run with -with-tower flag"
         log_error "Or manually link with: just tower-link <exp_id> <tower_run_id>"
         exit 1
     fi

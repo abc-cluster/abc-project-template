@@ -1,6 +1,5 @@
 id: "data:models"
 description: "Model artifacts — baseline / candidate / ensemble / optimized / production"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/models/.gitkeep

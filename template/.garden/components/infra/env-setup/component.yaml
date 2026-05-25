@@ -1,6 +1,5 @@
 id: "infra:env-setup"
 description: "Java environment setup scripts (cross-platform)"
-status: "experimental"
 version: "0.1.0"
 files:
   - infra/env-setup/environments.just

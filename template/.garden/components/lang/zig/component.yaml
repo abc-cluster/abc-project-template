@@ -1,6 +1,5 @@
 id: "lang:zig"
 description: "Zig package development"
-status: "experimental"
 version: "0.1.0"
 files:
   - tasks/zig.just

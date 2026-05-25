@@ -1,6 +1,5 @@
 id: "writeup:blog"
 description: "Quarto blog with research log"
-status: "experimental"
 version: "0.1.0"
 files:
   - writeup/blog/_quarto.yml

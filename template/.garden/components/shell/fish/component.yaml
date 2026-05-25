@@ -1,6 +1,5 @@
 id: "shell:fish"
 description: "Fish shell aliases, completions, config, and starship prompt"
-status: "experimental"
 version: "0.1.0"
 files:
   - .fish/aliases.sh

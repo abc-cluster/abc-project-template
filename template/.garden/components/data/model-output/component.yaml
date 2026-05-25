@@ -1,6 +1,5 @@
 id: "data:model-output"
 description: "Model output — predictions / probabilities / evaluation / explanations"
-status: "experimental"
 version: "0.1.0"
 files:
   - data/model-output/.gitkeep

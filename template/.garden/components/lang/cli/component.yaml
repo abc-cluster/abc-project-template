@@ -1,6 +1,5 @@
 id: "lang:cli"
 description: "CLI tool scaffolding"
-status: "experimental"
 version: "0.1.0"
 files:
   - tasks/cli.just

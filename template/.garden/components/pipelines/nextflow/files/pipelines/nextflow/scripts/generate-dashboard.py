@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate Experiment Dashboard
+Generate Investigation Dashboard
 Creates markdown reports and optionally Quarto dashboards
 """
 
@@ -12,12 +12,12 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 BASE_DIR = SCRIPT_DIR.parent
-DB_PATH = BASE_DIR / ".registry" / "experiments.db"
+DB_PATH = BASE_DIR / ".registry" / "investigations.db"
 DOCS_DIR = BASE_DIR / "docs"
 
 
 class DashboardGenerator:
-    """Generate experiment dashboards and reports"""
+    """Generate investigation dashboards and reports"""
     
     def __init__(self, db_path: Path = DB_PATH):
         self.db_path = db_path
@@ -31,29 +31,29 @@ class DashboardGenerator:
         
         stats = {}
         
-        # Total experiments
-        cursor.execute("SELECT COUNT(*) FROM experiments")
+        # Total investigations
+        cursor.execute("SELECT COUNT(*) FROM investigations")
         stats['total'] = cursor.fetchone()[0]
         
         # By type
-        cursor.execute("SELECT type, COUNT(*) FROM experiments GROUP BY type")
+        cursor.execute("SELECT type, COUNT(*) FROM investigations GROUP BY type")
         stats['by_type'] = dict(cursor.fetchall())
         
         # By status
-        cursor.execute("SELECT status, COUNT(*) FROM experiments GROUP BY status")
+        cursor.execute("SELECT status, COUNT(*) FROM investigations GROUP BY status")
         stats['by_status'] = dict(cursor.fetchall())
         
-        # Recent experiments
+        # Recent investigations
         cursor.execute("""
             SELECT id, status, created_at 
-            FROM experiments 
+            FROM investigations 
             ORDER BY created_at DESC 
             LIMIT 10
         """)
         stats['recent'] = cursor.fetchall()
         
         # Chain stats
-        cursor.execute("SELECT COUNT(DISTINCT chain_id) FROM experiments WHERE chain_id IS NOT NULL")
+        cursor.execute("SELECT COUNT(DISTINCT chain_id) FROM investigations WHERE chain_id IS NOT NULL")
         stats['total_chains'] = cursor.fetchone()[0]
         
         conn.close()
@@ -65,22 +65,22 @@ class DashboardGenerator:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         report = [
-            "# Nextflow Experiment Dashboard",
+            "# Nextflow Investigation Dashboard",
             f"\n**Generated:** {timestamp}\n",
             "## Overview\n",
-            f"- **Total Experiments:** {stats['total']}",
+            f"- **Total Investigations:** {stats['total']}",
             f"- **Resume Chains:** {stats['total_chains']}",
             ""
         ]
         
         # By type
-        report.append("### Experiments by Type\n")
+        report.append("### Investigations by Type\n")
         for exp_type, count in stats['by_type'].items():
             report.append(f"- **{exp_type}:** {count}")
         report.append("")
         
         # By status
-        report.append("### Experiments by Status\n")
+        report.append("### Investigations by Status\n")
         for status, count in stats['by_status'].items():
             status_emoji = {
                 "completed": "✅",
@@ -92,9 +92,9 @@ class DashboardGenerator:
             report.append(f"- **{status}** {status_emoji}: {count}")
         report.append("")
         
-        # Recent experiments
-        report.append("### Recent Experiments\n")
-        report.append("| Experiment ID | Status | Created |")
+        # Recent investigations
+        report.append("### Recent Investigations\n")
+        report.append("| Investigation ID | Status | Created |")
         report.append("|---------------|--------|---------|")
         for exp_id, status, created in stats['recent']:
             report.append(f"| {exp_id[:40]} | {status} | {created} |")
@@ -129,7 +129,7 @@ class DashboardGenerator:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate experiment dashboard")
+    parser = argparse.ArgumentParser(description="Generate investigation dashboard")
     parser.add_argument(
         "--format",
         choices=["markdown", "json", "both"],

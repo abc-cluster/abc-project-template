@@ -9,8 +9,8 @@ SELECT
     c.phase,
     c.status AS chain_status,
     cm.run_number,
-    cm.experiment_id,
-    e.status AS experiment_status,
+    cm.investigation_id,
+    e.status AS investigation_status,
     e.created_at,
     cm.git_commit_before,
     cm.git_commit_after,
@@ -21,6 +21,6 @@ SELECT
     ex.rerun_tasks
 FROM chains c
 JOIN chain_members cm ON c.chain_id = cm.chain_id
-JOIN experiments e ON cm.experiment_id = e.id
+JOIN investigations e ON cm.investigation_id = e.id
 LEFT JOIN executions ex ON cm.execution_id = ex.execution_id
 ORDER BY c.chain_id, cm.run_number;

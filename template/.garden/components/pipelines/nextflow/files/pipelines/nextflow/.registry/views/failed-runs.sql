@@ -1,9 +1,9 @@
 -- View: Failed Runs
--- Experiments that failed with error details
+-- Investigations that failed with error details
 
 CREATE VIEW IF NOT EXISTS failed_runs AS
 SELECT 
-    e.id AS experiment_id,
+    e.id AS investigation_id,
     e.type,
     e.phase,
     e.created_at,
@@ -14,7 +14,7 @@ SELECT
     ex.exit_code,
     ex.tasks_location,
     ex.work_dir
-FROM experiments e
-JOIN executions ex ON e.id = ex.experiment_id
+FROM investigations e
+JOIN executions ex ON e.id = ex.investigation_id
 WHERE e.status = 'failed'
 ORDER BY ex.completed_at DESC;
