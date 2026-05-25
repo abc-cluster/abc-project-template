@@ -1,5 +1,12 @@
 _subdirectory: template
 
+_exclude:
+  - .pixi
+  - .pixi/**
+  - pixi.lock
+  - "**/__pycache__"
+  - "**/*.pyc"
+
 # Basic Project Information
 project_name:
   type: str

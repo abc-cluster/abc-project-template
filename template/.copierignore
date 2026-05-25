@@ -1,0 +1,29 @@
+# Files and directories to exclude from copier scaffolding.
+# These exist in the template dev environment but must NOT be copied to generated projects.
+
+# pixi environments (template's own dev environment)
+.pixi/
+.pixi/**
+
+# pixi lock (template-specific lockfile, project gets its own)
+pixi.lock
+
+# Clojure tooling (template dev)
+.cpcache/
+.lsp/
+.clj-kondo/
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Git
+.git/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Clerk cache (Clojure Clerk is template tooling, not user content)
+.clerk/cache/
