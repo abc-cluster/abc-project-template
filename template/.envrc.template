@@ -1,2 +1,17 @@
 export PATH="$PATH:$PWD/pbin"
 export MISE_TASK_DIR=".mise/tasks"
+
+# ─── ABC-cluster integration ─────────────────────────────────────────────────
+# Set these to connect this project to an ABC-cluster installation.
+# Credentials are injected automatically by `abc workbench start`;
+# set manually for scripted / non-workbench runs.
+#
+# export ABC_HOST=""           # e.g. seedling.abc-cluster.cloud
+# export ABC_TOKEN=""          # from: abc auth login
+# export ABC_PROJECT=""        # project ID from: abc project list
+
+# ─── Grant / project code ────────────────────────────────────────────────────
+# Optional: tag pipeline runs and data with your grant or project code.
+# Used by `just run` to pass --tag grant:$PROJECT_GRANT_CODE to `abc run`.
+#
+# export PROJECT_GRANT_CODE=""  # e.g. EDCTP3-DIGIT-02 / NRF-123456
